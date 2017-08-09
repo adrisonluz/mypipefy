@@ -23,14 +23,20 @@ $(document).ready(function() {
                             var diff_days = calculaDias(card.start);
                             var color = '';
 
-                            if(diff_days <= 0)
-                                color = '#5cb85c'
-                                
-                            if(diff_days == 1)
-                                color = '#f0ad4e'
-                                
-                            if(diff_days >= 2)
-                                color = '#d9534f'
+                            if(card.phaseName.toUpperCase() !== 'PENDENTE'){
+                                switch(diff_days){
+                                    case false:
+                                        color = '#5cb85c';
+                                        break;
+                                    case 1:
+                                        color = '#f0ad4e';
+                                        break;
+                                    default:
+                                        color = '#d9534f';
+                                }
+                            }else{
+                                color = '#292b2c ';
+                            }
                                 
                             events.push({
                                 title: card.title,
@@ -51,9 +57,28 @@ $(document).ready(function() {
 });
 
 function calculaDias(date1){
-        var data1 = moment(date1,'YYYY/MM/DD');
-        var data2 = moment('2017-08-09','YYYY/MM/DD');
-        var diff  = data2.diff(data1, 'days');
-        
-        return diff;
+    var data1 = moment(date1,'YYYY/MM/DD');
+    var data2 = moment(getToday(),'YYYY/MM/DD');
+    var diff  = data2.diff(data1, 'days');
+    
+    return ((diff <= 0) ? false : diff);
+}
+
+function getToday(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+
+    today = yyyy+'-'+mm+'-'+dd;
+
+    return today;
 }

@@ -42,6 +42,7 @@ class ApiPipefyController extends Controller
     				'title' => $card->title,
     				'cardId' => $card->id,
     				'pipeId' => $pipes['pipeId'],
+                    'phaseName' => $card->phaseName,
     				'start' => $due 
     			];
     		}

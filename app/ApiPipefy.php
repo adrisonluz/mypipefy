@@ -74,7 +74,7 @@ class ApiPipefy extends Model
 
 	public function userCards($userId = null){
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { id, name, phases { cards( search:{assignee_ids:[" . $userId. "]}) {  edges{ node { id, title, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { id, name, phases { done, name, cards( search:{assignee_ids:[" . $userId. "]}) {  edges{ node { id, title, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
 		}");
 
 		$response = curl_exec($this->curl);
@@ -85,9 +85,12 @@ class ApiPipefy extends Model
 			$myCards = [];
 			if(count($pipe->phases) > 0){
 				foreach($pipe->phases as $phase){
-					foreach ($phase->cards as $card) {
-						foreach ($card as $node) {
-							$myCards[] = $node->node;
+					if(!$phase->done){
+						foreach ($phase->cards as $card) {
+							foreach ($card as $node) {
+								$node->node->phaseName = $phase->name;
+								$myCards[] = $node->node;
+							}
 						}
 					}
 				}
