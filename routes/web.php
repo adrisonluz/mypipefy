@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
     	Route::post('/getMe', ['uses' => 'ApiPipefyController@getMe', 'as' => 'api.get_me']);
     	Route::post('/onlyPipes', ['uses' => 'ApiPipefyController@onlyPipes', 'as' => 'api.only_pipes']);
         Route::post('/getCardsUser', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
+    });
 });
 
 Auth::routes();
