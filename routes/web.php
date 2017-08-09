@@ -16,20 +16,22 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/home', ['uses' => 'HomeController@index', 'as' => 'home']);
     Route::get('/index', ['uses' => 'HomeController@index', 'as' => 'home']);
 
+});
+
+Route::group(['middleware' => ['auth']], function () {
     /* Dashboard */
     Route::group(['prefix' => 'dashboard'], function () {
-    	Route::get('/', ['uses' => 'ListController@index', 'as' => 'dashboard']);
-    	Route::get('/team', ['uses' => 'ListController@team', 'as' => 'dashboard.team']);
-	});
+        Route::get('/', ['uses' => 'ListController@index', 'as' => 'dashboard']);
+        Route::get('/team', ['uses' => 'ListController@team', 'as' => 'dashboard.team']);
+    });
 
     /* API Pipefy */
     Route::group(['prefix' => 'api'], function () {
     	Route::post('/getMe', ['uses' => 'ApiPipefyController@getMe', 'as' => 'api.get_me']);
     	Route::post('/onlyPipes', ['uses' => 'ApiPipefyController@onlyPipes', 'as' => 'api.only_pipes']);
         Route::post('/getCardsUser', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
-	});
+    });
 });
-
 
 Auth::routes();
 
