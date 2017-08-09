@@ -19,7 +19,11 @@ class ApiPipefy extends Model
 		$this->myId = Config::get('app.PIPEFY_MY_ID','');
 		$this->organizationID = Config::get('app.PIPEFY_ORGANIZATION_ID','');
 		$this->pipeIds = (empty(Config::get('app.PIPEFY_PIPE_IDS','')) ? [] : explode(',',Config::get('app.PIPEFY_PIPE_IDS','')));
+		
+		$this->initCurl();
+	}
 
+	public function initCurl(){
 		$this->curl = curl_init();
 		curl_setopt($this->curl, CURLOPT_URL, "https://app.pipefy.com/queries");
 		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, TRUE);
