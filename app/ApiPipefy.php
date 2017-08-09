@@ -18,7 +18,7 @@ class ApiPipefy extends Model
 		$this->key = Config::get('app.PIPEFY_KEY','');
 		$this->myId = Config::get('app.PIPEFY_MY_ID','');
 		$this->organizationID = Config::get('app.PIPEFY_ORGANIZATION_ID','');
-		$this->pipeIds = explode(',',Config::get('app.PIPEFY_PIPE_IDS',''));
+		$this->pipeIds = (empty(Config::get('app.PIPEFY_PIPE_IDS','')) ? [] : explode(',',Config::get('app.PIPEFY_PIPE_IDS','')));
 
 		$this->curl = curl_init();
 		curl_setopt($this->curl, CURLOPT_URL, "https://app.pipefy.com/queries");
@@ -46,6 +46,10 @@ class ApiPipefy extends Model
 		return $responseArray->data->me;
 	}
 
+	/*
+		TO DO:
+		Buscar informações de um usuário específico pelo ID
+	*/
 	public function getUser($userId){
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
 		  \"query\": \"{ me { id, name, username, avatar_url, email, locale, time_zone } }\"
