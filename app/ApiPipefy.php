@@ -46,6 +46,17 @@ class ApiPipefy extends Model
 		return $responseArray->data->me;
 	}
 
+	public function getUser($userId){
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
+		  \"query\": \"{ me { id, name, username, avatar_url, email, locale, time_zone } }\"
+		}");
+
+		$response = curl_exec($this->curl);
+		$responseArray = json_decode($response);
+
+		return $responseArray->data->me;		
+	}
+
 	public function allPipes(){
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
 		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { name, id, phases { id, name, cards{  edges{ node { id, title, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"

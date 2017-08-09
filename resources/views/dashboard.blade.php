@@ -7,7 +7,7 @@
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.js"></script>
-    <script src="{{ asset('js/charts.js') }}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
 @endpush
 
 @section('content')

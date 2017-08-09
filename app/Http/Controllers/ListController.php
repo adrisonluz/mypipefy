@@ -7,16 +7,15 @@ use App\ApiPipefy;
 
 class ListController extends Controller
 {
-    public function __construct(){
-        $this->styles[] = 'https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.css';
+    public function __construct(ApiPipefy $apiPipefy){
+        $this->apiPipefy = $apiPipefy;
     }
 
     public function index()
     {
-        $apiPipefy = new ApiPipefy();
-        $retorno['myCards'] = $apiPipefy->myCards();
-        $retorno['allPipes'] = $apiPipefy->allPipes();
-        $retorno['me'] = $apiPipefy->me();
+        $retorno['myCards'] = $this->apiPipefy->myCards();
+        $retorno['allPipes'] = $this->apiPipefy->allPipes();
+        $retorno['me'] = $this->apiPipefy->me();
 
         return view('dashboard', $retorno);
     }
@@ -26,10 +25,12 @@ class ListController extends Controller
         $teamIds = [93148, 83854, 83852];
         $retorno['team'] = [];
 
-        $apiPipefy = new ApiPipefy();
         foreach ($teamIds as $teamId) {
-            $retorno['team'][] = $apiPipefy->myCards($teamId);
+            $retorno['team'][$teamId] = $this->apiPipefy->userCards($teamId);
         }
+
+        $retorno['me'] = $this->apiPipefy->me();
+        $retorno['allPipes'] = $this->apiPipefy->allPipes();
 
         return view('team', $retorno);
     }
