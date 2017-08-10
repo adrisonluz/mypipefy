@@ -7,7 +7,7 @@ use Config;
 
 class ApiPipefy extends Model
 {
-	protected $key = '';
+	public $key = '';
 	protected $myId = null;
 	protected $organizationID = null;
 	protected $pipeIds = [];
@@ -15,20 +15,14 @@ class ApiPipefy extends Model
 	public $curl;
 
 	public function __construct(){
-		$this->key = Config::get('app.PIPEFY_KEY','');
 		$this->myId = Config::get('app.PIPEFY_MY_ID','');
 		$this->organizationID = Config::get('app.PIPEFY_ORGANIZATION_ID','');
 		$this->pipeIds = explode(',',Config::get('app.PIPEFY_PIPE_IDS',''));
-
 		$this->curl = curl_init();
 		curl_setopt($this->curl, CURLOPT_URL, "https://app.pipefy.com/queries");
 		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($this->curl, CURLOPT_HEADER, FALSE);
 		curl_setopt($this->curl, CURLOPT_POST, TRUE);
-		curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
-		  "Content-Type: application/json",
-		  "Authorization: Bearer " . $this->key
-		));
 	}
 
 	public function __destruct(){
@@ -40,8 +34,7 @@ class ApiPipefy extends Model
 		  \"query\": \"{ me { id, name, username, avatar_url, email, locale, time_zone } }\"
 		}");
 
-		$response = curl_exec($this->curl);
-		$responseArray = json_decode($response);
+		$responseArray = self::runCurl();
 
 		return $responseArray->data->me;
 	}
@@ -51,8 +44,7 @@ class ApiPipefy extends Model
 		  \"query\": \"{ me { id, name, username, avatar_url, email, locale, time_zone } }\"
 		}");
 
-		$response = curl_exec($this->curl);
-		$responseArray = json_decode($response);
+		$responseArray = self::runCurl();
 
 		return $responseArray->data->me;		
 	}
@@ -62,8 +54,7 @@ class ApiPipefy extends Model
 		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { name, id, phases { id, name, cards{  edges{ node { id, title, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
 		}");
 		
-		$response = curl_exec($this->curl);
-		$pipesArray = json_decode($response);
+		$pipesArray = self::runCurl();
 
 		return $pipesArray->data->organization;
 	}
@@ -77,8 +68,7 @@ class ApiPipefy extends Model
 		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { id, name, phases { done, name, cards( search:{assignee_ids:[" . $userId. "]}) {  edges{ node { id, title, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
 		}");
 
-		$response = curl_exec($this->curl);
-		$pipesArray = json_decode($response);
+		$pipesArray = self::runCurl();
 
 		$myPipes = [];
 		foreach($pipesArray->data->organization->pipes as $pipe){
@@ -113,9 +103,16 @@ class ApiPipefy extends Model
 		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { name, id, phases { id, name, cards{ " . ($userId !== null ? "search:{assignee_ids:[" . $userId. "]})" : '') . "  edges{ node { id, title } } } } } } }\"
 		}");
 
-		$response = curl_exec($this->curl);
-		$pipesArray = json_decode($response);
+		$pipesArray = self::runCurl();
 
 		return $pipesArray->data->organization->pipes;
 	}
+
+	private function runCurl(){
+		curl_setopt($this->curl, CURLOPT_HTTPHEADER, array(
+		  "Content-Type: application/json",
+		  "Authorization: Bearer " . $this->key
+		));
+		return json_decode(curl_exec($this->curl));
+	} 
 }
