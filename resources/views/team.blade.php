@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/r-2.1.1/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
     <link rel='stylesheet' href="{{ asset('plugins/fullcalendar/fullcalendar.min.css') }}" />
 @endpush
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/r-2.1.1/datatables.min.js"></script>
     <script src="{{ asset('plugins/fullcalendar/lib/moment.min.js') }}"></script>
     <script src="{{ asset('plugins/fullcalendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/team.js') }}"></script>
@@ -31,8 +32,8 @@
                         <h3>{{$userId}}</h3>
                     </div>
 
-                    <div class="col-md-8" data-userid="{{$userId}}">
-                        <table  class="table table-striped table-bordered tableDashboard">
+                    <div class="col-md-8 div-table" data-userid="{{$userId}}">
+                        <table  class="table display responsive no-wrap table-striped table-bordered tableDashboard" width="100%">
                             <thead class="thead-inverse">
                                 <tr>
                                     <td>ID</td>
@@ -66,13 +67,18 @@
                         </table>
                     </div>
                 
-                    <div class="col-md-4">
+                    <div class="col-md-4 div-calendar">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <h4><strong>Tarefas Agendadas</strong></h4>
                             </div>
                             <div class="panel-body">
-                                <div class='calendar calendar_{{$userId}}' data-userid="{{$userId}}" data-route="{{route('api.get_cards_user')}}"></div>
+                                <div class='calendar calendar_{{$userId}}' data-userid="{{$userId}}" data-route="{{route('api.get_cards_user')}}">
+                                    <div class="load-calendario">
+                                        <img src="{{asset('img/mypipefy.png')}}" title="Loading ..." class="animated infinite flip"/>
+                                        <p><strong>Carregando ...</strong></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

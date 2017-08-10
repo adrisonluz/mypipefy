@@ -11,6 +11,13 @@ $(document).ready(function() {
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
+            loading: function(bool) {
+                if (bool){
+                    $('.calendar_' + userId + ' .load-calendario').fadeIn();
+                }else{
+                    $('.calendar_' + userId + ' .load-calendario').fadeOut();
+                }
+            },
             events: function(start, end, timezone, callback) {
                 $.ajax({
                     url: route,

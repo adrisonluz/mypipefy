@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/r-2.1.1/datatables.min.css"/>
 @endpush
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/r-2.1.1/datatables.min.js"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
 @endpush
 
@@ -21,7 +21,7 @@
             </div>
 
             <div class="panel-body">
-                <div class="col-md-8">
+                <div class="col-md-8 div-table">
                     <table class="table table-striped table-bordered tableDashboard">
                         <thead class="thead-inverse">
                             <tr>
@@ -56,7 +56,7 @@
                     </table>
                 </div>
             
-                <div class="col-md-4">
+                <div class="col-md-4 div-calendar">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h4><strong>Gráficos</strong></h4>
