@@ -1,3 +1,13 @@
 $(document).ready(function() {
-    $('.tableDashboard').DataTable();
+
+    $('.tableDashboard').each(function(){
+    	var route = $(this).data('route');
+
+	    $(this).DataTable({
+	    	order: [[4, 'asc']],
+	    	processing: true,
+	        serverSide: true,
+	        ajax: route
+	    });
+    });
 } );
