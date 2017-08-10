@@ -22,8 +22,6 @@
 
             <div class="panel-body">
                 <div class="col-md-8 div-table">
-                    <table class="table table-striped table-bordered tableDashboard">
-                <div class="col-md-8">
                     <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $me->id]) }}">
                         <thead class="thead-inverse">
                             <tr>

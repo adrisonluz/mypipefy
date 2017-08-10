@@ -32,7 +32,7 @@
                         <h3>{{$userId}}</h3>
                     </div>
                     <div class="col-md-8" data-userid="{{$userId}}">
-                        <table class="table display responsive no-wrap table-striped table-bordered tableDashboard"" data-route="{{ route('api.get_cards_user_id', ['userId' => $userId]) }}">
+                        <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $userId]) }}">
                             <thead class="thead-inverse">
                                 <tr>
                                     <td>ID</td>
