@@ -82,7 +82,7 @@ class ApiPipefy extends Model
 
 	public function userCards($userId = null){
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { id, name, phases { done, name, cards( search:{assignee_ids:[" . $userId. "]}) {  edges{ node { id, title, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { id, name, phases { done, name, cards( search:{assignee_ids:[" . $userId. "]}) {  edges{ node { id, title, due_date, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
 		}");
 
 		$response = curl_exec($this->curl);
@@ -118,7 +118,7 @@ class ApiPipefy extends Model
 		$userId = (!empty($_POST['userId']) ? $_POST['userId'] : null);
 
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { name, id, phases { id, name, cards{ " . ($userId !== null ? "search:{assignee_ids:[" . $userId. "]})" : '') . "  edges{ node { id, title } } } } } } }\"
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { name, id, phases { id, name, cards{ " . ($userId !== null ? "search:{assignee_ids:[" . $userId. "]})" : '') . "  edges{ node { id, title, due_date } } } } } } }\"
 		}");
 
 		$response = curl_exec($this->curl);

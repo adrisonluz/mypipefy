@@ -27,16 +27,12 @@ class ApiPipefyController extends Controller
     	$cards = [];
     	foreach ($userCards as $pipes) {
     		foreach ($pipes['pipeCards'] as $card) {
-    			$due = '00/00/0000';
+                $due = $card->due_date;
 
-    			foreach ($card->fields as $field) {
-    				if(strpos('data_prevista_de_entrega', $field->phase_field->id) !== false){
-    					$due = substr($field->value,0,10);
-					}
-    			}
-
-                $dueEx = explode('/',$due);
-                $due = ($dueEx[2] . '-' . $dueEx[1] . '-' . $dueEx[0]);
+                if($due !== null){
+                    $dateTime = new \DateTime($due);
+                    $due = $dateTime->format('Y-m-d');
+                }
 
     			$cards[] = [
     				'title' => $card->title,

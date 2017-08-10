@@ -6,6 +6,11 @@ $(document).ready(function() {
         var route = $(this).data('route');
 
         $(this).fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
             events: function(start, end, timezone, callback) {
                 $.ajax({
                     url: route,
