@@ -67,6 +67,11 @@ class ApiPipefyController extends Controller
             foreach ($pipe['pipeCards'] as $card) {
                 $due = $card->due_date;
 
+                if($due !== null){
+                    $dateTime = new \DateTime($due);
+                    $due = $dateTime->format('d/m/Y');
+                }
+
                 $cliente = '';
                 foreach ($card->fields as $field) {
                     if($field->phase_field->id == 'cliente'){
