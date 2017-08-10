@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApiPipefy;
-use Illuminate\Support\Facades\Auth;
 
 
 class ListController extends Controller
@@ -37,9 +36,5 @@ class ListController extends Controller
         $retorno['allPipes'] = $this->apiPipefy->allPipes();
 
         return view('team', $retorno);
-    }
-
-    private function pipefyAuth(){
-        $this->apiPipefy->key = Auth::user()->token;
     }
 }

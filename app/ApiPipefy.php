@@ -8,14 +8,13 @@ use Config;
 class ApiPipefy extends Model
 {
 	public $key = '';
-	protected $myId = null;
+	public $myId = null;
 	protected $organizationID = null;
 	protected $pipeIds = [];
 
 	public $curl;
 
 	public function __construct(){
-		$this->myId = Config::get('app.PIPEFY_MY_ID','');
 		$this->organizationID = Config::get('app.PIPEFY_ORGANIZATION_ID','');
 		$this->pipeIds = (empty(Config::get('app.PIPEFY_PIPE_IDS','')) ? [] : explode(',',Config::get('app.PIPEFY_PIPE_IDS','')));
 		
@@ -124,4 +123,10 @@ class ApiPipefy extends Model
 		));
 		return json_decode(curl_exec($this->curl));
 	} 
+
+	public function getMyId($token){
+		$this->key = $token;
+		$me = $this->me();
+		return $me->id;
+	}
 }

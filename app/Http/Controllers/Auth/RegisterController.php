@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\ApiPipefy;
 
 class RegisterController extends Controller
 {
@@ -62,10 +63,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $apiPipefy = new ApiPipefy;
+        $pipefy_id = $apiPipefy->getMyId($data['token']);
+
         return User::create([
             'email'    => $data['email'],
             'password' => bcrypt($data['password']),
             'token'    => $data['token'],
+            'pipefy_id' => $pipefy_id,
         ]);
     }
 }

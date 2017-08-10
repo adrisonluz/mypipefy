@@ -7,22 +7,32 @@ use App\ApiPipefy;
 
 class ApiPipefyController extends Controller
 {
-    public function getMe(ApiPipefy $apiPipefy){
-        $pipes = $apiPipefy->me();
+    public function __construct(ApiPipefy $apiPipefy){
+        $this->apiPipefy = $apiPipefy;
+    }
+
+    public function getMe(){
+        self::pipefyAuth();
+
+        $me = $this->apiPipefy->me();
+
+        return $me;
+    }
+
+    public function onlyPipes(){
+        self::pipefyAuth();
+
+        $pipes = $this->apiPipefy->onlyPipes();
 
         return $pipes;
     }
 
-    public function onlyPipes(ApiPipefy $apiPipefy){
-        $pipes = $apiPipefy->onlyPipes();
+    public function getCardsUser(Request $request){
+        self::pipefyAuth();
 
-        return $pipes;
-    }
-
-    public function getCardsUser(ApiPipefy $apiPipefy, Request $request){
     	$userId = $request->get('userId');
 
-    	$userCards = $apiPipefy->userCards($userId);
+    	$userCards = $this->apiPipefy->userCards($userId);
 
     	$cards = [];
     	foreach ($userCards as $pipes) {
