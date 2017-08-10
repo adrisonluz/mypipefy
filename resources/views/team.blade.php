@@ -26,14 +26,13 @@
 
             <div class="panel-body">
                 @if(count($team) > 0)
-                @foreach($team as $userId => $userCards)
+                @foreach($team as $userId)
                 <div class="row rowUserTeam">
                     <div class="col-xs-12">
                         <h3>{{$userId}}</h3>
                     </div>
-
-                    <div class="col-md-8 div-table" data-userid="{{$userId}}">
-                        <table  class="table display responsive no-wrap table-striped table-bordered tableDashboard" width="100%">
+                    <div class="col-md-8" data-userid="{{$userId}}">
+                        <table class="table display responsive no-wrap table-striped table-bordered tableDashboard"" data-route="{{ route('api.get_cards_user_id', ['userId' => $userId]) }}">
                             <thead class="thead-inverse">
                                 <tr>
                                     <td>ID</td>
@@ -43,27 +42,6 @@
                                     <td>DUE</td>
                                 </tr>
                             </thead>
-                            <tbody>
-                            @if (count($userCards) > 0)
-                            @foreach($userCards as $pipe)  
-                                @foreach($pipe['pipeCards'] as $card)                
-                                <tr>
-                                    <td><a href="https://app.pipefy.com/pipes/{{$pipe['pipeId']}}#cards/{{$card->id}}" target="_blank">{{$card->id}}</a></td>
-                                    <td><a href="https://app.pipefy.com/pipes/{{$pipe['pipeId']}}" target="_blank">{{$pipe['pipeName']}}</a></td>
-                                    <td>{{$card->title}}</td>
-                                    <td>
-                                    @foreach($card->fields as $field)
-                                        @if($field->phase_field->id == 'cliente')
-                                        {{str_replace(['["','"]'], '', $field->value)}}
-                                        @endif
-                                    @endforeach
-                                    </td>
-                                    <td>{{ $card->due_date ? Carbon\Carbon::parse($card->due_date)->format('d/m/Y') : ''}}</td>
-                                </tr>  
-                                @endforeach              
-                            @endforeach
-                            @endif
-                            </tbody>
                         </table>
                     </div>
                 

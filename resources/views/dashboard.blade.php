@@ -23,6 +23,8 @@
             <div class="panel-body">
                 <div class="col-md-8 div-table">
                     <table class="table table-striped table-bordered tableDashboard">
+                <div class="col-md-8">
+                    <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $me->id]) }}">
                         <thead class="thead-inverse">
                             <tr>
                                 <td>ID</td>
@@ -32,27 +34,6 @@
                                 <td>DUE</td>
                             </tr>
                         </thead>
-                        <tbody>
-                        @if (count($myCards) > 0)
-                        @foreach($myCards as $pipe)  
-                            @foreach($pipe['pipeCards'] as $card)                
-                            <tr>
-                                <td><a href="https://app.pipefy.com/pipes/{{$pipe['pipeId']}}#cards/{{$card->id}}" target="_blank">{{$card->id}}</a></td>
-                                <td><a href="https://app.pipefy.com/pipes/{{$pipe['pipeId']}}" target="_blank">{{$pipe['pipeName']}}</a></td>
-                                <td>{{$card->title}}</td>
-                                <td>
-                                @foreach($card->fields as $field)
-                                    @if($field->phase_field->id == 'cliente')
-                                    {{str_replace(['["','"]'], '', $field->value)}}
-                                    @endif
-                                @endforeach
-                                </td>
-                                <td>{{ $card->due_date ? Carbon\Carbon::parse($card->due_date)->format('d/m/Y') : '' }}</td>
-                            </tr>  
-                            @endforeach              
-                        @endforeach
-                        @endif
-                        </tbody>
                     </table>
                 </div>
             
