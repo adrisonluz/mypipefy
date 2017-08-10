@@ -57,14 +57,7 @@
                                         @endif
                                     @endforeach
                                     </td>
-
-                                    <td>
-                                    @foreach($card->fields as $field)
-                                        @if($field->phase_field->id == 'data_prevista_de_entrega')
-                                        {{substr($field->value,0,10)}}
-                                        @endif
-                                    @endforeach
-                                    </td>
+                                    <td>{{ $card->due_date ? Carbon\Carbon::parse($card->due_date)->format('d/m/Y') : ''}}</td>
                                 </tr>  
                                 @endforeach              
                             @endforeach
