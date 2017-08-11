@@ -25,12 +25,8 @@ class ListController extends Controller
     public function team()
     {
         self::pipefyAuth();
-        $teamIds = [93148, 83854, 83852];
-        $retorno['team'] = [];
+        $retorno['team'] = [93148, 83854, 83852];
 
-        foreach ($teamIds as $teamId) {
-            $retorno['team'][$teamId] = $this->apiPipefy->userCards($teamId);
-        }
 
         $retorno['me'] = $this->apiPipefy->me();
         $retorno['allPipes'] = $this->apiPipefy->allPipes();
