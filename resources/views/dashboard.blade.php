@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/r-2.1.1/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.15/r-2.1.1/datatables.min.css"/>
 @endpush
 
 @push('scripts')
@@ -34,7 +34,7 @@
                         </thead>
                     </table>
                 </div>
-            
+
                 <div class="col-md-4 div-calendar">
                     <div class="panel panel-info">
                         <div class="panel-heading">

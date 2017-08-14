@@ -103,6 +103,21 @@
     max-width: 34px;
 }
 
+/*table#DataTables_Table_0{
+	position: relative;
+}
+div#DataTables_Table_0_processing {
+    padding: 0;
+    left: 0;
+    margin: 0;
+}
+img.animated.infinite.flip {
+    max-width: 160px;
+    margin: 40px auto 0 !important;
+    display: inline-table !important;
+    position: relative !important;
+    text-align: center;
+}*/
 @media (min-width: 1200px){
 	.container {
 	    width: 95%;
