@@ -159,7 +159,7 @@ a.navbar-brand:hover {
     left: 0;
     width: 100%;
     z-index: 99999999;
-    background: rgba(0,0,0,.6);
+    background: rgb(255,255,255);
     text-align: center;
     height: 100%;
     color: #fff;
@@ -181,6 +181,10 @@ a.navbar-brand:hover {
 .load-pages .navbar-brand img.img-responsive.logo {
     max-width: 70px;
     padding: 0;
+}
+.gif-loader{
+	margin-top: 20px;
+	max-width: 50px;
 }
 @media (min-width: 1200px){
 	.container {

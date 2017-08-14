@@ -82,28 +82,29 @@
                           @if (isset($me))
                               | {{$me->name}} <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
                           @endif
+                          @if (isset($me))
+                            <ul class="nav navbar-nav" style="float:right;">
+                              <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span class="caret"></span>
+                                  </a>
 
-                          <ul class="nav navbar-nav" style="float:right;">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                          <a href="{{ route('logout') }}"
+                                              onclick="event.preventDefault();
+                                                       document.getElementById('logout-form').submit();">
+                                              Logout
+                                          </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                          </ul>
+                                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                              {{ csrf_field() }}
+                                          </form>
+                                      </li>
+                                  </ul>
+                              </li>
+                            </ul>
+                          @endif
                         </div>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
           left: 0;
           width: 100%;
           z-index: 99999999;
-          background: rgba(0,0,0,.6);
+          background: rgb(255,255,255);
           text-align: center;
           height: 100%;
           color: #fff;
@@ -155,6 +156,7 @@
             <img class="img-responsive logo" src="http://localhost/mypipefy/public/img/mypipefy.png" alt="MyPipefy">
             <span class="text-primary" style="color: #3097D1;">MyPipefy</span>
         </p>
+        <img src="http://localhost/mypipefy/public/img/loader.gif" class="gif-loader">
       </div>
     </div>
     <!-- Scripts -->

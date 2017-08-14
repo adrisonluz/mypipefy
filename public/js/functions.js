@@ -31,5 +31,5 @@ $(document).ready(function() {
     });
 });
 $(window).on('load', function(){
-  $('.loader').remove();
+  $('.loader').fadeOut('slow');
 });
