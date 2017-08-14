@@ -21,7 +21,7 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
 
-                <div class="navbar-header mobile-header">
+                <div class="navbar-header mobile-header  hidden-lg hidden-md">
                   <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
                   <a class="navbar-brand" href="{{ url('/dashboard') }}">
                       <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>
@@ -38,8 +38,8 @@
                     <!-- Collapsed Hamburger -->
 
                 </div>
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                  <ul class="nav navbar-nav">
+                <div class="collapse navbar-collapse hidden-lg hidden-md" id="app-navbar-collapse">
+                  <ul class="nav navbar-nav hidden-lg hidden-md">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ route('login') }}">Login</a></li>
