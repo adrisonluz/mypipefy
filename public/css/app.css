@@ -48,7 +48,7 @@
 	position: relative;
 }
 
-.load-calendario, div.dataTables_wrapper div.dataTables_processing{
+.load-calendario, .load-datatables{
 	background: RGBA(249, 249, 249, 0.8);
 	z-index: 99999;
 	position: absolute;
@@ -65,13 +65,13 @@
 	display: none;
 }
 
-.load-calendario img, div.dataTables_wrapper div.dataTables_processing img{
+.load-calendario img, .load-datatables img{
 	width: 25%;
 	z-index: 99999;
 	margin-bottom: 20px;
 }
 
-.load-calendario img, div.dataTables_wrapper div.dataTables_processing img {
+.load-calendario img, .load-datatables img {
   animation-duration: 4s;
   animation-delay: 2s;
   animation-iteration-count: infinite;
