@@ -32,7 +32,12 @@
                                 <td>DUE</td>
                             </tr>
                         </thead>
+                        <tbody></tbody>
                     </table>
+                    <div class="load-datatables">
+                        <img src="{{asset('img/mypipefy.png')}}" title="Loading ..." class="animated infinite flip"/>
+                        <p><strong>Carregando ...</strong></p>
+                    </div>
                 </div>
             
                 <div class="col-md-4 div-calendar">

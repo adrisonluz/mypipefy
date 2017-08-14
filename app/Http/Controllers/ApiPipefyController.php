@@ -89,11 +89,6 @@ class ApiPipefyController extends Controller
             }
         }
 
-        return json_encode([
-            'draw' => $request->get('draw'),
-            'recordsTotal' => count($cards),
-            'recordsFiltered' => count($cards),
-            'data' => $cards,
-        ]);
+        return json_encode($cards);
     }
 }
