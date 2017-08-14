@@ -25,7 +25,11 @@ $(document).ready(function() {
     			$table.DataTable({
 			    	order: [[4, 'asc']]
 			    });
+          $table.css({width:'auto'});
     		}
     	});
     });
-} );
+});
+// $(window).on('load', function(){
+//   $('.loader').remove();
+// });
