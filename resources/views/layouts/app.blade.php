@@ -21,9 +21,9 @@
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="rodando">
 
-  <div class="loader rodando">
+  <div class="loader">
     <div class="load-pages">
       <p class="navbar-brand">
           <img class="img-responsive logo" src="http://localhost/mypipefy/public/img/mypipefy.png" alt="MyPipefy">

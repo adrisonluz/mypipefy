@@ -1,10 +1,5 @@
 $(document).ready(function() {
-    setInterval(function(){
-      $('.loader').removeClass('rodando');
-      setTimeout(function(){
-        $('.loader').addClass('rodando');
-      },200);
-    },5000);
+    loaderPulse();
     $('.tableDashboard').each(function(){
     	var route = $(this).data('route');
     	$table = $(this);
@@ -39,3 +34,11 @@ $(document).ready(function() {
 $(window).on('load', function(){
   $('.loader').fadeOut('slow');
 });
+function loaderPulse(){
+    setInterval(function(){
+      $('body').removeClass('rodando');
+      setTimeout(function(){
+        $('body').addClass('rodando');
+      },400);
+    },5000);
+}
