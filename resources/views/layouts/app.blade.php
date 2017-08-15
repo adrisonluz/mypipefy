@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -22,7 +20,6 @@
   crossorigin="anonymous"></script>
 </head>
 <body class="rodando">
-
   <div class="loader">
     <div class="load-pages">
       <p class="navbar-brand">
@@ -53,9 +50,27 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </button>
-                  @if (isset($me))
-                    <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
-                  @endif
+                  <div class="mobile-menu-perfil">
+                    @if (isset($me))
+                      <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
+                    @endif
+                    <div class="menu-perfil-mobile">
+                        <ul>
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                            <li><a href="#">Configurações</a></li>
+                        </ul>
+                    </div>
+                  </div>
                     <!-- Collapsed Hamburger -->
 
                 </div>
