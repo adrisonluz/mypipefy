@@ -11,6 +11,7 @@ $(document).ready(function() {
                 center: 'title',
                 right: 'month,basicWeek,basicDay'
             },
+            locale: 'pt-br',
             loading: function(bool) {
                 if (bool){
                     $('.calendar_' + userId + ' .load-calendario').fadeIn();
