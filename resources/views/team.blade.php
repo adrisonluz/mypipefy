@@ -26,10 +26,10 @@
 
             <div class="panel-body">
                 @if(count($team) > 0)
-                @foreach($team as $userId)
+                @foreach($team as $userId => $userName)
                 <div class="row rowUserTeam">
                     <div class="col-xs-12">
-                        <h3>{{$userId}}</h3>
+                        <h3>{{$userId}} | {{$userName}}</h3>
                     </div>
                     <div class="col-md-8" data-userid="{{$userId}}">
                         <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $userId]) }}">
