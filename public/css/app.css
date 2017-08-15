@@ -258,3 +258,14 @@ a.navbar-brand:hover {
 	    margin-bottom: 30px;
 	}
 }
+
+.tooltip{
+	font-size: 12px;
+	font-weight: 600;
+}
+.tooltip-inner{
+	background-color: #3097D1 !important;
+}
+.tooltip-arrow{
+	border-right-color: #3097D1 !important;
+}

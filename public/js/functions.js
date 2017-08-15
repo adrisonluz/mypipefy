@@ -12,11 +12,13 @@ $(document).ready(function() {
     			$table.siblings('.load-datatables').fadeIn();
     		},
     		success: function(data){
-    			$.each(data, function(index, row){
-    				var tr = '<tr>';
-    				$.each(row, function(indexCollumn, collumn){
-    					tr += '<td>'+collumn+'</td>';
-    				});
+    			$.each(data, function(index, card){
+    				var tr = '<tr data-toggle="tooltip" title="'+card.phaseName+'">';
+                    tr += '<td>'+card.link_card+'</td>';
+                    tr += '<td>'+card.link_pipe+'</td>';
+                    tr += '<td>'+card.card_title+'</td>';
+                    tr += '<td>'+card.client_name+'</td>';
+    				tr += '<td>'+card.due+'</td>';
     				tr += '</tr>';
     				$table.children('tbody').append(tr);
     			});
@@ -32,6 +34,9 @@ $(document).ready(function() {
     		}
     	});
     });
+    $('[data-toggle="tooltip"]').tooltip({
+        placement: 'right'
+    }); 
 });
 $(window).on('load', function(){
   $('.loader').fadeOut('slow');

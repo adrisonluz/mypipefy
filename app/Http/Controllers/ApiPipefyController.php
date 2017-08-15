@@ -85,6 +85,7 @@ class ApiPipefyController extends Controller
                     'card_title'  => $card->title,
                     'client_name' => $cliente,
                     'due'         => $due,
+                    'phaseName'   => $card->phaseName,
                 ];
             }
         }
