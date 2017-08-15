@@ -15,7 +15,7 @@
                             <h1>MyPipefy</h1>
                             <p>Seja bem vindo!</p>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>

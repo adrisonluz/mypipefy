@@ -13,8 +13,13 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('img/mypipefy_favicon.png') }}"/>
 
     <!-- Styles -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     @stack('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app">
@@ -22,8 +27,8 @@
             <div class="container">
 
                 <div class="navbar-header mobile-header  hidden-lg hidden-md">
-                  <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
                   <a class="navbar-brand" href="{{ url('/dashboard') }}">
+                      <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
                       <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>
                   </a>
                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
@@ -47,25 +52,6 @@
                     @else
                         <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                         <li><a href="{{ route('dashboard.team') }}">Team</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
                     @endif
                   </ul>
 
@@ -73,8 +59,8 @@
                 <div class="collapse navbar-collapse">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                       <!-- Branding Image -->
-                      <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
                       <a class="navbar-brand" href="{{ url('/dashboard') }}">
+                          <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
                           <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>
                       </a>
                       <!-- Left Side Of Navbar -->
@@ -86,25 +72,6 @@
                         @else
                             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li><a href="{{ route('dashboard.team') }}">Team</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
                         @endif
                       </ul>
 
@@ -115,6 +82,29 @@
                           @if (isset($me))
                               | {{$me->name}} <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
                           @endif
+                          @if (isset($me))
+                            <ul class="nav navbar-nav" style="float:right;">
+                              <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span class="caret"></span>
+                                  </a>
+
+                                  <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                          <a href="{{ route('logout') }}"
+                                              onclick="event.preventDefault();
+                                                       document.getElementById('logout-form').submit();">
+                                              Logout
+                                          </a>
+
+                                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                              {{ csrf_field() }}
+                                          </form>
+                                      </li>
+                                  </ul>
+                              </li>
+                            </ul>
+                          @endif
                         </div>
                     </div>
                 </div>
@@ -123,7 +113,52 @@
 
         @yield('content')
     </div>
+    <style>
 
+      .loader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 99999999;
+          background: rgb(255,255,255);
+          text-align: center;
+          height: 100%;
+          color: #fff;
+      }
+      .loader .load-pages {
+          margin-top: 20%;
+      }
+      .loader .load-pages p {
+          margin-top: 2%;
+      }
+      .load-pages .navbar-brand {
+          font-size: 50px;
+          padding: 0;
+          margin: auto;
+          line-height: 74px;
+          float: none;
+          display: table;
+      }
+      .load-pages .navbar-brand img.img-responsive.logo {
+          max-width: 70px;
+          padding: 0;
+      }
+      @media (max-width: 768px){
+      	.loader .load-pages {
+      		 margin-top: 200px;
+      	}
+      }
+    </style>
+    <div class="loader">
+      <div class="load-pages">
+        <p class="navbar-brand">
+            <img class="img-responsive logo" src="http://localhost/mypipefy/public/img/mypipefy.png" alt="MyPipefy">
+            <span class="text-primary" style="color: #3097D1;">MyPipefy</span>
+        </p>
+        <img src="http://localhost/mypipefy/public/img/loader.gif" class="gif-loader">
+      </div>
+    </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')

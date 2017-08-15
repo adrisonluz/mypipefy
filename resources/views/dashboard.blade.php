@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/r-2.1.1/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.15/r-2.1.1/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
 @endpush
 
 @push('scripts')
@@ -34,12 +35,12 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <div class="load-datatables">
+                    <!-- <div class="load-datatables">
                         <img src="{{asset('img/mypipefy.png')}}" title="Loading ..." class="animated infinite flip"/>
                         <p><strong>Carregando ...</strong></p>
-                    </div>
+                    </div> -->
                 </div>
-            
+
                 <div class="col-md-4 div-calendar">
                     <div class="panel panel-info">
                         <div class="panel-heading">
