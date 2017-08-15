@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function getUserToken($email){
+        $select = self::select('token')->where('email', '=', $email)->first();
+        return (!is_null($select)) ? $select->token : null;
+    }
 }

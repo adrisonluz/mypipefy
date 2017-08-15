@@ -43,18 +43,13 @@ class ApiPipefy extends Model
 		return $responseArray->data->me;
 	}
 
-	/*
-		TO DO:
-		Buscar informações de um usuário específico pelo ID
-	*/
-	public function getUser($userId){
+	public function getUsers(){
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ me { id, name, username, avatar_url, email, locale, time_zone } }\"
+		  \"query\": \"{ organization(id:".$this->organizationID."){ id, members { user { id, name, email, username, avatarUrl } } } }\"
 		}");
 
 		$responseArray = self::runCurl();
-
-		return $responseArray->data->me;		
+		return $responseArray->data->organization->members;		
 	}
 
 	public function allPipes(){
