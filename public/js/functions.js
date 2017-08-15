@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    loaderPulse();
     $('.tableDashboard').each(function(){
     	var route = $(this).data('route');
     	$table = $(this);
@@ -33,3 +34,11 @@ $(document).ready(function() {
 $(window).on('load', function(){
   $('.loader').fadeOut('slow');
 });
+function loaderPulse(){
+    setInterval(function(){
+      $('body').removeClass('rodando');
+      setTimeout(function(){
+        $('body').addClass('rodando');
+      },400);
+    },5000);
+}
