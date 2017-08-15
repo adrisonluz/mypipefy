@@ -169,6 +169,17 @@ a.navbar-brand:hover {
 }
 .loader .load-pages p {
     margin-top: 2%;
+		margin-bottom: 40px;
+}
+.gif-loader span {
+    display: inline-table;
+    width: 10px;
+    height: 10px;
+    background: #000;
+    border-radius: 50%;
+    margin: 2.5px 6px;
+	  border: 1px solid #000;
+		opacity: .7;
 }
 .load-pages .navbar-brand {
     font-size: 50px;
@@ -182,10 +193,48 @@ a.navbar-brand:hover {
     max-width: 70px;
     padding: 0;
 }
-.gif-loader{
-	margin-top: 20px;
-	max-width: 50px;
+.gif-loader {
+    margin: auto;
 }
+
+.gif-loader span:first-child, .gif-loader span:nth-child(5){
+		background: #139dfb;
+}
+.gif-loader span:nth-child(2), .gif-loader span:nth-child(4){
+		background: #12ff41;
+}
+.gif-loader span:nth-child(3){
+		background: #ff7612;
+    width: 15px;
+    height: 15px;
+		margin: 0 6px;
+}
+.rodando .gif-loader span:first-child{
+	animation:  1s loarderPulse infinite;
+}
+
+.rodando .gif-loader span:nth-child(2){
+	animation: 1s 1s loarderPulse infinite;
+}
+
+.rodando .gif-loader span:nth-child(3){
+	animation:1s 2s loarderPulse infinite;
+}
+
+.rodando .gif-loader span:nth-child(4){
+	animation: 1s 3s loarderPulse infinite;
+}
+
+.rodando .gif-loader span:nth-child(5){
+	animation: 1s 4s loarderPulse infinite;
+}
+
+@keyframes loarderPulse {
+		0%{transform: scale(1);}
+		50%{transform: scale(1.3);opacity: 1;}
+		100%{transform: scale(1);}
+}
+
 @media (min-width: 1200px){
 	.container {
 	    width: 85%;

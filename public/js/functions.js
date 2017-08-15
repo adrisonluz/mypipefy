@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    setInterval(function(){
+      $('.loader').removeClass('rodando');
+      setTimeout(function(){
+        $('.loader').addClass('rodando');
+      },200);
+    },5000);
     $('.tableDashboard').each(function(){
     	var route = $(this).data('route');
     	$table = $(this);

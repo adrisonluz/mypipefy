@@ -22,6 +22,22 @@
   crossorigin="anonymous"></script>
 </head>
 <body>
+
+  <div class="loader rodando">
+    <div class="load-pages">
+      <p class="navbar-brand">
+          <img class="img-responsive logo" src="http://localhost/mypipefy/public/img/mypipefy.png" alt="MyPipefy">
+          <span class="text-primary" style="color: #3097D1;">MyPipefy</span>
+      </p>
+      <div class="gif-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -80,7 +96,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="user-name">
                           @if (isset($me))
-                              | {{$me->name}} <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
+                               {{$me->name}} <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
                           @endif
                           @if (isset($me))
                             <ul class="nav navbar-nav" style="float:right;">
@@ -112,52 +128,6 @@
         </nav>
 
         @yield('content')
-    </div>
-    <style>
-
-      .loader {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 99999999;
-          background: rgb(255,255,255);
-          text-align: center;
-          height: 100%;
-          color: #fff;
-      }
-      .loader .load-pages {
-          margin-top: 20%;
-      }
-      .loader .load-pages p {
-          margin-top: 2%;
-      }
-      .load-pages .navbar-brand {
-          font-size: 50px;
-          padding: 0;
-          margin: auto;
-          line-height: 74px;
-          float: none;
-          display: table;
-      }
-      .load-pages .navbar-brand img.img-responsive.logo {
-          max-width: 70px;
-          padding: 0;
-      }
-      @media (max-width: 768px){
-      	.loader .load-pages {
-      		 margin-top: 200px;
-      	}
-      }
-    </style>
-    <div class="loader">
-      <div class="load-pages">
-        <p class="navbar-brand">
-            <img class="img-responsive logo" src="http://localhost/mypipefy/public/img/mypipefy.png" alt="MyPipefy">
-            <span class="text-primary" style="color: #3097D1;">MyPipefy</span>
-        </p>
-        <img src="http://localhost/mypipefy/public/img/loader.gif" class="gif-loader">
-      </div>
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
