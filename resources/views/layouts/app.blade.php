@@ -78,10 +78,10 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
+                        <li><a href="{{ route('register') }}">Cadastro</a></li>
                     @else
-                        <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ route('dashboard.team') }}">Team</a></li>
+                        <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
+                        <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
                     @endif
                   </ul>
         
@@ -90,10 +90,10 @@
             <!-- Authentication Links -->
             @if (Auth::guest())
             <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
+            <li><a href="{{ route('register') }}">Cadastro</a></li>
             @else
-            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ route('dashboard.team') }}">Team</a></li>
+            <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
+            <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
             @endif
           </ul>
 
@@ -110,10 +110,10 @@
               <!-- Authentication Links -->
               @if (Auth::guest())
               <li><a href="{{ route('login') }}">Login</a></li>
-              <li><a href="{{ route('register') }}">Register</a></li>
+              <li><a href="{{ route('register') }}">Cadastro</a></li>
               @else
-              <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-              <li><a href="{{ route('dashboard.team') }}">Team</a></li>
+              <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
+              <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
               @endif
             </ul>
 

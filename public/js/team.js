@@ -12,13 +12,6 @@ $(document).ready(function() {
                 right: 'month,basicWeek,basicDay'
             },
             locale: 'pt-br',
-            loading: function(bool) {
-                if (bool){
-                    $('.calendar_' + userId + ' .load-calendario').fadeIn();
-                }else{
-                    $('.calendar_' + userId + ' .load-calendario').fadeOut();
-                }
-            },
             events: function(start, end, timezone, callback) {
                 $.ajax({
                     url: route,
@@ -68,30 +61,3 @@ $(document).ready(function() {
         });
     });
 });
-
-function calculaDias(date1){
-    var data1 = moment(date1,'YYYY/MM/DD');
-    var data2 = moment(getToday(),'YYYY/MM/DD');
-    var diff  = data2.diff(data1, 'days');
-    
-    return ((diff <= 0) ? false : diff);
-}
-
-function getToday(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-
-    if(dd<10) {
-        dd = '0'+dd
-    } 
-
-    if(mm<10) {
-        mm = '0'+mm
-    } 
-
-    today = yyyy+'-'+mm+'-'+dd;
-
-    return today;
-}
