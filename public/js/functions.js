@@ -22,11 +22,13 @@ $(document).ready(function() {
     			});
     		},
     		complete: function(){
-    			$table.siblings('.load-datatables').fadeOut();
     			$table.DataTable({
-			    	order: [[4, 'asc']]
+			    	order: [[4, 'asc']],
+                    language: {
+                        url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
+                    }
 			    });
-          $table.css({width:'auto'});
+                // $table.css({width:'auto'});
     		}
     	});
     });

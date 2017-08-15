@@ -80,11 +80,11 @@ class ApiPipefyController extends Controller
                 }
 
                 $cards[] = [
-                    '<a href="https://app.pipefy.com/pipes/'.$pipe['pipeId'].'#cards/'.$card->id.'" target="_blank">'.$card->id.'</a>',
-                    '<a href="https://app.pipefy.com/pipes/'.$pipe['pipeId'].'" target="_blank">'.$pipe['pipeName'].'</a>',
-                    $card->title,
-                    $cliente,
-                    $due,
+                    'link_card'   => '<a href="https://app.pipefy.com/pipes/'.$pipe['pipeId'].'#cards/'.$card->id.'" target="_blank">'.$card->id.'</a>',
+                    'link_pipe'   => '<a href="https://app.pipefy.com/pipes/'.$pipe['pipeId'].'" target="_blank">'.$pipe['pipeName'].'</a>',
+                    'card_title'  => $card->title,
+                    'client_name' => $cliente,
+                    'due'         => $due,
                 ];
             }
         }
