@@ -34,6 +34,7 @@
       </div>
     </div>
   </div>
+  @include('modal')
   <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
@@ -84,7 +85,7 @@
           <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
           @endif
         </ul>
-        
+
         <div class="collapse navbar-collapse hidden-lg hidden-md" id="app-navbar-collapse">
           <ul class="nav navbar-nav hidden-lg hidden-md">
             <!-- Authentication Links -->
