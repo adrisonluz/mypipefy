@@ -39,7 +39,7 @@
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
 
-        <div class="navbar-header mobile-header  hidden-lg hidden-md">
+        <div class="navbar-header mobile-header hidden-lg hidden-md hidden-sm">
           <a class="navbar-brand" href="{{ url('/dashboard') }}">
             <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
             <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>
@@ -74,8 +74,8 @@
         <!-- Collapsed Hamburger -->
 
       </div>
-      <div class="collapse navbar-collapse hidden-lg hidden-md" id="app-navbar-collapse">
-        <ul class="nav navbar-nav hidden-lg hidden-md">
+      <div class="collapse navbar-collapse hidden-lg hidden-md hidden-sm" id="app-navbar-collapse">
+        <ul class="nav navbar-nav hidden-lg hidden-md hidden-sm">
           <!-- Authentication Links -->
           @if (Auth::guest())
           <li><a href="{{ route('login') }}">Login</a></li>
@@ -85,22 +85,8 @@
           <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
           @endif
         </ul>
-
-        <div class="collapse navbar-collapse hidden-lg hidden-md" id="app-navbar-collapse">
-          <ul class="nav navbar-nav hidden-lg hidden-md">
-            <!-- Authentication Links -->
-            @if (Auth::guest())
-            <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Cadastro</a></li>
-            @else
-            <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-            <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
-            @endif
-          </ul>
-
-        </div>
         <div class="collapse navbar-collapse">
-          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="col-lg-6 col-md-6 col-sm-7 col-xs-12">
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/dashboard') }}">
               <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
@@ -120,7 +106,7 @@
 
           </div>
           <!-- Right Side Of Navbar -->
-          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12">
             <div class="user-name">
               @if (isset($me))
               {{$me->name}} <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">

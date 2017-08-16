@@ -67,6 +67,18 @@ $(document).ready(function() {
     $('.click-to-top').on('click', function(){
       $('html,body').animate({ scrollTop:0 }, 800);
     });
+
+    var urlHer = location.pathname;
+    if(urlHer == '/mypipefy/public/dashboard' || urlHer == '/mypipefy/public/login' || urlHer == '/mypipefy/public/' || urlHer == '/mypipefy/public/password/reset' ){
+      var alturaWindow = window.innerHeight;
+      if(alturaWindow >= 637){
+      	var alturaApp = $('div#app').height();
+      	alturaApp += 151;
+      	var margintContainer = alturaWindow - alturaApp
+      	$('div#app').css('margin-bottom',margintContainer+'px');
+      	margintContainer
+      }
+    }
 });
 
 $(window).on('load', function(){
