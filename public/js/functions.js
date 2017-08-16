@@ -38,19 +38,16 @@ $(document).ready(function() {
                     $tr += '<td>'+card.client_name+'</td>';
     				$tr += '<td>'+card.due+'</td>';
     				$tr += '</tr>';
-                    // $tr.tooltip({
-                    //     template: '<div class="tooltip CUSTOM-CLASS"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
-                    // })
     				$table.children('tbody').append($tr);
     			});
     		},
     		complete: function(){
-    			$table.DataTable({
-			    	order: [[4, 'asc']],
+                $table.DataTable({
+                    order: [[4, 'asc']],
                     language: {
                         url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
                     }
-			    });
+                });
                 // $table.css({width:'auto'});
     		}
     	});
@@ -59,7 +56,7 @@ $(document).ready(function() {
       $('body').toggleClass('menu-perfil-active');
     });
     $('[data-toggle="tooltip"]').tooltip({
-        placement: 'right'
+        placement: (window.innerWidth < 768) ? 'top' : 'right'
     });
 });
 
