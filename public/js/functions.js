@@ -42,7 +42,7 @@ $(document).ready(function() {
     			});
     		},
     		complete: function(){
-                $datatable = $table.DataTable({
+               $table.DataTable({
                     order: [[4, 'asc']],
                     language: {
                         url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
