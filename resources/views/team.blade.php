@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @push('styles')
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/r-2.1.1/datatables.min.css"/> --}}
     <link rel='stylesheet' href="{{ asset('plugins/fullcalendar/fullcalendar.min.css') }}" />
     <link rel='stylesheet' href="{{ asset('plugins/datatables/css/datatables.min.css') }}" />
     <link rel='stylesheet' href="{{ asset('plugins/datatables/css/dataTables.bootstrap.min.css') }}" />
@@ -9,8 +8,6 @@
 @endpush
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-    {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/r-2.1.1/datatables.min.js"></script> --}}
     <script src="{{ asset('plugins/fullcalendar/lib/moment.min.js') }}"></script>
     <script src="{{ asset('plugins/fullcalendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('plugins/fullcalendar/locale/pt-br.js') }}"></script>
