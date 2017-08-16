@@ -57,6 +57,16 @@ $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip({
         placement: (window.innerWidth < 768) ? 'top' : 'right'
     });
+    $(window).scroll(function(){
+        if($(this).scrollTop() >= 800){
+            $('body').addClass('scrolled');
+        }else{
+            $('body').removeClass('scrolled');
+        }
+    });
+    $('.click-to-top').on('click', function(){
+      $('html,body').animate({ scrollTop:0 }, 800);
+    });
 });
 
 $(window).on('load', function(){
@@ -80,7 +90,7 @@ function calculaDias(date1, br){
     var data1 = moment(date1,'YYYY/MM/DD');
     var data2 = moment(getToday(),'YYYY/MM/DD');
     var diff  = data2.diff(data1, 'days');
-    
+
     return ((diff <= 0) ? false : diff);
 }
 
@@ -92,11 +102,11 @@ function getToday(){
 
     if(dd<10) {
         dd = '0'+dd
-    } 
+    }
 
     if(mm<10) {
         mm = '0'+mm
-    } 
+    }
 
     today = yyyy+'-'+mm+'-'+dd;
 

@@ -23,8 +23,7 @@
   <div class="loader">
     <div class="load-pages">
       <p class="navbar-brand">
-        <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
-        <span class="text-primary" style="color: #3097D1;">MyPipefy</span>
+        <img class="img-responsive logo" src="{{ asset('img/mypipefy_logo_extenso.png') }}" alt="MyPipefy">
       </p>
       <div class="gif-loader">
         <span></span>
@@ -145,6 +144,7 @@
                       {{ csrf_field() }}
                     </form>
                   </li>
+                  <li><a href="#">Configurações</a></li>
                 </ul>
               </li>
             </ul>
@@ -157,6 +157,16 @@
 
   @yield('content')
 </div>
+<div class="click-to-top">
+  <a href="javascript:void(0)"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+</div>
+<footer>
+    <div class="container">
+      <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+        <img class="img-responsive logo" src="{{ asset('img/mypipefy_logo_extenso_inverso.png') }}" alt="MyPipefy">
+      </div>
+    </div>
+</footer>
 <!-- Scripts -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 @stack('scripts')

@@ -123,18 +123,6 @@ img.animated.infinite.flip {
 .load-datatables {
     padding: 0;
 }
-.panel-body {
-    min-height: 300px;
-}
-.calendar.fc.fc-unthemed.fc-ltr {
-    min-height: 400px;
-}
-div#DataTables_Table_0_wrapper {
-    min-height: 400px;
-}
-.col-md-8.div-table {
-    min-height: 400px;
-}
 .load-datatables p {
     margin-top: 30px;
 }
@@ -169,7 +157,7 @@ a.navbar-brand:hover {
 }
 .loader .load-pages p {
     margin-top: 2%;
-		margin-bottom: 40px;
+		margin-bottom: 30px;
 }
 .gif-loader span {
     display: inline-table;
@@ -190,7 +178,7 @@ a.navbar-brand:hover {
     display: table;
 }
 .load-pages .navbar-brand img.img-responsive.logo {
-    max-width: 70px;
+    max-width: 290px;
     padding: 0;
 }
 .gif-loader {
@@ -370,13 +358,53 @@ div#app > .container {
     z-index: 9999;
 }
 .modal-info-body {
-    width: 90%;
+		width: 90%;
 		position: relative;
-    max-width: 800px;
-    margin: auto;
-    background: #eee;
-    box-shadow: 0 0 37px #fff;
-    margin-top: 100px;
+		max-width: 800px;
+		margin: auto;
+		background: #eee;
+		padding: 10px;
+		box-shadow: 0 0 37px #fff;
+		margin-top: 100px;
+		border-radius: 5px;
+}
+span.close-modal-info {
+    top: -40px;
+    right: -40px;
+    position: absolute;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+.fa-remove:before, .fa-close:before, .fa-times:before {
+    content: "\f00d";
+    text-shadow: 0 0 15px #000;
+}
+h3.title-info {
+    margin: 0;
+}
+footer {
+		text-align: center;
+    background: rgb(41, 130, 181);
+}
+footer img.img-responsive.logo {
+    max-width: 260px;
+    display: inline-table;
+    float: none;
+}
+.scrolled .click-to-top {
+		opacity: 1;
+		visibility: visible;
+}
+.click-to-top {
+		position: fixed;
+		right: 4%;
+		opacity: 0;
+		bottom: 7%;
+		font-size: 50px;
+		transition: .4s all ease;
+		visibility: hidden;
+		z-index: 9999;
 }
 @keyframes loarderPulse {
 		0%{transform: scale(1);}
