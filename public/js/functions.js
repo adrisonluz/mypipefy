@@ -58,7 +58,7 @@ $(document).ready(function() {
         placement: (window.innerWidth < 768) ? 'top' : 'right'
     });
     $(window).scroll(function(){
-        if($(this).scrollTop() >= 800){
+        if($(this).scrollTop() >= 514){
             $('body').addClass('scrolled');
         }else{
             $('body').removeClass('scrolled');
