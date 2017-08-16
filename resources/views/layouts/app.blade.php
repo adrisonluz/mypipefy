@@ -2,12 +2,12 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
 
-    <base href="{{ url('') }}/">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <base href="{{ url('') }}/">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>{{ config('app.name', 'Laravel') }}</title>
   <link rel="shortcut icon" type="image/png" href="{{ asset('img/mypipefy_favicon.png') }}"/>
@@ -38,52 +38,52 @@
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
 
-                <div class="navbar-header mobile-header  hidden-lg hidden-md">
-                  <a class="navbar-brand" href="{{ url('/dashboard') }}">
-                      <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
-                      <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>
-                  </a>
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                      <span class="sr-only">Toggle Navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <div class="mobile-menu-perfil">
-                    @if (isset($me))
-                      <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
-                    @endif
-                    <div class="menu-perfil-mobile">
-                        <ul>
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
+        <div class="navbar-header mobile-header  hidden-lg hidden-md">
+          <a class="navbar-brand" href="{{ url('/dashboard') }}">
+            <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
+            <span class="text-primary">{{ config('app.name', 'Laravel') }}</span>
+          </a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="mobile-menu-perfil">
+            @if (isset($me))
+            <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
+            @endif
+            <div class="menu-perfil-mobile">
+              <ul>
+                <li>
+                  <a href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();">
+                  Logout
+                </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                            <li><a href="#">Configurações</a></li>
-                        </ul>
-                    </div>
-                  </div>
-                    <!-- Collapsed Hamburger -->
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  {{ csrf_field() }}
+                </form>
+              </li>
+              <li><a href="#">Configurações</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Collapsed Hamburger -->
 
-                </div>
-                <div class="collapse navbar-collapse hidden-lg hidden-md" id="app-navbar-collapse">
-                  <ul class="nav navbar-nav hidden-lg hidden-md">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Cadastro</a></li>
-                    @else
-                        <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-                        <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
-                    @endif
-                  </ul>
+      </div>
+      <div class="collapse navbar-collapse hidden-lg hidden-md" id="app-navbar-collapse">
+        <ul class="nav navbar-nav hidden-lg hidden-md">
+          <!-- Authentication Links -->
+          @if (Auth::guest())
+          <li><a href="{{ route('login') }}">Login</a></li>
+          <li><a href="{{ route('register') }}">Cadastro</a></li>
+          @else
+          <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
+          <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
+          @endif
+        </ul>
         
         <div class="collapse navbar-collapse hidden-lg hidden-md" id="app-navbar-collapse">
           <ul class="nav navbar-nav hidden-lg hidden-md">

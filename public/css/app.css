@@ -344,34 +344,48 @@ div#app > .container {
 	border-top-color: #3097D1 !important;
 }
 
+
 .pendente + .tooltip > .tooltip-inner{
 	background-color: #292b2c !important;
 }
-
 .pendente + .tooltip.right > .tooltip-arrow{
 	border-right-color: #292b2c !important;
 }
+.pendente + .tooltip.top > .tooltip-arrow{
+	border-top-color: #292b2c !important;
+}
+
+
 
 .normal + .tooltip > .tooltip-inner{
 	background-color: #5cb85c !important;
 }
-
 .normal + .tooltip.right > .tooltip-arrow{
 	border-right-color: #5cb85c !important;
 }
+.normal + .tooltip.top > .tooltip-arrow{
+	border-top-color: #5cb85c !important;
+}
+
 
 .atrasado + .tooltip > .tooltip-inner{
 	background-color: #f0ad4e !important;
 }
-
 .atrasado + .tooltip.right > .tooltip-arrow{
 	border-right-color: #f0ad4e !important;
 }
+.atrasado + .tooltip.top > .tooltip-arrow{
+	border-top-color: #f0ad4e !important;
+}
+
+
 
 .very_atrasado + .tooltip > .tooltip-inner{
 	background-color: #d9534f !important;
 }
-
 .very_atrasado + .tooltip.right > .tooltip-arrow{
 	border-right-color: #d9534f !important;
+}
+.very_atrasado + .tooltip.top > .tooltip-arrow{
+	border-top-color: #d9534f !important;
 }
