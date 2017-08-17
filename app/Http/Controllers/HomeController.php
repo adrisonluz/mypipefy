@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\ApiPipefy;
 
 class HomeController extends Controller
 {
@@ -11,9 +12,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ApiPipefy $apiPipefy)
     {
         $this->middleware('auth');
+        $this->apiPipefy = $apiPipefy;
     }
 
     /**
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        self::pipefyAuth();
+        $retorno['me'] = $this->apiPipefy->me();
+        return view('home', $retorno);
     }
 }
