@@ -231,8 +231,5 @@ return [
     ],
 
     /* Pipefy Config */
-    'PIPEFY_KEY' => env('PIPEFY_KEY',''),
-    'PIPEFY_MY_ID' => env('PIPEFY_MY_ID',''),
     'PIPEFY_ORGANIZATION_ID' => env('PIPEFY_ORGANIZATION_ID',''),
-    'PIPEFY_PIPE_IDS' => env('PIPEFY_PIPE_IDS',''),
 ];
