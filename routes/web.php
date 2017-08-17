@@ -32,6 +32,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/getCardsUser/{userId}', ['uses' => 'ApiPipefyController@getCardsUserTable', 'as' => 'api.get_cards_user_id']);
         Route::post('/getCardsUser', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
     });
+
+    /* Configs */
+    Route::group(['prefix' => 'config'], function(){
+        Route::get('/', ['uses' => 'ConfigController@index', 'as' => 'config']);
+    });
 });
 
 Auth::routes();
