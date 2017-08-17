@@ -15,7 +15,7 @@ class PipefyUser extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'email', 'username', 'pipefy_id', 'name'
+        'id', 'email', 'username', 'pipefy_id', 'name', 'avatar_url'
     ];
 
     /**
@@ -30,5 +30,10 @@ class PipefyUser extends Model
             $select = self::select('name')->where('pipefy_id', '=', $pipefy_id)->first();
             return (!is_null($select)) ? $select->name : null;
         });
+    }
+
+    public function allUsers(){
+        $select = self::orderBy('name')->get();
+            return (!is_null($select)) ? $select : null;
     }
 }
