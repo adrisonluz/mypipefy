@@ -15,7 +15,7 @@ $(document).ready(function() {
                     var diff_days = calculaDias(card.due, true);
                     var classColor = '';
 
-                    if(card.phaseName.toUpperCase() !== 'PENDENTE'){
+                    if(card.phaseName.toUpperCase() !== 'PENDENTE' && card.due !== null){
                         switch(diff_days){
                             case false:
                                 classColor = 'normal';
@@ -26,6 +26,8 @@ $(document).ready(function() {
                             default:
                                 classColor = 'very_atrasado';
                         }
+                    }else if(card.due == null){
+                        classColor = 'atrasado';
                     }else{
                         classColor = 'pendente';
                     }
@@ -36,7 +38,7 @@ $(document).ready(function() {
                     $tr += '<td>'+card.link_pipe+'</td>';
                     $tr += '<td>'+card.card_title+'</td>';
                     $tr += '<td>'+card.client_name+'</td>';
-    				$tr += '<td>'+card.due+'</td>';
+    				$tr += '<td>'+(card.due == null ? 'SEM DUE' : card.due)+'</td>';
     				$tr += '</tr>';
     				$table.children('tbody').append($tr);
     			});
@@ -94,33 +96,27 @@ function loaderPulse(){
     },5000);
 }
 
-function calculaDias(date1, br){
-    if(br == true){
-        var arr_date = date1.split('/');
-        date1 = arr_date[2]+'-'+arr_date[1]+'-'+arr_date[0];
+function calculaDias(dateString, br){
+    var diff = 0;
+
+    if(!!dateString) {
+        /* Data tables */
+        if(br == true){
+            var arr_date = dateString.split('/');
+            dateString = arr_date[2]+'-'+arr_date[1]+'-'+arr_date[0];
+        }
+
+        var data1 = moment(dateString,'YYYY/MM/DD');
+        var data2 = moment(getToday(),'YYYY/MM/DD');
+        var diff  = data2.diff(data1, 'days');
     }
-    var data1 = moment(date1,'YYYY/MM/DD');
-    var data2 = moment(getToday(),'YYYY/MM/DD');
-    var diff  = data2.diff(data1, 'days');
 
     return ((diff <= 0) ? false : diff);
 }
 
 function getToday(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-
-    if(dd<10) {
-        dd = '0'+dd
-    }
-
-    if(mm<10) {
-        mm = '0'+mm
-    }
-
-    today = yyyy+'-'+mm+'-'+dd;
+    var data = new Date();
+    var today = data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate();
 
     return today;
 }
