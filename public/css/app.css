@@ -401,6 +401,77 @@ footer img.img-responsive.logo {
 		visibility: hidden;
 		z-index: 9999;
 }
+.my-team button:before{
+		content: "\f00d";
+		margin-right: 12px;
+		font-family: FontAwesome;
+}
+.my-team button.on-team:after{
+		content: 'Remover do time'
+}
+.my-team button.pending:after{
+		content: 'Aguardando aprovação'
+}
+.pipefy-users button.add-team:after{
+		content: 'Vem para o meu Time!';
+}
+.my-team p.not-have {
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+    padding: 30px;
+}
+.panel-body.myteam{
+	padding: 0;
+}
+.my-team .row {
+    border-bottom: 1px solid #3097d1;
+    margin: 0 0px;
+    padding: 15px 20px 15px;
+}
+.pipefy-users .row {
+    border-bottom: 1px solid #3097d1;
+    margin: 0 0px;
+    padding: 15px 20px 15px;
+}
+.panel-body.myteam .form-group {
+    padding: 0 10px;
+    margin: 10px 0;
+}
+.my-team img.avatar.img-responsive.img-thumbnail {
+    max-height: 74px;
+    max-width: 74px;
+    border-radius: 10px;
+    display: table;
+    margin-right: 0;
+    float: none;
+    margin: auto;
+}
+.pipefy-users img.avatar.img-responsive.img-thumbnail {
+    max-height: 74px;
+    max-width: 74px;
+    border-radius: 10px;
+    display: table;
+    margin-right: 0;
+    float: none;
+    margin: auto;
+}
+.pipefy-users img.avatar.img-responsive.img-thumbnail {
+    max-width: 120px;
+		border-radius: 10px;
+}
+.col-md-5.name span {
+    display: block;
+}
+.my-team button.btn.btn-default.pending {
+    margin: 19px 0;
+}
+.pipefy-users button.btn.btn-default.add-team{
+    margin: 19px 0;
+}
+.col-md-5.name span.name-user{
+	font-weight: 600;
+}
 @keyframes loarderPulse {
 		0%{transform: scale(1);}
 		50%{transform: scale(1.3);opacity: 1;}
