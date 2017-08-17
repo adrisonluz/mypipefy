@@ -35,6 +35,17 @@
                         <h3>{{$userId}} | {{$userName}}</h3>
                     </div>
                     <div class="col-md-8" data-userid="{{$userId}}">
+                        <div class="loader-tables" style="display:none;">
+                          <div class="load-pages">
+                            <div class="gif-loader">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                            </div>
+                          </div>
+                        </div>
                         <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $userId]) }}">
                             <thead class="thead-inverse">
                                 <tr>
@@ -47,10 +58,7 @@
                             </thead>
                             <tbody></tbody>
                         </table>
-                        <!-- <div class="load-datatables">
-                            <img src="{{asset('img/mypipefy.png')}}" title="Loading ..." class="animated infinite flip"/>
-                            <p><strong>Carregando ...</strong></p>
-                        </div> -->
+                        <button type="button" name="button" class="buttonUpdateTable btn btn-primary">Atualizar</button>
                     </div>
 
                     <div class="col-md-4 div-calendar">

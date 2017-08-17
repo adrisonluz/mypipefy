@@ -1,5 +1,5 @@
 {
-    "sEmptyTable": "Nenhum card encontrado",
+    "sEmptyTable": "Nenhum card encontrado, Parabens!",
     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ cards",
     "sInfoEmpty": "Mostrando 0 até 0 de 0 cards",
     "sInfoFiltered": "(Filtrados de _MAX_ cards)",
@@ -8,7 +8,7 @@
     "sLengthMenu": "_MENU_ Cards por página",
     "sLoadingRecords": "Carregando...",
     "sProcessing": "Processando...",
-    "sZeroRecords": "Nenhum card encontrado",
+    "sZeroRecords": "Nenhum card encontrado, Parabens!",
     "sSearch": "Pesquisar",
     "oPaginate": {
         "sNext": "Próximo",

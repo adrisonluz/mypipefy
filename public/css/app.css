@@ -48,7 +48,7 @@
 }
 
 .load-calendario, .load-datatables{
-	background: RGBA(249, 249, 249, 0.8);
+	background: rgba(249, 249, 249, 0.8);
 	z-index: 99999;
 	position: absolute;
 	text-align: center;
@@ -59,16 +59,11 @@
 	padding-top: 25%;
 	border-radius: 2px;
 }
-
-.load-calendario{
-}
-
 .load-calendario img, .load-datatables img{
 	width: 25%;
 	z-index: 99999;
 	margin-bottom: 20px;
 }
-
 .load-calendario img, .load-datatables img {
   animation-duration: 4s;
   animation-delay: 2s;
@@ -210,11 +205,11 @@ a.navbar-brand:hover {
 }
 
 .rodando .gif-loader span:nth-child(4){
-	animation: 1s 3s loarderPulse infinite;
+	animation: 1s 1s loarderPulse infinite;
 }
 
 .rodando .gif-loader span:nth-child(5){
-	animation: 1s 4s loarderPulse infinite;
+	animation:  1s loarderPulse infinite;
 }
 .menu-perfil-mobile ul {
     list-style: none;

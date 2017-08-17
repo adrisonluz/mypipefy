@@ -1,61 +1,6 @@
 $(document).ready(function() {
-    $('.tableDashboard').each(function(){
-    	var route = $(this).data('route');
-    	$table = $(this);
-    	$.ajax({
-    		url: route,
-    		type: 'GET',
-    		dataType: 'json',
-    		async: false,
-    		beforeSend: function(){
-    			$table.siblings('.load-datatables').fadeIn();
-    		},
-    		success: function(data){
-    			$.each(data, function(index, card){
-                    var diff_days = calculaDias(card.due, true);
-                    var classColor = '';
-
-                    if(card.phaseName.toUpperCase() !== 'PENDENTE'){
-                        switch(diff_days){
-                            case false:
-                                classColor = 'normal';
-                                break;
-                            case 1:
-                                classColor = 'atrasado';
-                                break;
-                            default:
-                                classColor = 'very_atrasado';
-                        }
-                    }else{
-                        classColor = 'pendente';
-                    }
-                    classColor = (classColor != '') ? ' class="'+classColor+'"' : '';
-
-    				var $tr = '<tr data-toggle="tooltip" title="'+card.phaseName+'"'+classColor+'>';
-                    $tr += '<td>'+card.link_card+'</td>';
-                    $tr += '<td>'+card.link_pipe+'</td>';
-                    $tr += '<td>'+card.card_title+'</td>';
-                    $tr += '<td>'+card.client_name+'</td>';
-    				$tr += '<td>'+card.due+'</td>';
-    				$tr += '</tr>';
-    				$table.children('tbody').append($tr);
-    			});
-    		},
-    		complete: function(){
-               $table.DataTable({
-                    order: [[4, 'asc']],
-                    language: {
-                        url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
-                    }
-                });
-    		}
-    	});
-    });
     $('.mobile-menu-perfil').on('click', function(){
       $('body').toggleClass('menu-perfil-active');
-    });
-    $('[data-toggle="tooltip"]').tooltip({
-        placement: (window.innerWidth < 768) ? 'top' : 'right'
     });
     $(window).scroll(function(){
         if($(this).scrollTop() >= 514){
@@ -71,7 +16,8 @@ $(document).ready(function() {
     var urlHer = location.pathname;
     if(urlHer == '/mypipefy/public/dashboard' || urlHer == '/mypipefy/public/login' || urlHer == '/mypipefy/public/' || urlHer == '/mypipefy/public/password/reset' ){
       var alturaWindow = window.innerHeight;
-      if(alturaWindow >= 637){
+      var larguraWindow = window.innerWidth;
+      if(alturaWindow >= 637 && larguraWindow >= 1000){
       	var alturaApp = $('div#app').height();
       	alturaApp += 151;
       	var margintContainer = alturaWindow - alturaApp
@@ -79,6 +25,14 @@ $(document).ready(function() {
       	margintContainer
       }
     }
+    $('.buttonUpdateTable').on('click', function(){
+        $('.loader-tables').fadeIn();
+        setTimeout(function(){
+          updateTables();
+          $('.loader-tables').fadeOut();
+        }, 1000);
+    });
+    updateTables();
 });
 
 $(window).on('load', function(){
@@ -90,10 +44,69 @@ function loaderPulse(){
       $('body').removeClass('rodando');
       setTimeout(function(){
         $('body').addClass('rodando');
-      },400);
-    },5000);
+      },100);
+    },3000);
 }
 
+function updateTables(){
+  $('.tableDashboard').each(function(){
+    $(this).DataTable().destroy();
+    $(this).find('tbody').html('');
+  	var route = $(this).data('route');
+  	$table = $(this);
+  	$.ajax({
+  		url: route,
+  		type: 'GET',
+  		dataType: 'json',
+  		async: false,
+  		beforeSend: function(){
+  			$table.siblings('.load-datatables').fadeIn();
+  		},
+  		success: function(data){
+  			$.each(data, function(index, card){
+                  var diff_days = calculaDias(card.due, true);
+                  var classColor = '';
+
+                  if(card.phaseName.toUpperCase() !== 'PENDENTE'){
+                      switch(diff_days){
+                          case false:
+                              classColor = 'normal';
+                              break;
+                          case 1:
+                              classColor = 'atrasado';
+                              break;
+                          default:
+                              classColor = 'very_atrasado';
+                      }
+                  }else{
+                      classColor = 'pendente';
+                  }
+                  classColor = (classColor != '') ? ' class="'+classColor+'"' : '';
+
+  				var $tr = '<tr data-toggle="tooltip" title="'+card.phaseName+'"'+classColor+'>';
+                  $tr += '<td>'+card.link_card+'</td>';
+                  $tr += '<td>'+card.link_pipe+'</td>';
+                  $tr += '<td>'+card.card_title+'</td>';
+                  $tr += '<td>'+card.client_name+'</td>';
+  				$tr += '<td>'+card.due+'</td>';
+  				$tr += '</tr>';
+  				$table.children('tbody').append($tr);
+  			});
+  		},
+  		complete: function(){
+             $table.DataTable({
+                  order: [[4, 'asc']],
+                  language: {
+                      url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
+                  }
+              });
+  		}
+  	});
+  });
+  $('[data-toggle="tooltip"]').tooltip({
+      placement: (window.innerWidth < 768) ? 'top' : 'right'
+  });
+}
 function calculaDias(date1, br){
     if(br == true){
         var arr_date = date1.split('/');

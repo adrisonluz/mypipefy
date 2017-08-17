@@ -17,7 +17,11 @@
   <link href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
   @stack('styles')
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <link href="{{ asset('css/default.css') }}" rel="stylesheet">
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 </head>
 <body class="rodando">
   <div class="loader">
@@ -67,7 +71,7 @@
                   {{ csrf_field() }}
                 </form>
               </li>
-              <li><a href="#">Configurações</a></li>
+              <li><a href="config">Configurações</a></li>
             </ul>
           </div>
         </div>
@@ -130,7 +134,7 @@
                       {{ csrf_field() }}
                     </form>
                   </li>
-                  <li><a href="#">Configurações</a></li>
+                  <li><a href="config">Configurações</a></li>
                 </ul>
               </li>
             </ul>
