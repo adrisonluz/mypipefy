@@ -40,7 +40,7 @@ class PipefyUsers extends Command
      */
     public function handle()
     {
-        $email = $this->ask('Informe o seu Email:');
+        $email = $this->ask('Informe o seu Email');
         $token = User::getUserToken($email);
 
         if(is_null($token)){
@@ -50,6 +50,9 @@ class PipefyUsers extends Command
         $apiPipefy = new ApiPipefy;
         $apiPipefy->key = $token;
         $users = $apiPipefy->getUsers();
+
+        $bar = $this->output->createProgressBar(count($users));
+        
         if(!is_null($users)){
             foreach($users as $user){
                 $pipefyUser = PipefyUsersDB::firstOrNew(['email' => $user->user->email]);
@@ -58,13 +61,15 @@ class PipefyUsers extends Command
                 $pipefyUser->username = $user->user->username;
                 $pipefyUser->name = $user->user->name;
                 $pipefyUser->pipefy_id = $user->user->id;
+                $pipefyUser->avatar_url = $user->user->avatarUrl;
 
                 $pipefyUser->save();
+                $bar->advance();
             }
         }else{
            $this->error('Houve um problema na comunicação com a Api do Pipefy'); 
         }
-
-        $this->info('Usuários importados com sucesso!');
+        $bar->finish();
+        $this->info("\nUsuários importados com sucesso!");
     }
 }

@@ -34,7 +34,6 @@ class ListController extends Controller
 
 
         $retorno['me'] = $this->apiPipefy->me();
-        $retorno['allPipes'] = $this->apiPipefy->allPipes();
 
         return view('team', $retorno);
     }

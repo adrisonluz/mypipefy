@@ -68,10 +68,6 @@
                             </div>
                             <div class="panel-body">
                                 <div class='calendar calendar_{{$userId}}' data-userid="{{$userId}}" data-route="{{route('api.get_cards_user')}}">
-                                    <!-- <div class="load-calendario">
-                                        <img src="{{asset('img/mypipefy.png')}}" title="Loading ..." class="animated infinite flip"/>
-                                        <p><strong>Carregando ...</strong></p>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
