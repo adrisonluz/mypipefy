@@ -59,19 +59,18 @@
                             <h4><strong>Gráficos</strong></h4>
                         </div>
                         <div class="panel-body">
-                            @if (count($allPipes->pipes) > 0)
+                          @if (count($allPipes->pipes) > 0)
                             @foreach($allPipes->pipes as $pipe)
-                            <div class="panel panel-default">
-                                <div class="panel-heading">{{$pipe->id}}: {{$pipe->name}} <button class="btn btn-xs btn-primary pull-right" data-toggle="collapse" data-target="#{{$pipe->id}}">&#9660;</button></div>
-
-                                <div id="{{$pipe->id}}" class="panel-body collapse">
-                                    <div class="chart-container" style="position: relative;">
-                                        <canvas id="chart_{{$pipe->id}}"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+                              <div class="panel panel-default">
+                                  <div class="panel-heading">{{$pipe->id}}: {{$pipe->name}} <button class="btn btn-xs btn-primary pull-right" data-toggle="collapse" data-target="#{{$pipe->id}}">&#9660;</button></div>
+                                  <div id="{{$pipe->id}}" class="panel-body collapse">
+                                      <div class="chart-container" style="position: relative;">
+                                          <canvas id="chart_{{$pipe->id}}"></canvas>
+                                      </div>
+                                  </div>
+                              </div>
                             @endforeach
-                            @endif
+                          @endif
                         </div>
                     </div>
                 </div>

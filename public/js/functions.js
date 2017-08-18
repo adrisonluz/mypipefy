@@ -50,7 +50,7 @@ $(document).ready(function() {
                       url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
                   }
               });
-		} 
+		}
 	});
 });
 
@@ -70,18 +70,19 @@ $('.click-to-top').on('click', function(){
   $('html,body').animate({ scrollTop:0 }, 800);
 });
 
-var urlHer = location.pathname;
-if(urlHer == '/mypipefy/public/dashboard' || urlHer == '/mypipefy/public/login' || urlHer == '/mypipefy/public/' || urlHer == '/mypipefy/public/password/reset' ){
-  var alturaWindow = window.innerHeight;
-  var larguraWindow = window.innerWidth;
-  if(alturaWindow >= 637 && larguraWindow >= 1000){
-  	var alturaApp = $('div#app').height();
-  	alturaApp += 151;
-  	var margintContainer = alturaWindow - alturaApp
-  	$('div#app').css('margin-bottom',margintContainer+'px');
-  	margintContainer
+  var alturaWindow  = window.innerHeight;
+  var larguraWindow = window.innerWidth,
+      alturaApp     = $('div#app').height();
+  var urlHer = location.pathname;
+  if(alturaApp < alturaWindow){
+    if(alturaWindow >= 637 && larguraWindow >= 1000){
+    	var alturaApp = $('div#app').height();
+    	alturaApp += 151;
+    	var margintContainer = alturaWindow - alturaApp
+    	$('div#app').css('margin-bottom',margintContainer+'px');
+    	margintContainer
+    }
   }
-}
 
 $('.buttonUpdateTable').on('click', function(){
   $('.loader-tables').fadeIn();
