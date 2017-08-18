@@ -57,7 +57,7 @@
                                 <span>{{ '@'.$user->username }}</span>
                               @endif
                               @if($user->email)
-                                <span>{{ $user->email }}</span>
+                                <span class="email-user">{{ $user->email }}</span>
                               @endif
                             </div>
                             <div class="col-md-5">

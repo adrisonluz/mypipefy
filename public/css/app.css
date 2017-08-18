@@ -472,6 +472,9 @@ footer img.img-responsive.logo {
 .col-md-5.name span.name-user{
 	font-weight: 600;
 }
+span.email-user {
+    font-size: 13px;
+}
 @keyframes loarderPulse {
 		0%{transform: scale(1);}
 		50%{transform: scale(1.3);opacity: 1;}
