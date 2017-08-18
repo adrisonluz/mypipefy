@@ -45,6 +45,7 @@ $(function(){
 
 });
 $(window).on('load', function(){
+    console.clear();
     $('.config img.avatar.img-responsive.img-thumbnail').each(function(){
     	var alturaImage = $(this).height();
     	var tamanhoImage = $(this).width();
