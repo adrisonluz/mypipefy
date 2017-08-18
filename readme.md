@@ -45,3 +45,7 @@ php artisan migrate
 ### Criando seu usuário
 
 Agora você deve acessar a url do sistema, que provavelmente será "http://localhost/mypipefy/public/", e cadastrar seu usuário. Clique em "Cadastro" no menu superior e preencha os campos do formulário. Lembrando que o email deve ser o mesmo utilizado para logar no Pipefy.
+
+Para concluir, você precisa fazer download da base de usuários de sua organização. Para isso entre novamente no terminal e digite o seguinte comando e siga as instruções:
+
+php artisan pipefy:users
