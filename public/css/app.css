@@ -350,7 +350,7 @@ div#app > .container {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 999999;
 }
 .modal-info-body {
 		width: 90%;
@@ -358,8 +358,8 @@ div#app > .container {
 		max-width: 800px;
 		margin: auto;
 		background: #eee;
-		padding: 10px;
-		box-shadow: 0 0 37px #fff;
+		padding: 20px;
+		box-shadow: 0 0 37px #3097D1;
 		margin-top: 100px;
 		border-radius: 5px;
 }
@@ -374,9 +374,14 @@ span.close-modal-info {
 .fa-remove:before, .fa-close:before, .fa-times:before {
     content: "\f00d";
     text-shadow: 0 0 15px #000;
+		transition: .4s all ease;
+}
+span.close-modal-info:hover i.fa.fa-times:before {
+    text-shadow: 0 0 15px #fff;
 }
 h3.title-info {
     margin: 0;
+    font-weight: 900;
 }
 footer {
 		text-align: center;
