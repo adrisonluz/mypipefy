@@ -42,12 +42,21 @@ $(function(){
               $(this).parent().hide('fast');
       });
   });
-  
-  $('.config img.avatar.img-responsive.img-thumbnail').each(function(){
-  	var alturaImage = $(this).height();
-  	var tamanhoImage = $(this).width();
-  	if(alturaImage < 60 || tamanhoImage > 75){
-  		$(this).attr('src','http://localhost/mypipefy/public/img/mypipefy.png');
-  	}
-  });
+
+});
+$(window).on('load', function(){
+    $('.config img.avatar.img-responsive.img-thumbnail').each(function(){
+    	var alturaImage = $(this).height();
+    	var tamanhoImage = $(this).width();
+    	if(alturaImage !== 64 || tamanhoImage !== 64){
+    		$(this).attr('src','/mypipefy/public/img/mypipefy.png');
+    	}
+    });
+    $('span.name-user').each(function(){
+      var nomeUser = $(this).text();
+      var firstName = nomeUser.split(' ')[0],
+          lastName  = nomeUser.split(' ').pop(-1),
+          completeName = firstName +' '+lastName;
+      $(this).text(completeName);
+    });
 });

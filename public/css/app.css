@@ -485,6 +485,16 @@ footer img.img-responsive.logo {
 }
 
 @media (max-width: 768px){
+
+	.panel-body.myteam .col-md-5.name {
+	    text-align: center;
+	    margin-top: 15px;
+	}
+	.panel-body.myteam button.btn {
+	    margin: 19px auto 0 !important;
+	    float: none;
+	    display: table;
+	}
 	.loader .load-pages {
 		margin-top: 200px;
 	}
