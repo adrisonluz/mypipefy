@@ -53,11 +53,4 @@ $(window).on('load', function(){
     		$(this).attr('src','/mypipefy/public/img/mypipefy.png');
     	}
     });
-    $('span.name-user').each(function(){
-      var nomeUser = $(this).text();
-      var firstName = nomeUser.split(' ')[0],
-          lastName  = nomeUser.split(' ').pop(-1),
-          completeName = firstName +' '+lastName;
-      $(this).text(completeName);
-    });
 });

@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-md-5 name">
                               @if($user->name)
-                                <span class="name-user">{{ $user->name }}</span>
+                                <span class="name-user">{{ FirstAndLastName($user->name) }}</span>
                               @endif
                               @if($user->username)
                                 <span>{{ '@'.$user->username }}</span>
