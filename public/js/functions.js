@@ -33,11 +33,6 @@ if(alturaApp < alturaWindow){
 }
 
 $('.buttonUpdateTable').on('click', function(){
-  $('.loader-tables').fadeIn();
-  setTimeout(function(){
-    updateTables();
-    $('.loader-tables').fadeOut();
-  }, 1000);
   updateTables();
 });
 
@@ -74,7 +69,7 @@ function updateTables(){
       dataType: 'json',
       async: false,
       beforeSend: function(){
-        $table.siblings('.load-datatables').fadeIn();
+        $table.siblings('.loader-tables').fadeIn();
       },
       success: function(data){
         $.each(data, function(index, card){
@@ -108,6 +103,7 @@ function updateTables(){
         });
       },
       complete: function(){
+        $table.siblings('.loader-tables').fadeOut();
         $table.DataTable({
           order: [[4, 'asc']],
           language: {
