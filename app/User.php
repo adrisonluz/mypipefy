@@ -31,4 +31,8 @@ class User extends Authenticatable
         $select = self::select('token')->where('email', '=', $email)->first();
         return (!is_null($select)) ? $select->token : null;
     }
+
+    public function team(){
+        return $this->hasMany('App\Team');
+    }
 }
