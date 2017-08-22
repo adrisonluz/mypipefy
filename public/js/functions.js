@@ -20,8 +20,12 @@ $('.click-to-top').on('click', function(){
 
 
 $('.buttonUpdateTable').on('click', function(){
-  updateTables();
-});
+  $('.loader-tables').fadeIn();
+    setTimeout(function(){
+      updateTables();
+      $('.loader-tables').fadeOut();
+    }, 1000);
+  });
 
 $('.close-modal-info').on('click', function(){
   $('.modal-info-table').fadeOut('slow');
