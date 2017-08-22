@@ -9,13 +9,14 @@ use Cache;
 class PipefyUser extends Model
 {
     protected $table = 'pipefyusers';
+    protected $primaryKey = 'pipefy_id';
      /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id', 'email', 'username', 'pipefy_id', 'name', 'avatar_url'
+        'email', 'username', 'pipefy_id', 'name', 'avatar_url'
     ];
 
     /**
@@ -32,8 +33,10 @@ class PipefyUser extends Model
         });
     }
 
-    public function allUsers(){
-        $select = self::orderBy('name')->get();
-            return (!is_null($select)) ? $select : null;
+    public function allAvailableUsers($teamIds){
+        $select = self::orderBy('name')
+                ->whereNotIn('pipefy_id', $teamIds)
+                ->get();
+        return (!is_null($select)) ? $select : null;
     }
 }

@@ -20,9 +20,30 @@
                                 </div>
                             </div>
                         </div>
-                      </div>
-                    <div class="my-team">
-                      <p class="not-have">Não tem ninguém no seu time. Convide Alguém.</p>
+                    </div>
+                    <div class="my-team" data-route="{{ route('config.removeInvite') }}">
+                        @foreach($myTeam as $pipefyUser)
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="{{$pipefyUser->avatar_url}}" title="{{$pipefyUser->name}}" class="avatar img-responsive img-thumbnail">
+                            </div>
+                            <div class="col-md-5 name">
+                              @if($pipefyUser->name)
+                                <span class="name-user">{{ FirstAndLastName($pipefyUser->name) }}</span>
+                              @endif
+                              @if($pipefyUser->username)
+                                <span>{{ '@'.$pipefyUser->username }}</span>
+                              @endif
+                              @if($pipefyUser->email)
+                                <span class="email-user">{{ $pipefyUser->email }}</span>
+                              @endif
+                            </div>
+                            <div class="col-md-5">
+                                <button class="btn btn-default {{ $pipefyUser->phase }}" data-pipefyid="{{ $pipefyUser->pipefy_id }}"></button>
+                            </div>
+                        </div>
+                        @endforeach
+                        <p class="not-have" @if(count($myTeam) > 0) style="display: none;" @endif>Não tem membros no seu time. Convide Alguém.</p>
                     </div>
                 </div>
             </div>
@@ -43,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="pipefy-users">
+                    <div class="pipefy-users" data-route="{{ route('config.sendInvite') }}">
                         @foreach($users as $user)
                         <div class="row">
                             <div class="col-md-2">

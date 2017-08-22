@@ -33,6 +33,10 @@ class User extends Authenticatable
     }
 
     public function team(){
-        return $this->hasMany('App\Team');
+        return $this->belongsToMany(PipefyUser::class, 'teams', 'user_id', 'pipefy_id')->withPivot('status')->where('teams.status', '>', 0);;
+    }
+
+    public function teamActive(){
+        return $this->belongsToMany(PipefyUser::class, 'teams', 'user_id', 'pipefy_id')->withPivot('status')->where('teams.status', '=', 2);;
     }
 }

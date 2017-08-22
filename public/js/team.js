@@ -12,6 +12,12 @@ $(document).ready(function() {
                 right: 'month,basicWeek,basicDay'
             },
             locale: 'pt-br',
+            eventClick: function(event) {
+                if (event.url) {
+                    window.open(event.url, '_blank');
+                    return false;
+                }
+            },
             events: function(start, end, timezone, callback) {
                 $.ajax({
                     url: route,

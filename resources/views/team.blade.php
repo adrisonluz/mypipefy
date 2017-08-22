@@ -29,12 +29,12 @@
 
             <div class="panel-body">
                 @if(count($team) > 0)
-                @foreach($team as $userId => $userName)
+                @foreach($team as $pipefyUser)
                 <div class="row rowUserTeam">
                     <div class="col-xs-12">
-                        <h3>{{$userId}} | {{$userName}}</h3>
+                        <h3>{{$pipefyUser->pipefy_id}} | {{$pipefyUser->name}}</h3>
                     </div>
-                    <div class="col-md-8" data-userid="{{$userId}}">
+                    <div class="col-md-8" data-userid="{{$pipefyUser->pipefy_id}}">
                         <div class="loader-tables" style="display:none;">
                           <div class="load-pages">
                             <div class="gif-loader">
@@ -46,7 +46,7 @@
                             </div>
                           </div>
                         </div>
-                        <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $userId]) }}">
+                        <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $pipefyUser->pipefy_id]) }}">
                             <thead class="thead-inverse">
                                 <tr>
                                     <td>ID</td>
@@ -67,7 +67,7 @@
                                 <h4><strong>Tarefas Agendadas</strong></h4>
                             </div>
                             <div class="panel-body">
-                                <div class='calendar calendar_{{$userId}}' data-userid="{{$userId}}" data-route="{{route('api.get_cards_user')}}">
+                                <div class='calendar calendar_{{$pipefyUser->pipefy_id}}' data-userid="{{$pipefyUser->pipefy_id}}" data-route="{{route('api.get_cards_user')}}">
                                 </div>
                             </div>
                         </div>

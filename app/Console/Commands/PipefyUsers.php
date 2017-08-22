@@ -55,7 +55,7 @@ class PipefyUsers extends Command
         
         if(!is_null($users)){
             foreach($users as $user){
-                $pipefyUser = PipefyUsersDB::firstOrNew(['email' => $user->user->email]);
+                $pipefyUser = PipefyUsersDB::updateOrCreate(['email' => $user->user->email]);
 
                 $pipefyUser->email = $user->user->email;
                 $pipefyUser->username = $user->user->username;

@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
     /* Configs */
     Route::group(['prefix' => 'config'], function(){
         Route::get('/', ['uses' => 'ConfigController@index', 'as' => 'config']);
+        Route::post('/sendInvite', ['uses' => 'TeamController@sendInvite', 'as' => 'config.sendInvite']);
+        Route::post('/removeInvite', ['uses' => 'TeamController@removeInvite', 'as' => 'config.removeInvite']);
     });
 });
 

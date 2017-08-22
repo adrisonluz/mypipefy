@@ -1,56 +1,85 @@
 $(function(){
+  var _token = $('input[name=_token]').val();
   $(".container").delegate('.pipefy-users .add-team', 'click', function(event) {
-      var pipefy_id = $(this).data('pipefyid');
-      var $row = $(this).parent().parent();
-      var $clone = $row.clone();
-      $clone.find('button').removeClass('add-team').addClass('pending');
-      $row.remove();
-      $(".my-team").prepend($clone);
-      $('p.not-have').fadeOut();
+    var pipefy_id = $(this).data('pipefyid');
+    var $row = $(this).parent().parent();
+    var $clone = $row.clone();
+    $.ajax({
+      url: $(".pipefy-users").data('route'),
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        pipefy_id: pipefy_id,
+        _token: _token
+      },
+      success: function(result){
+        if(result.success){
+          $clone.find('button').removeClass('add-team').addClass('pending');
+          $row.remove();
+          $(".my-team").prepend($clone);
+          $('p.not-have').fadeOut();
+        }
+      }
+    });
   });
 
-   $(".container").delegate('.my-team button', 'click', function(event) {
-      var pipefy_id = $(this).data('pipefyid');
-      var $row = $(this).parent().parent();
-      var $clone = $row.clone();
-      $clone.find('button').addClass('add-team').removeClass('pending');
-      $row.remove();
-      $(".pipefy-users").prepend($clone);
+  $(".container").delegate('.my-team button', 'click', function(event) {
+    var pipefy_id = $(this).data('pipefyid');
+    var $row = $(this).parent().parent();
+    var $clone = $row.clone();
 
-      var numberRowTeam = $('.my-team .row').length;
-      if(!numberRowTeam){$('p.not-have').fadeIn();}
+    $.ajax({
+      url: $(".my-team").data('route'),
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        pipefy_id: pipefy_id,
+        _token: _token
+      },
+      success: function(result){
+        if(result.success){
+          $clone.find('button').addClass('add-team').removeClass('pending');
+          $row.remove();
+          $(".pipefy-users").prepend($clone);
+
+          if($('.my-team .row').length == 0){
+            $('p.not-have').fadeIn();
+          }
+        }
+      }
+    });
   });
 
   $("[name=filter]").on('keyup', function(){
-      var pesquisa = $(this).val();
-      pesquisa = pesquisa.toUpperCase();
-      $(".pipefy-users .name").each(function(){
-          if($(this).text().toUpperCase().indexOf(pesquisa) >= 0)
-              $(this).parent().show('fast');
-          else
-              $(this).parent().hide('fast');
-      });
+    var pesquisa = $(this).val();
+    pesquisa = pesquisa.toUpperCase();
+    $(".pipefy-users .name").each(function(){
+      if($(this).text().toUpperCase().indexOf(pesquisa) >= 0)
+        $(this).parent().show('fast');
+      else
+        $(this).parent().hide('fast');
+    });
   });
 
   $("[name=memberFilter]").on('keyup', function(){
-      var pesquisa = $(this).val();
-      pesquisa = pesquisa.toUpperCase();
-      $(".my-team .name").each(function(){
-          if($(this).text().toUpperCase().indexOf(pesquisa) >= 0)
-              $(this).parent().show('fast');
-          else
-              $(this).parent().hide('fast');
-      });
-  });
-
-});
-$(window).on('load', function(){
-    console.clear();
-    $('.config img.avatar.img-responsive.img-thumbnail').each(function(){
-    	var alturaImage = $(this).height();
-    	var tamanhoImage = $(this).width();
-    	if(alturaImage !== 64 || tamanhoImage !== 64){
-    		$(this).attr('src','/mypipefy/public/img/mypipefy.png');
-    	}
+    var pesquisa = $(this).val();
+    pesquisa = pesquisa.toUpperCase();
+    $(".my-team .name").each(function(){
+      if($(this).text().toUpperCase().indexOf(pesquisa) >= 0)
+        $(this).parent().show('fast');
+      else
+        $(this).parent().hide('fast');
     });
+  });
+});
+
+$(window).on('load', function(){
+  console.clear();
+  $('.config img.avatar.img-responsive.img-thumbnail').each(function(){
+    var alturaImage = $(this).height();
+    var tamanhoImage = $(this).width();
+    if(alturaImage !== 64 || tamanhoImage !== 64){
+      $(this).attr('src','/mypipefy/public/img/mypipefy.png');
+    }
+  });
 });

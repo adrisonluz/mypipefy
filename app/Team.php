@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
-{
-    public function myTeam(){
-    	return $this->belongsTo('App\User');
-    }
+class Team extends Model{
+	protected $fillable = [
+        'id', 'user_id', 'pipefy_id', 'status',
+    ];
 }
