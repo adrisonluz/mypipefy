@@ -1,4 +1,4 @@
-$(function(){
+jQuery(document).ready(function($) {
   var _token = $('input[name=_token]').val();
   $(".container").delegate('.pipefy-users .add-team', 'click', function(event) {
     var pipefy_id = $(this).data('pipefyid');
@@ -71,6 +71,32 @@ $(function(){
         $(this).parent().hide('fast');
     });
   });
+
+  $(".my-team").sortable({
+      stop: function(){
+        reorder();
+      }
+  });
+  $(".my-team").disableSelection();
+
+  function reorder(){
+    var order = [];
+
+    $(".my-team .row").each(function(index){
+        var pipefyid = $(this).find('[data-pipefyid]').data('pipefyid');
+        order[index] = pipefyid;
+    });
+
+    $.ajax({
+      url: $(".my-team").data('orderroute'),
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        order: order,
+        _token: _token
+      }
+    });
+  }
 });
 
 $(window).on('load', function(){

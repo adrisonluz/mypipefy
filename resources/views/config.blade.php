@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
 @push('scripts')
-<script src="{{ asset('js/config.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ asset('js/config.js') }}"></script>
 @endpush
 <div class="container config">
     <div class="row">
@@ -21,7 +22,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="my-team" data-route="{{ route('config.removeInvite') }}">
+                    <div class="my-team" data-route="{{ route('config.removeInvite') }}" data-orderroute="{{ route('config.reorder') }}">
                         @foreach($myTeam as $pipefyUser)
                         <div class="row">
                             <div class="col-md-2">
