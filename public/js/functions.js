@@ -36,15 +36,16 @@ $(window).on('load', function(){
   var larguraWindow = window.innerWidth,
   alturaApp         = $('div#app').height();
   var urlHer        = location.pathname;
-
-  if(alturaApp < alturaWindow){
-    if(alturaWindow >= 700 && larguraWindow >= 1000){
-      var alturaApp = $('div#app').height();
-      alturaApp += 151;
-      var margintContainer = alturaWindow - alturaApp
-      $('div#app').css('margin-bottom', margintContainer+'px');
+  if(urlHer != '/mypipefy/public/login'){
+    if(alturaApp < alturaWindow){
+      if(alturaWindow >= 635 && larguraWindow >= 1000){
+        var alturaApp = $('div#app').height();
+        alturaApp += 151;
+        var margintContainer = alturaWindow - alturaApp
+        $('div#app').css('margin-bottom', margintContainer+'px');
+      }
     }
-  }
+}
   $('.loader').fadeOut('slow');
 });
 
