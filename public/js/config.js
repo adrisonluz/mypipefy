@@ -1,6 +1,8 @@
 jQuery(document).ready(function($) {
   var _token = $('input[name=_token]').val();
   $(".container").delegate('.pipefy-users .add-team', 'click', function(event) {
+    var $botao = $(this);
+    $botao.prop('disabled', true);
     var pipefy_id = $(this).data('pipefyid');
     var $row = $(this).parent().parent();
     var $clone = $row.clone();
@@ -14,16 +16,23 @@ jQuery(document).ready(function($) {
       },
       success: function(result){
         if(result.success){
-          $clone.find('button').removeClass('add-team').addClass('pending');
+          $clone.find('button').removeClass('add-team').addClass('pending').prop('disabled', false);
           $row.remove();
           $(".my-team").prepend($clone);
           $('p.not-have').fadeOut();
+        }else{
+          $botao.prop('disabled', false);
         }
+      },
+      error: function(){
+        $botao.prop('disabled', false);
       }
     });
   });
 
   $(".container").delegate('.my-team button', 'click', function(event) {
+    var $botao = $(this);
+    $botao.prop('disabled', true);
     var pipefy_id = $(this).data('pipefyid');
     var $row = $(this).parent().parent();
     var $clone = $row.clone();
@@ -38,14 +47,19 @@ jQuery(document).ready(function($) {
       },
       success: function(result){
         if(result.success){
-          $clone.find('button').addClass('add-team').removeClass('pending');
+          $clone.find('button').addClass('add-team').removeClass('pending').prop('disabled', false);
           $row.remove();
           $(".pipefy-users").prepend($clone);
 
           if($('.my-team .row').length == 0){
             $('p.not-have').fadeIn();
           }
+        }else{
+          $botao.prop('disabled', false);
         }
+      },
+      error: function(){
+        $botao.prop('disabled', false);
       }
     });
   });

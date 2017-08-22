@@ -32,6 +32,7 @@
                 @foreach($team as $pipefyUser)
                 <div class="row rowUserTeam">
                     <div class="col-xs-12">
+                        <img src="{{$pipefyUser->avatar_url}}" title="{{$pipefyUser->name}}" class="avatar img-responsive img-thumbnail">
                         <h3>{{$pipefyUser->pipefy_id}} | {{$pipefyUser->name}}</h3>
                     </div>
                     <div class="col-md-8" data-userid="{{$pipefyUser->pipefy_id}}">

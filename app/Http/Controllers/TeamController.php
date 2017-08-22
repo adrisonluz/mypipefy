@@ -18,13 +18,14 @@ class TeamController extends Controller
 
     private function changeStatus(Request $request, $status){
         $team = Team::updateOrCreate([
-            'user_id' => Auth::user()->id,
+            'user_id'   => Auth::user()->id,
             'pipefy_id' => $request->get('pipefy_id'),
         ]);
 
-        $team->user_id = Auth::user()->id;
+        $team->user_id   = Auth::user()->id;
         $team->pipefy_id = $request->get('pipefy_id');
-        $team->status = $status;
+        $team->status    = $status;
+        $team->order     = 0;
 
         return json_encode(['success' => $team->save()]);
     }
@@ -32,13 +33,13 @@ class TeamController extends Controller
     public function reorder(Request $request){
         foreach($request->get('order') as $order => $pipefy_id){
             $team = Team::updateOrCreate([
-                'user_id' => Auth::user()->id,
+                'user_id'   => Auth::user()->id,
                 'pipefy_id' => $pipefy_id,
             ]);
 
-            $team->user_id = Auth::user()->id;
+            $team->user_id   = Auth::user()->id;
             $team->pipefy_id = $pipefy_id;
-            $team->order = $order;
+            $team->order     = $order;
 
             $team->save();
         }
