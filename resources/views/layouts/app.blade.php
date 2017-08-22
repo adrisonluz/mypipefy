@@ -86,7 +86,12 @@
           <li><a href="{{ route('register') }}">Cadastro</a></li>
           @else
           <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-          <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
+          <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu Time <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
+                <li><a href="{{ route('config') }}">Configurações De Time</a></li>
+            </ul>
+          </li>
           @endif
         </ul>
         <div class="collapse navbar-collapse">
@@ -104,7 +109,12 @@
               <li><a href="{{ route('register') }}">Cadastro</a></li>
               @else
               <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-              <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
+              <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu Time <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
+                  <li><a href="{{ route('config') }}">Configurações De Time</a></li>
+              </ul>
+              </li>
               @endif
             </ul>
 
