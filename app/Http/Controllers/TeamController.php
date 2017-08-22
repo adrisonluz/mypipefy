@@ -28,4 +28,19 @@ class TeamController extends Controller
 
         return json_encode(['success' => $team->save()]);
     }
+
+    public function reorder(Request $request){
+        foreach($request->get('order') as $order => $pipefy_id){
+            $team = Team::updateOrCreate([
+                'user_id' => Auth::user()->id,
+                'pipefy_id' => $pipefy_id,
+            ]);
+
+            $team->user_id = Auth::user()->id;
+            $team->pipefy_id = $pipefy_id;
+            $team->order = $order;
+
+            $team->save();
+        }
+    }
 }

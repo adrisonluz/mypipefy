@@ -93,10 +93,10 @@ function updateTables(){
           classColor = (classColor != '') ? ' class="'+classColor+'"' : '';
 
           var $tr = '<tr data-toggle="tooltip" title="'+card.phaseName+'"'+classColor+'>';
-          $tr += '<td>'+card.link_card+'</td>';
-          $tr += '<td>'+card.link_pipe+'</td>';
-          $tr += '<td>'+card.card_title+'</td>';
-          $tr += '<td>'+card.client_name+'</td>';
+          $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'#cards/'+card.cardId+'" target="_blank">'+card.cardId+'</a></td>';
+          $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'" target="_blank">'+card.pipeName+'</a></td>';
+          $tr += '<td>'+card.cardTitle+'</td>';
+          $tr += '<td>'+card.clientName+'</td>';
           $tr += '<td>'+card.due+'</td>';
           $tr += '</tr>';
           $table.children('tbody').append($tr);
