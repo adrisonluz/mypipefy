@@ -18,19 +18,6 @@ $('.click-to-top').on('click', function(){
   $('html,body').animate({ scrollTop:0 }, 800);
 });
 
-var alturaWindow  = window.innerHeight;
-var larguraWindow = window.innerWidth,
-alturaApp         = $('div#app').height();
-var urlHer        = location.pathname;
-
-if(alturaApp < alturaWindow){
-  if(alturaWindow >= 637 && larguraWindow >= 1000){
-    var alturaApp = $('div#app').height();
-    alturaApp += 151;
-    var margintContainer = alturaWindow - alturaApp
-    $('div#app').css('margin-bottom', margintContainer+'px');
-  }
-}
 
 $('.buttonUpdateTable').on('click', function(){
   updateTables();
@@ -44,6 +31,20 @@ $('tbody tr').on('click', function(){
 });
 
 $(window).on('load', function(){
+
+  var alturaWindow  = window.innerHeight;
+  var larguraWindow = window.innerWidth,
+  alturaApp         = $('div#app').height();
+  var urlHer        = location.pathname;
+
+  if(alturaApp < alturaWindow){
+    if(alturaWindow >= 700 && larguraWindow >= 1000){
+      var alturaApp = $('div#app').height();
+      alturaApp += 151;
+      var margintContainer = alturaWindow - alturaApp
+      $('div#app').css('margin-bottom', margintContainer+'px');
+    }
+  }
   $('.loader').fadeOut('slow');
 });
 
