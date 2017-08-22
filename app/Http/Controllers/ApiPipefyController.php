@@ -42,6 +42,8 @@ class ApiPipefyController extends Controller
                 if($due !== null){
                     $dateTime = new \DateTime($due);
                     $due = $dateTime->format('Y-m-d');
+                }else{
+                    $due = '0000-00-00';
                 }
 
     			$cards[] = [
@@ -70,6 +72,8 @@ class ApiPipefyController extends Controller
                 if($due !== null){
                     $dateTime = new \DateTime($due);
                     $due = $dateTime->format('d/m/Y');
+                }else{
+                    $due = "SEM DUE";
                 }
 
                 $cliente = '';

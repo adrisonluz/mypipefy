@@ -21,19 +21,16 @@
 <div class="container">
     <div class="row">
         {{ csrf_field() }}
-
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h1>Dashboard Team</h1>
             </div>
-
             <div class="panel-body">
                 @if(count($team) > 0)
                 @foreach($team as $pipefyUser)
                 <div class="row rowUserTeam">
                     <div class="col-xs-12">
-                        <img src="{{$pipefyUser->avatar_url}}" title="{{$pipefyUser->name}}" class="avatar img-responsive img-thumbnail">
-                        <h3>{{$pipefyUser->pipefy_id}} | {{$pipefyUser->name}}</h3>
+                        <h3><img src="{{$pipefyUser->avatar_url}}" title="{{$pipefyUser->name}}" class="avatar img-responsive img-thumbnail">{{$pipefyUser->pipefy_id}} | {{$pipefyUser->name}}</h3>
                     </div>
                     <div class="col-md-8" data-userid="{{$pipefyUser->pipefy_id}}">
                         <div class="loader-tables" style="display:none;">
@@ -61,7 +58,6 @@
                         </table>
                         <button type="button" name="button" class="buttonUpdateTable btn btn-primary">Atualizar</button>
                     </div>
-
                     <div class="col-md-4 div-calendar">
                         <div class="panel panel-info">
                             <div class="panel-heading">
