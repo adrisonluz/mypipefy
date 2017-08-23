@@ -119,7 +119,7 @@ $(window).on('load', function(){
     var alturaImage = $(this).height();
     var tamanhoImage = $(this).width();
     if(alturaImage !== 64 || tamanhoImage !== 64){
-      $(this).attr('src','/mypipefy/public/img/mypipefy.png');
+      $(this).attr('src', $("base").attr('href')+'img/mypipefy.png');
     }
   });
 });

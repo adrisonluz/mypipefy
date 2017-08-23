@@ -20,12 +20,17 @@ $('.click-to-top').on('click', function(){
 
 
 $('.buttonUpdateTable').on('click', function(){
-  $('.loader-tables').fadeIn();
-    setTimeout(function(){
-      updateTables();
-      $('.loader-tables').fadeOut();
-    }, 1000);
-  });
+  var $button = $(this);
+  //Atualiza o cálendário
+  $button.parent().parent().find('.calendar').fullCalendar('refetchEvents');
+
+  //Atualiza a tabela
+  $button.siblings('.loader-tables').fadeIn();
+  setTimeout(function(){
+    updateTables($button.siblings('.dataTables_wrapper').find('.tableDashboard'));
+    $button.siblings('.loader-tables').fadeOut();
+  }, 1000);
+});
 
 $('.close-modal-info').on('click', function(){
   $('.modal-info-table').fadeOut('slow');
@@ -62,65 +67,73 @@ function loaderPulse(){
   },3000);
 }
 
-function updateTables(){
-  $('.tableDashboard').each(function(){
-    $table = $(this);
-    $table.DataTable().destroy();
-    $table.find('tbody').html('');
-    var route = $table.data('route');
-    $table.children('tbody').html('');
-    $.ajax({
-      url: route,
-      type: 'GET',
-      dataType: 'json',
-      async: false,
-      beforeSend: function(){
-        $table.siblings('.loader-tables').fadeIn();
-      },
-      success: function(data){
-        $.each(data, function(index, card){
-          var diff_days = calculaDias(card.due, true);
-          var classColor = '';
-
-          if(card.phaseName.toUpperCase() !== 'PENDENTE'){
-            switch(diff_days){
-              case false:
-                classColor = 'normal';
-              break;
-              case 1:
-                classColor = 'atrasado';
-              break;
-              default:
-                classColor = 'very_atrasado';
-            }
-          }else{
-            classColor = 'pendente';
-          }
-          classColor = (classColor != '') ? ' class="'+classColor+'"' : '';
-
-          var $tr = '<tr data-toggle="tooltip" title="'+card.phaseName+'"'+classColor+'>';
-          $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'#cards/'+card.cardId+'" target="_blank">'+card.cardId+'</a></td>';
-          $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'" target="_blank">'+card.pipeName+'</a></td>';
-          $tr += '<td>'+card.cardTitle+'</td>';
-          $tr += '<td>'+card.clientName+'</td>';
-          $tr += '<td>'+card.due+'</td>';
-          $tr += '</tr>';
-          $table.children('tbody').append($tr);
-        });
-      },
-      complete: function(){
-        $table.siblings('.loader-tables').fadeOut();
-        $table.DataTable({
-          order: [[4, 'asc']],
-          language: {
-            url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
-          }
-        });
-        $('[data-toggle="tooltip"]').tooltip({
-          placement: (window.innerWidth < 768) ? 'top' : 'right'
-        });
-      }
+function updateTables($table){
+  if($table === undefined){
+    $('.tableDashboard').each(function(){
+      $table = $(this);
+      reloadtables($table);
     });
+  }else{
+    reloadtables($table);
+  }
+}
+
+function reloadtables($table){
+  $table.DataTable().destroy();
+  $table.find('tbody').html('');
+  var route = $table.data('route');
+  $table.children('tbody').html('');
+  $.ajax({
+    url: route,
+    type: 'GET',
+    dataType: 'json',
+    async: false,
+    beforeSend: function(){
+      $table.siblings('.loader-tables').fadeIn();
+    },
+    success: function(data){
+      $.each(data, function(index, card){
+        var diff_days = calculaDias(card.due, true);
+        var classColor = '';
+
+        if(card.phaseName.toUpperCase() !== 'PENDENTE'){
+          switch(diff_days){
+            case false:
+            classColor = 'normal';
+            break;
+            case 1:
+            classColor = 'atrasado';
+            break;
+            default:
+            classColor = 'very_atrasado';
+          }
+        }else{
+          classColor = 'pendente';
+        }
+        classColor = (classColor != '') ? ' class="'+classColor+'"' : '';
+
+        var $tr = '<tr data-toggle="tooltip" title="'+card.phaseName+'"'+classColor+'>';
+        $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'#cards/'+card.cardId+'" target="_blank">'+card.cardId+'</a></td>';
+        $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'" target="_blank">'+card.pipeName+'</a></td>';
+        $tr += '<td>'+card.cardTitle+'</td>';
+        $tr += '<td>'+card.clientName+'</td>';
+        $tr += '<td>'+card.due+'</td>';
+        $tr += '</tr>';
+        $table.children('tbody').append($tr);
+      });
+    },
+    complete: function(){
+      $table.siblings('.loader-tables').fadeOut();
+      $table.DataTable({
+        order: [[4, 'asc']],
+        language: {
+          url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
+        }
+      });
+      $('[data-toggle="tooltip"]').tooltip({
+        placement: (window.innerWidth < 768) ? 'top' : 'right'
+      });
+    }
   });
 }
 
