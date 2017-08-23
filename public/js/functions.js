@@ -21,7 +21,7 @@ $('.click-to-top').on('click', function(){
 
 $('.buttonUpdateTable').on('click', function(){
   var $button = $(this);
-  //Atualiza o cálendário
+  //Atualiza o calendário
   if($button.parent().parent().find('.calendar').length > 0)
     $button.parent().parent().find('.calendar').fullCalendar('refetchEvents');
 
