@@ -22,7 +22,8 @@ $('.click-to-top').on('click', function(){
 $('.buttonUpdateTable').on('click', function(){
   var $button = $(this);
   //Atualiza o cálendário
-  $button.parent().parent().find('.calendar').fullCalendar('refetchEvents');
+  if($button.parent().parent().find('.calendar').length > 0)
+    $button.parent().parent().find('.calendar').fullCalendar('refetchEvents');
 
   //Atualiza a tabela
   $button.siblings('.loader-tables').fadeIn();
