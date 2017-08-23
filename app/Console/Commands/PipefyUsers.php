@@ -55,15 +55,14 @@ class PipefyUsers extends Command
         
         if(!is_null($users)){
             foreach($users as $user){
-                $pipefyUser = PipefyUsersDB::updateOrCreate(['email' => $user->user->email]);
+                $pipefyUser = PipefyUsersDB::updateOrCreate([
+                    'email' => $user->user->email,
+                    'username' => $user->user->username,
+                    'name' => $user->user->name,
+                    'pipefy_id' => $user->user->id,
+                    'avatar_url' => $user->user->avatarUrl
+                ]);
 
-                $pipefyUser->email = $user->user->email;
-                $pipefyUser->username = $user->user->username;
-                $pipefyUser->name = $user->user->name;
-                $pipefyUser->pipefy_id = $user->user->id;
-                $pipefyUser->avatar_url = $user->user->avatarUrl;
-
-                $pipefyUser->save();
                 $bar->advance();
             }
         }else{
