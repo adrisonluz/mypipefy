@@ -16,7 +16,7 @@ class ConfigController extends Controller
      */
     public function __construct(ApiPipefy $apiPipefy, PipefyUser $pipefyUser)
     {
-        parent::__construct();
+        parent::__construct($apiPipefy);
         $this->apiPipefy = $apiPipefy;
         $this->pipefyUser = $pipefyUser;
     }
