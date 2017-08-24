@@ -12,7 +12,7 @@ class ApiPipefyController extends Controller
     }
 
     public function getMe(){
-        self::pipefyAuth();
+        self::pipefyAuth(false);
 
         $me = $this->apiPipefy->me();
 
@@ -20,7 +20,7 @@ class ApiPipefyController extends Controller
     }
 
     public function onlyPipes(){
-        self::pipefyAuth();
+        self::pipefyAuth(false);
 
         $pipes = $this->apiPipefy->onlyPipes();
 
@@ -28,7 +28,7 @@ class ApiPipefyController extends Controller
     }
 
     public function getCardsUser(Request $request){
-        self::pipefyAuth();
+        self::pipefyAuth(false);
 
     	$userId = $request->get('userId');
 
@@ -60,7 +60,7 @@ class ApiPipefyController extends Controller
     }
 
     public function getCardsUserTable(Request $request, $userId){
-        self::pipefyAuth();
+        self::pipefyAuth(false);
 
         $userCards = $this->apiPipefy->userCards($userId);
 

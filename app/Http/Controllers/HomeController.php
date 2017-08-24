@@ -8,17 +8,6 @@ use App\ApiPipefy;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(ApiPipefy $apiPipefy)
-    {
-        $this->middleware('auth');
-        $this->apiPipefy = $apiPipefy;
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
@@ -26,7 +15,6 @@ class HomeController extends Controller
     public function index()
     {
         self::pipefyAuth();
-        $retorno['me'] = $this->apiPipefy->me();
-        return view('home', $retorno);
+        return view('home', $this->retorno);
     }
 }

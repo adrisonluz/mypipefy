@@ -16,7 +16,7 @@ class ConfigController extends Controller
      */
     public function __construct(ApiPipefy $apiPipefy, PipefyUser $pipefyUser)
     {
-        $this->middleware('auth');
+        parent::__construct();
         $this->apiPipefy = $apiPipefy;
         $this->pipefyUser = $pipefyUser;
     }
@@ -29,7 +29,6 @@ class ConfigController extends Controller
     public function index()
     {
         self::pipefyAuth();
-        $retorno['me'] = $this->apiPipefy->me();
         $team = Auth::user()->team;
         $teamIds = [];
         foreach ($team as &$pipefyUser){
@@ -46,8 +45,8 @@ class ConfigController extends Controller
                     break;
             }
         }
-        $retorno['users'] = $this->pipefyUser->allAvailableUsers($teamIds);
-        $retorno['myTeam'] = $team;
-        return view('config', $retorno);
+        $this->retorno['users'] = $this->pipefyUser->allAvailableUsers($teamIds);
+        $this->retorno['myTeam'] = $team;
+        return view('config', $this->retorno);
     }
 }
