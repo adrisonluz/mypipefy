@@ -18,6 +18,45 @@ $('.click-to-top').on('click', function(){
   $('html,body').animate({ scrollTop:0 }, 800);
 });
 
+$(".invites").on('click', function(event) {
+  event.stopPropagation();
+});
+
+$(".invites .buttons > div").on('click', function(event){
+  event.preventDefault();
+  var teamId = $(this).parent().data('teamid');
+  var route = $(this).parent().data('route');
+  var _token = $('input[name=_token]').val();
+
+  var $item = $(this).parent().parent();
+
+  if($(this).hasClass('accept')){
+    var status = 2;
+  }else if($(this).hasClass('decline')){
+    var status = 0;
+  }
+
+  $.ajax({
+    url: route,
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      teamId: teamId,
+      status: status,
+      _token: _token
+    },
+    success: function(result){
+      if(result.success){
+        $item.html((status == 2) ? 'Agora este usuário já pode visualiar os seus cards!' : 'Este usuário não poderá ver os seus cards!');
+      }else{
+        alert('Ocorreu um erro inesperado');
+      }
+    },
+    error: function(){
+      alert('Ocorreu um erro inesperado');
+    }
+  });
+});
 
 $('.buttonUpdateTable').on('click', function(){
   var $button = $(this);

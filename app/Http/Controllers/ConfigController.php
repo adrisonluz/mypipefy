@@ -35,13 +35,13 @@ class ConfigController extends Controller
             $teamIds[] = $pipefyUser->pipefy_id;
             switch ($pipefyUser->pivot->status){
                 case 0:
-                    $pipefyUser->phase = 'add-team';
+                    $pipefyUser->phase = 'add-team btn-success';
                     break;
                 case 1:
-                    $pipefyUser->phase = 'pending';
+                    $pipefyUser->phase = 'pending btn-warning';
                     break;
                 case 2:
-                    $pipefyUser->phase = 'on-team';
+                    $pipefyUser->phase = 'on-team btn-danger';
                     break;
             }
         }

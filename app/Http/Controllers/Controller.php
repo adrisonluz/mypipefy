@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use App\ApiPipefy;
+use App\Team;
 
 class Controller extends BaseController
 {
@@ -25,7 +26,8 @@ class Controller extends BaseController
     	$this->apiPipefy->myId = Auth::user()->pipefy_id;
     	
     	if($withMe){
-        	$this->retorno['me'] = $this->apiPipefy->me();
-    	}
+            $this->retorno['me'] = $this->apiPipefy->me();
+            $this->retorno['invites'] = Team::invites(Auth::user()->pipefy_id);
+        }
     }
 }

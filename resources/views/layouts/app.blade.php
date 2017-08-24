@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-
   <base href="{{ url('') }}/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -88,8 +87,8 @@
           <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
           <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu Time <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
-                <li><a href="{{ route('config') }}">Configurações De Time</a></li>
+              <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
+              <li><a href="{{ route('config') }}">Configurações De Time</a></li>
             </ul>
           </li>
           @endif
@@ -113,7 +112,7 @@
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
                   <li><a href="{{ route('config') }}">Configurações De Time</a></li>
-              </ul>
+                </ul>
               </li>
               @endif
             </ul>
@@ -123,9 +122,32 @@
           <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12">
             <div class="user-name">
               @if (isset($me))
-              {{$me->name}} <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
-              @endif
-              @if (isset($me))
+              {{$me->name}}
+              <div class="dropdown pull-left">
+                @if(count($invites) > 0)
+                  <span class="badge">{{ count($invites) }}</span>
+                @endif
+                <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                <ul class="dropdown-menu invites">
+                  @if(count($invites) > 0)
+                    @foreach($invites as $invite)
+                      <li class="dropdown">
+                        {{'@'.$invite->user->pipefyUser->username}} convidou você para o time dele
+                        <div class="buttons" data-teamid="{{$invite->id}}" data-route="{{ route('config.changeInvite') }}">
+                          <div class="decline">
+                            <i class="fa fa-check-circle-o text-danger"></i>
+                            Recusar
+                          </div>
+                          <div class="accept">
+                            <i class="fa fa-times-circle-o text-success"></i>
+                            Aceitar
+                          </div>
+                        </div>
+                      </li>
+                    @endforeach
+                  @endif
+                </ul>
+              </div>
               <ul class="nav navbar-nav" style="float:right;">
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -144,7 +166,7 @@
                       {{ csrf_field() }}
                     </form>
                   </li>
-                  <li><a href="config">Configurações</a></li>
+                  <li><a href="{{ route('config') }}">Configurações</a></li>
                 </ul>
               </li>
             </ul>
@@ -161,11 +183,11 @@
   <a href="javascript:void(0)"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
 </div>
 <footer>
-    <div class="container">
-      <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-        <img class="img-responsive logo" src="{{ asset('img/mypipefy_logo_extenso_inverso.png') }}" alt="MyPipefy">
-      </div>
+  <div class="container">
+    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+      <img class="img-responsive logo" src="{{ asset('img/mypipefy_logo_extenso_inverso.png') }}" alt="MyPipefy">
     </div>
+  </div>
 </footer>
 <!-- Scripts -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>

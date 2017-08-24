@@ -39,4 +39,8 @@ class User extends Authenticatable
     public function teamActive(){
         return $this->belongsToMany(PipefyUser::class, 'teams', 'user_id', 'pipefy_id')->withPivot('status')->where('teams.status', '=', 2)->orderBy('order');
     }
+
+    public function pipefyUser(){
+        return $this->belongsTo(PipefyUser::class, 'pipefy_id');
+    }
 }

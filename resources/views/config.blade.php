@@ -40,7 +40,7 @@
                               @endif
                             </div>
                             <div class="col-md-5">
-                                <button class="btn btn-default {{ $pipefyUser->phase }}" data-pipefyid="{{ $pipefyUser->pipefy_id }}"></button>
+                                <button class="btn {{ $pipefyUser->phase }}" data-pipefyid="{{ $pipefyUser->pipefy_id }}"></button>
                             </div>
                         </div>
                         @endforeach
@@ -83,7 +83,7 @@
                               @endif
                             </div>
                             <div class="col-md-5">
-                                <button class="btn btn-default add-team" data-pipefyid="{{ $user->pipefy_id }}"></button>
+                                <button class="btn btn-success add-team" data-pipefyid="{{ $user->pipefy_id }}"></button>
                             </div>
                         </div>
                         @endforeach

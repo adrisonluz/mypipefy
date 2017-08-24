@@ -34,7 +34,7 @@
                             <img src="{{$pipefyUser->avatar_url}}" title="{{$pipefyUser->name}}" alt="{{$pipefyUser->name}}" class="img-responsive img-thumbnail">
                             <div> 
                                 <h3>{{$pipefyUser->name}} </h3>
-                                <span>{{$pipefyUser->pipefy_id}}</span>
+                                <span>{{'@'.$pipefyUser->username}} | {{$pipefyUser->pipefy_id}}</span>
                             </div>
                         </div>
                     </div>
@@ -62,12 +62,12 @@
                             </thead>
                             <tbody></tbody>
                         </table>
-                        <button type="button" name="button" class="buttonUpdateTable btn btn-primary">Atualizar</button>
+                        <button type="button" name="button" class="buttonUpdateTable btn btn-primary"><i class="fa fa-refresh"></i> Atualizar cards</button>
                     </div>
                     <div class="col-md-4 div-calendar">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <h4><strong>Tarefas Agendadas</strong></h4>
+                                <h4><strong><i class="fa fa-calendar"></i> Tarefas Agendadas</strong></h4>
                             </div>
                             <div class="panel-body">
                                 <div class='calendar calendar_{{$pipefyUser->pipefy_id}}' data-userid="{{$pipefyUser->pipefy_id}}" data-route="{{route('api.get_cards_user')}}">
