@@ -26,7 +26,7 @@
                         @foreach($myTeam as $pipefyUser)
                         <div class="row">
                             <div class="col-md-2">
-                                <img src="{{$pipefyUser->avatar_url}}" title="{{$pipefyUser->name}}" class="avatar img-responsive img-thumbnail">
+                                <img src="{{asset('storage/pipefy_avatar/'.$pipefyUser->avatar_url)}}" title="{{$pipefyUser->name}}" class="avatar img-responsive img-thumbnail">
                             </div>
                             <div class="col-md-5 name">
                               @if($pipefyUser->name)
@@ -69,7 +69,7 @@
                         @foreach($users as $user)
                         <div class="row">
                             <div class="col-md-2">
-                                <img src="{{$user->avatar_url}}" title="{{$user->name}}" class="avatar img-responsive img-thumbnail">
+                                <img src="{{asset('storage/pipefy_avatar/'.$user->avatar_url)}}" title="{{$user->name}}" class="avatar img-responsive img-thumbnail">
                             </div>
                             <div class="col-md-5 name">
                               @if($user->name)

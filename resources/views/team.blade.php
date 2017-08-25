@@ -31,9 +31,9 @@
                 <div class="row rowUserTeam">
                     <div class="col-xs-12">
                         <div class="user-info">
-                            <img src="{{$pipefyUser->avatar_url}}" title="{{$pipefyUser->name}}" alt="{{$pipefyUser->name}}" class="img-responsive img-thumbnail">
+                            <img src="{{asset('storage/pipefy_avatar/'.$pipefyUser->avatar_url)}}" title="{{$pipefyUser->name}}" alt="{{$pipefyUser->name}}" class="img-responsive img-thumbnail">
                             <div> 
-                                <h3>{{$pipefyUser->name}} </h3>
+                                <h3>{{FirstAndLastName($pipefyUser->name)}} </h3>
                                 <span>{{'@'.$pipefyUser->username}} | {{$pipefyUser->pipefy_id}}</span>
                             </div>
                         </div>

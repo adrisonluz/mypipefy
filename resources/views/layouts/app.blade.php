@@ -122,7 +122,7 @@
           <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12">
             <div class="user-name">
               @if (isset($me))
-              {{$me->name}}
+              {{FirstAndLastName($me->name)}}
               <div class="dropdown pull-left">
                 @if(count($invites) > 0)
                   <span class="badge">{{ count($invites) }}</span>
