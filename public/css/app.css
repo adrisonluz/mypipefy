@@ -515,6 +515,19 @@ span.email-user {
 	border-bottom: 1px solid #3097D1;
 }
 
+.notifications{
+	cursor: pointer;
+}
+.notifications i{
+	font-size: 21px;
+}
+.notifications .badge{
+	background-color: #3097D1;
+	position: relative;
+    top: -8px;
+    left: -7px;
+}
+
 @keyframes loarderPulse {
 	0%{transform: scale(1);}
 	50%{transform: scale(1.3);opacity: 1;}

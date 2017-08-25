@@ -123,31 +123,35 @@
             <div class="user-name">
               @if (isset($me))
               {{FirstAndLastName($me->name)}}
-              <div class="dropdown pull-left">
-                @if(count($invites) > 0)
+
+              @if(count($invites) > 0)
+              <div class="pull-left">
+                <div class="notifications dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                  <i class="fa fa-bell-o"></i>
                   <span class="badge">{{ count($invites) }}</span>
-                @endif
-                <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
-                <ul class="dropdown-menu invites">
-                  @if(count($invites) > 0)
-                    @foreach($invites as $invite)
-                      <li class="dropdown">
-                        {{'@'.$invite->user->pipefyUser->username}} convidou você para o time dele
-                        <div class="buttons" data-teamid="{{$invite->id}}" data-route="{{ route('config.changeInvite') }}">
-                          <div class="decline">
-                            <i class="fa fa-check-circle-o text-danger"></i>
-                            Recusar
-                          </div>
-                          <div class="accept">
-                            <i class="fa fa-times-circle-o text-success"></i>
-                            Aceitar
-                          </div>
-                        </div>
-                      </li>
-                    @endforeach
-                  @endif
+                </div>
+                <ul class="dropdown-menu invites pull-right">
+                  @foreach($invites as $invite)
+                  <li class="dropdown">
+                    {{'@'.$invite->user->pipefyUser->username}} convidou você para o time dele
+                    <div class="buttons" data-teamid="{{$invite->id}}" data-route="{{ route('config.changeInvite') }}">
+                      <div class="decline">
+                        <i class="fa fa-check-circle-o text-danger"></i>
+                        Recusar
+                      </div>
+                      <div class="accept">
+                        <i class="fa fa-times-circle-o text-success"></i>
+                        Aceitar
+                      </div>
+                    </div>
+                  </li>
+                  @endforeach
                 </ul>
               </div>
+              @endif
+
+              <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
+
               <ul class="nav navbar-nav" style="float:right;">
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -166,7 +170,6 @@
                       {{ csrf_field() }}
                     </form>
                   </li>
-                  <li><a href="{{ route('config') }}">Configurações</a></li>
                 </ul>
               </li>
             </ul>
