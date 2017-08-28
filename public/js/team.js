@@ -18,6 +18,13 @@ $(document).ready(function() {
                     return false;
                 }
             },
+            loading: function(loading, $calendar) {
+                if(loading){
+                    $(this).siblings('.load-calendario').fadeIn();
+                }else{
+                    $(this).siblings('.load-calendario').fadeOut();
+                }
+            },
             events: function(start, end, timezone, callback) {
                 $.ajax({
                     url: route,
