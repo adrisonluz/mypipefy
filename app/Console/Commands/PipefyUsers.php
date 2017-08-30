@@ -73,7 +73,7 @@ class PipefyUsers extends Command
 
                 $image = file_get_contents($user->user->avatarUrl);
 
-                if(Storage::disk('local')->put('pipefy_avatar/'.$filename, $image)){
+                if(Storage::disk('public')->put('pipefy_avatar/'.$filename, $image)){
                     $pipefyUser->avatar_url = $filename;
                 }
                 
