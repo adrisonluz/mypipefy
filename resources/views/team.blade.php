@@ -14,6 +14,7 @@
 <script src="{{ asset('plugins/datatables/js/datatables.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables/js/responsive.bootstrap.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables/js/sorting-uk.js') }}"></script>
 <script src="{{ asset('js/team.js') }}"></script>
 @endpush
 

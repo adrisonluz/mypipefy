@@ -168,7 +168,14 @@ function reloadtables($table){
         order: [[4, 'asc']],
         language: {
           url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
-        }
+        },
+        columns: [
+          null,
+          null,
+          null,
+          null,
+          { type: 'date-uk' }
+        ]
       });
       $('[data-toggle="tooltip"]').tooltip({
         placement: (window.innerWidth < 768) ? 'top' : 'right'
