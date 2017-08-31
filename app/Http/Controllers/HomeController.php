@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        self::pipefyAuth();
-        return view('home', $this->retorno);
+        // self::pipefyAuth();
+        return view('home');
     }
 }
