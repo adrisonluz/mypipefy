@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Config;
 use Cache;
+use Auth;
 
 class PipefyUser extends Model
 {
@@ -35,6 +36,7 @@ class PipefyUser extends Model
 
     public function allAvailableUsers($teamIds){
         $select = self::orderBy('name')
+                ->where('email', '<>', Auth::user()->email)
                 ->whereNotIn('pipefy_id', $teamIds)
                 ->get();
         return (!is_null($select)) ? $select : null;

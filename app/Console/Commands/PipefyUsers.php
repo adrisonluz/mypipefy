@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\User;
 use App\ApiPipefy;
 use App\PipefyUser as PipefyUsersDB;
+use Illuminate\Support\Facades\Storage;
 
 class PipefyUsers extends Command
 {
@@ -62,8 +63,20 @@ class PipefyUsers extends Command
 
                 $pipefyUser->username   = $user->user->username;
                 $pipefyUser->name       = $user->user->name;
-                $pipefyUser->avatar_url = $user->user->avatarUrl;
 
+                //Save a image
+                $extension = pathinfo($user->user->avatarUrl, PATHINFO_EXTENSION);
+                $extension = substr($extension, 0, 4);
+                $extension = rtrim($extension, '?');
+
+                $filename = $user->user->id.'_'.str_slug($user->user->username).'.'.$extension;
+
+                $image = file_get_contents($user->user->avatarUrl);
+
+                if(Storage::disk('public')->put('pipefy_avatar/'.$filename, $image)){
+                    $pipefyUser->avatar_url = $filename;
+                }
+                
                 $pipefyUser->save();
 
                 $bar->advance();

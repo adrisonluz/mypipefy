@@ -44,4 +44,10 @@ class TeamController extends Controller
             $team->save();
         }
     }
+
+    public function changeInvite(Request $request){
+        $team = Team::find($request->get('teamId'));
+        $team->status = $request->get('status');
+        return json_encode(['success' => $team->save()]);
+    }
 }

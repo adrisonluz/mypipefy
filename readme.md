@@ -41,6 +41,8 @@ php artisan vendor:publish
 
 php artisan migrate
 
+php artisan storage:link
+
 
 ### Criando seu usuário
 

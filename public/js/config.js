@@ -16,7 +16,13 @@ jQuery(document).ready(function($) {
       },
       success: function(result){
         if(result.success){
-          $clone.find('button').removeClass('add-team').addClass('pending').prop('disabled', false);
+          $clone.find('button')
+            .removeClass('add-team')
+            .removeClass('btn-success')
+            .removeClass('btn-danger')
+            .addClass('btn-warning')
+            .addClass('pending')
+            .prop('disabled', false);
           $row.remove();
           $(".my-team").prepend($clone);
           $('p.not-have').fadeOut();
@@ -47,7 +53,13 @@ jQuery(document).ready(function($) {
       },
       success: function(result){
         if(result.success){
-          $clone.find('button').addClass('add-team').removeClass('pending').prop('disabled', false);
+          $clone.find('button')
+            .removeClass('pending')
+            .removeClass('btn-warning')
+            .removeClass('btn-danger')
+            .addClass('btn-success')
+            .addClass('add-team')
+            .prop('disabled', false);
           $row.remove();
           $(".pipefy-users").prepend($clone);
 
