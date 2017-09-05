@@ -13,9 +13,7 @@ class ListController extends Controller
     public function index()
     {
         self::pipefyAuth();
-        $this->retorno['myCards'] = $this->apiPipefy->myCards();
-        $this->retorno['allPipes'] = $this->apiPipefy->allPipes();
-
+        
         return view('dashboard', $this->retorno);
     }
 
