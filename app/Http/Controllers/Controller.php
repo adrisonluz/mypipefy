@@ -26,7 +26,7 @@ class Controller extends BaseController
     	$this->apiPipefy->myId = Auth::user()->pipefy_id;
     	
     	if($withMe){
-            $this->retorno['me'] = $this->apiPipefy->me();
+            $this->retorno['pipefyUser'] = Auth::user()->pipefyUser;
             $this->retorno['invites'] = Team::invites(Auth::user()->pipefy_id);
         }
     }
