@@ -83,7 +83,7 @@ $(window).on('load', function(){
 
   var alturaWindow  = window.innerHeight;
   var larguraWindow = window.innerWidth,
-  alturaApp         = $('div#app').height();
+  alturaApp         = $('div#app').height() + 50;
   var urlHer        = location.pathname;
   if(urlHer != '/mypipefy/public/login'){
     if(alturaApp < alturaWindow){
