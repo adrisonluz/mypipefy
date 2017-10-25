@@ -30,22 +30,11 @@ class TeamController extends Controller
         $team->status    = $status;
         $team->order     = 0;
         
-        //if($team->save()){
-            //$userPipefy = PipefyUser::find($team->pipefy_id);
-            $userPipefy = PipefyUser::find($request->get('pipefy_id'));
-            $nome_lider = Auth::user()->name;
-            $email_convidado = $userPipefy->email;
-
-            $dados = [
-                'nome_lider' => Auth::user()->name,
-                'nome_convidado' => $userPipefy->name
-            ];
-
-            \Mail::to($userPipefy)->send(new SendInvite($userPipefy));
-        //}
-            dd('fim');
-
-        return json_encode(['success' => $team->save()]);
+        if($team->save()){
+            return json_encode(['success' => $team->save()]);
+        }
+        
+        return json_encode(['error' => 'Erro ao atualizar time.']);
     }
 
     public function reorder(Request $request){
