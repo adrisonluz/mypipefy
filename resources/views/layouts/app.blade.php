@@ -55,7 +55,7 @@
           </button>
           <div class="mobile-menu-perfil">
             @if (isset($me))
-            <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
+            <img src="{{asset('storage/pipefy_avatar/'.$me->avatar_url)}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
             @endif
             <div class="menu-perfil-mobile">
               <ul>
@@ -150,7 +150,7 @@
               </div>
               @endif
 
-              <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
+              <img src="{{asset('storage/pipefy_avatar/'.$me->avatar_url)}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
 
               <ul class="nav navbar-nav" style="float:right;">
                 <li class="dropdown">
