@@ -93,6 +93,8 @@ $(window).on('load', function(){
   $('.close-modal-info').on('click', function(){
     $('.modal-info-table').fadeOut('slow');
   });
+
+  console.clear();
 });
 
 function loaderPulse(){
