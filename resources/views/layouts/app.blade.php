@@ -75,7 +75,7 @@
             </ul>
           </div>
         </div>
-        @if(count($invites) > 0)
+        @if(isset($invites) and count($invites) > 0)
         <div class="pull-left notification-mobile">
           <div class="notifications dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
             <i class="fa fa-bell-o"></i>
