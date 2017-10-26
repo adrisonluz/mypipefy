@@ -26,6 +26,7 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h1>Dashboard</h1>
+                <button type="button" name="button" class="open-description-example btn btn-primary">Modal Exemplo</button>
       </div>
 
       <div class="panel-body">
