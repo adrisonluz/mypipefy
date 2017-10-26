@@ -228,6 +228,9 @@ i#expand-modal:hover {
   }
 }
 @media(max-width:768px){
+  span.dtr-data i.fa {
+      display: none;
+  }
   .panel-body
   {
   .loader-tables {
