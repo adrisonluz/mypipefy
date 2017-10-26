@@ -153,6 +153,15 @@ ul.dropdown-menu.invites.pull-right {
         }
     }
 }
+.pull-left.notification-mobile {
+    float: right !important;
+    margin-top: 14px;
+    
+    ul.dropdown-menu.invites.pull-right {
+        width: 100%;
+        margin-right: 10px;
+    }
+}
 @media (max-width:900px){
   span.close-modal-info {
       top: 10px;

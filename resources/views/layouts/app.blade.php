@@ -54,6 +54,7 @@
             <span class="icon-bar"></span>
           </button>
           <div class="mobile-menu-perfil">
+
             @if (isset($me))
             <img src="{{asset('storage/pipefy_avatar/'.$me->avatar_url)}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
             @endif
@@ -74,6 +75,31 @@
             </ul>
           </div>
         </div>
+        @if(count($invites) > 0)
+        <div class="pull-left notification-mobile">
+          <div class="notifications dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+            <i class="fa fa-bell-o"></i>
+            <span class="badge">{{ count($invites) }}</span>
+          </div>
+          <ul class="dropdown-menu invites pull-right">
+            @foreach($invites as $invite)
+            <li class="dropdown">
+              <strong>{{'@'.$invite->user->pipefyUser->username}}</strong> convidou você para o time dele.
+              <div class="buttons" data-teamid="{{$invite->id}}" data-route="{{ route('config.changeInvite') }}">
+                <div class="decline">
+                  <!-- <i class="fa fa-times-circle-o text-danger"></i> -->
+                  Recusar
+                </div>
+                <div class="accept">
+                  <!-- <i class="fa fa-check-circle-o text-success"></i> -->
+                  Aceitar
+                </div>
+              </div>
+            </li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
         <!-- Collapsed Hamburger -->
 
       </div>
