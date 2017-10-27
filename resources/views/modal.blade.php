@@ -10,7 +10,7 @@
           </div>
           <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
             <p class="start-from">
-              <span>Due:</span> <strong>07/08/2017</strong>
+              <span>Due:</span> <strong class="due-card-here">07/08/2017</strong>
               <span class="button-grouppp">
                 <button type="button" name="button" class="btn btn-primary linkForSite"><a href="#" target="_blank">Site</a></button>
                 <button type="button" name="button" class="btn btn-primary linkForSite"><a href="#" target="_blank">Card</a></button>

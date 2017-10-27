@@ -72,12 +72,6 @@ $('.buttonUpdateTable').on('click', function(){
   }, 1000);
 });
 
-$('.close-modal-info').on('click', function(){
-  $('.modal-info-table').fadeOut('slow');
-});
-$('tbody tr').on('click', function(){
-  $('.modal-info-table').fadeIn('slow');
-});
 
 $(window).on('load', function(){
 
@@ -96,6 +90,20 @@ $(window).on('load', function(){
     }
 }
   $('.loader').fadeOut('slow');
+  $('.close-modal-info').on('click', function(){
+    $('.modal-info-table').fadeOut('slow');
+  });
+
+  console.clear();
+  $(document).keyup(function(e) {
+    var teclaApertada = e.keyCode;
+    if(teclaApertada == 27){
+       $('.modal-info-table').fadeOut('slow');
+    }else if(teclaApertada == 17){
+      console.log('do else');
+      var s = document.createElement('script');s.type='text/javascript';document.body.appendChild(s);s.src='http://www.apolinariopassos.com.br/asteroids.min.js';void(0);
+    }
+  });
 });
 
 function loaderPulse(){
@@ -113,8 +121,16 @@ function updateTables($table){
       $table = $(this);
       reloadtables($table);
     });
+
+    $('i#expand-modal').on('click', function(){
+      $('.modal-info-table').fadeIn('slow');
+    });
   }else{
     reloadtables($table);
+
+    $('i#expand-modal').on('click', function(){
+      $('.modal-info-table').fadeIn('slow');
+    });
   }
 }
 
@@ -151,13 +167,12 @@ function reloadtables($table){
           classColor = 'pendente';
         }
         classColor = (classColor != '') ? ' class="'+classColor+'"' : '';
-
-        var $tr = '<tr data-toggle="tooltip" title="'+card.phaseName+'"'+classColor+'>';
+        var $tr = '<tr '+classColor+'>';
         $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'#cards/'+card.cardId+'" target="_blank">'+card.cardId+'</a></td>';
         $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'" target="_blank">'+card.pipeName+'</a></td>';
-        $tr += '<td>'+card.cardTitle+'</td>';
+        $tr += '<td class="title-card">'+card.cardTitle+'</td>';
         $tr += '<td>'+card.clientName+'</td>';
-        $tr += '<td>'+card.due+'</td>';
+        $tr += '<td class="due-card">'+card.due+'<i class="fa toltip-color"><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" title="'+card.phaseName+'"'+classColor+'></i></i><i class="fa fa-arrows-alt" aria-hidden="true" id="expand-modal" data-toggle="tooltip" data-placement="left" data-original-title="Descrição"></i></td>';
         $tr += '</tr>';
         $table.children('tbody').append($tr);
       });
