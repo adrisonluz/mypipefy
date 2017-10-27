@@ -41,4 +41,8 @@ class PipefyUser extends Model
                 ->get();
         return (!is_null($select)) ? $select : null;
     }
+
+    public function avatar(){
+        return asset('storage/pipefy_avatar/'.$this->avatar_url);
+    }
 }

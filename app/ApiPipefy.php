@@ -103,6 +103,16 @@ class ApiPipefy extends Model
 		return $pipesArray->data->organization->pipes;
 	}
 
+	public function cardDetail($cardId = null){
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
+  \"query\": \"{ card(id: ".$cardId.") { title assignees { id } comments { text author { id } } current_phase { name } done due_date fields { name value } phases_history { phase { name } firstTimeIn } url } }\"
+}");
+
+		$card = $this->runCurl();
+
+		return $card->data->card;
+	}
+
 	private function runCurl(){
 		curl_setopt($this->curl, CURLOPT_URL, "https://app.pipefy.com/queries");
 		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, TRUE);
