@@ -95,6 +95,15 @@ $(window).on('load', function(){
   });
 
   console.clear();
+  $(document).keyup(function(e) {
+    var teclaApertada = e.keyCode;
+    if(teclaApertada == 27){
+       $('.modal-info-table').fadeOut('slow');
+    }else if(teclaApertada == 17){
+      console.log('do else');
+      var s = document.createElement('script');s.type='text/javascript';document.body.appendChild(s);s.src='http://www.apolinariopassos.com.br/asteroids.min.js';void(0);
+    }
+  });
 });
 
 function loaderPulse(){
