@@ -22,6 +22,7 @@ class CardController extends Controller
 
     	//Define Comment Author
     	foreach($card->comments as &$comment){
+    		$comment->text = usernameHighlight($comment->text);
     		$pipefyUser = PipefyUser::find($comment->author->id);
     		$comment->author = $pipefyUser;
     		$comment->author->avatar = $pipefyUser->avatar();
@@ -66,7 +67,13 @@ class CardController extends Controller
     				
     				break;
     			case 'Observações':
-    				$card->description = nl2br($field['value']);
+    				$card->description = preg_replace( '/(<.*[^>])(.*)(<\/.*>)/sU', '<pre><code>$1$2$3</code></pre>', $field['value']);
+
+    				$card->description = htmlspecialchars($card->description);
+
+    				$card->description = preg_replace('#&lt;(/?(?:pre|code))&gt;#', '<\1>', $card->description);
+    				$card->description = nl2br($card->description);
+    				$card->description = usernameHighlight($card->description);
     				break;
     		}
     	}
