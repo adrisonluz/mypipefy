@@ -23,11 +23,11 @@
     <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $pipefyUser->pipefy_id]) }}">
       <thead class="thead-inverse">
         <tr>
-          <td>ID</td>
           <td>Pipe</td>
           <td>Título</td>
           <td>Cliente</td>
           <td>DUE</td>
+          <td>Ações</td>
         </tr>
       </thead>
       <tbody></tbody>

@@ -121,16 +121,8 @@ function updateTables($table){
       $table = $(this);
       reloadtables($table);
     });
-
-    $('i#expand-modal').on('click', function(){
-      $('.modal-info-table').fadeIn('slow');
-    });
   }else{
     reloadtables($table);
-
-    $('i#expand-modal').on('click', function(){
-      $('.modal-info-table').fadeIn('slow');
-    });
   }
 }
 
@@ -166,13 +158,14 @@ function reloadtables($table){
         }else{
           classColor = 'pendente';
         }
+
         classColor = (classColor != '') ? ' class="'+classColor+'"' : '';
-        var $tr = '<tr '+classColor+'>';
-        $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'#cards/'+card.cardId+'" target="_blank">'+card.cardId+'</a></td>';
+        var $tr = '<tr '+classColor+' data-toggle="tooltip" data-placement="left" title="'+card.phaseName+'">';
         $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'" target="_blank">'+card.pipeName+'</a></td>';
-        $tr += '<td class="title-card">'+card.cardTitle+'</td>';
+        $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'#cards/'+card.cardId+'" target="_blank">'+card.cardTitle+'</a></td>';
         $tr += '<td>'+card.clientName+'</td>';
-        $tr += '<td class="due-card">'+card.due+'<i class="fa toltip-color"><i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" title="'+card.phaseName+'"'+classColor+'></i></i><i class="fa fa-arrows-alt" aria-hidden="true" id="expand-modal" data-toggle="tooltip" data-placement="left" data-original-title="Descrição"></i></td>';
+        $tr += '<td>'+card.due+'</td>';
+        $tr += '<td><button class="btn btn-primary" id="open-card" data-card="'+card.cardId+'"><i class="fa fa-arrows-alt" aria-hidden="true"></i> Abrir Card</button></td>';
         $tr += '</tr>';
         $table.children('tbody').append($tr);
       });
@@ -188,12 +181,15 @@ function reloadtables($table){
           null,
           null,
           null,
-          null,
-          { type: 'date-uk' }
+          { type: 'date-uk' },
+          { orderable: false },
         ]
       });
       $('[data-toggle="tooltip"]').tooltip({
         placement: (window.innerWidth < 768) ? 'top' : 'right'
+      });
+      $('#open-card[data-card]').on('click', function(){
+        getCardDetail($(this).data('card'));
       });
     }
   });
@@ -222,4 +218,71 @@ function getToday(){
   var today = data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate();
 
   return today;
+}
+
+function getCardDetail(cardId){
+  if(cardId != ''){
+    $.ajax({
+      url: $("base").attr('href')+'api/card/detail/'+cardId,
+      type: 'GET',
+      dataType: 'json',
+      success: function(card){
+        $('.modal-info-table .title-info').text(card.title);
+        $('.modal-info-table .due-card-here').text(card.due_date);
+        $('.modal-info-table .description').html(card.description);
+        $('.modal-info-table #siteUrl a').attr('href', card.siteUrl);
+        $('.modal-info-table #cardUrl a').attr('href', card.url);
+
+        //Fields
+        var fieldsHtml = ''
+        $.each(card.fields, function(index, field){
+          fieldsHtml += '<div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">'+
+            '<p class="start-from"><span>'+field.name+'</span> <strong>'+field.value+'</strong></p>'+
+          '</div>';
+        });
+
+        //Attachments
+        var attachmentsHtml = ''
+        $.each(card.attachments, function(index, attachment){
+          attachmentsHtml += '<li><a href="'+attachment.link+'" target="_blank">'+attachment.name+'</a></li>';
+        });
+
+        //Timeline
+        var timelineHtml = '';
+        $.each(card.phases_history, function(index, phase){
+          timelineHtml += '<li>'+
+              '<strong>'+phase.name+'</strong>'+
+              '<span>'+phase.date+'</span>'+
+            '</li>';
+        });
+
+        //Assignees
+        var assigneesHtml = '';
+        $.each(card.assignees, function(index, assignee){
+          assigneesHtml += '<img src="'+assignee.avatar+'" title="'+assignee.name+'" alt="'+assignee.name+'" class="img-responsive img-thumbnail">';
+        });
+
+        //Comments
+        var commentsHtml = '';
+        $.each(card.comments, function(index, comment){
+          commentsHtml += '<li>'+
+              '<img src="'+comment.author.avatar+'" title="'+comment.author.name+'" alt="'+comment.author.name+'" class="img-responsive img-thumbnail">'+
+              '<span>'+comment.author.name+'</span>'+
+              '<p>'+comment.text+'</p>'+
+            '</li>';
+        });
+
+        $('.modal-info-table .attachments').html(attachmentsHtml);
+        $(".modal-info-table .fields").html(fieldsHtml);
+        $(".modal-info-table .timeline").html(timelineHtml);
+        $(".modal-info-table .assignees").html(assigneesHtml);
+        $(".modal-info-table .comments").html(commentsHtml);
+        $('.modal-info-table').fadeIn('slow');
+        /*
+          FALTA
+          comentários
+        */
+      }
+    });
+  }
 }
