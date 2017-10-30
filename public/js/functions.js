@@ -1,6 +1,11 @@
 $(document).ready(function() {
   $('a.show-comments').on('click', function(){
-    $('.comments').toggle('slow');
+    if($(this).text() == 'Ver Comentários'){
+      $(this).text('Ver Descrição');
+    }else{
+      $(this).text('Ver Comentários');
+    }
+    $('.comments, #descricao-bloco').toggle('slow');
   });
   updateTables();
 });
@@ -271,8 +276,8 @@ function getCardDetail(cardId){
         $.each(card.comments, function(index, comment){
           commentsHtml += '<div>'+
               '<img src="'+comment.author.avatar+'" title="'+comment.author.name+'" alt="'+comment.author.name+'" class="img-responsive img-thumbnail">'+
-              '<span>'+comment.author.name+'</span>'+
-              '<p>'+comment.text+'</p>'+
+              '<div><span>'+comment.author.name+'</span>'+
+              '<p>'+comment.text+'</p></div>'+
             '</div>';
         });
         if(attachmentsHtml == ''){

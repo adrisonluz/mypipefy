@@ -17,12 +17,12 @@
         </div>
           <div class="fields"></div>
             <div id="anexos-bloco" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <p class="start-from">
+              <p class="start-from block-p">
                 <span>Anexos</span>
                 <ul class="attachments"></ul>
               </p>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div id="descricao-bloco" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <p class="start-from descr"><span>Descrição:</span> <strong class="description"></strong></p>
             </div>
         </div>

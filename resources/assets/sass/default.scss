@@ -66,6 +66,11 @@ $background-default:#3097D1;
     .modal-info-desc{
       .desc-modal-info{
         .row{
+          .block-p{
+            width: 100%;
+            display: block;
+            float: left;
+          }
            > .col-lg-6.col-md-6.col-xs-12.col-sm-12{
              min-height: 40px;
              margin-bottom: 10px;
@@ -137,6 +142,25 @@ $background-default:#3097D1;
       .row#bloco-comentarios {
           .comments{
             display: none;
+            > div {
+                border: 1px solid #7dd8ee;
+                padding: 10px;
+                margin-bottom: 20px;
+                height: auto;
+                img{
+                  max-height: 50px;
+                  vertical-align: top;
+                }
+                > div {
+                    max-width: 91%;
+                    display: inline-block !important;
+                    margin-left: 10px;
+                    span {
+                        font-weight: 700;
+                        color: #7dd8ee
+                    }
+                }
+            }
           }
           padding: 15px;
       }
