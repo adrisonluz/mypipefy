@@ -59,9 +59,20 @@ class CardController extends Controller
     				$attachments = json_decode($field['value']);
     				foreach($attachments as $attachment){
     					$attachmentExp = explode('/', $attachment);
+    					$extension = strrchr(end($attachmentExp), '.');
+    					$extension = ltrim($extension, '.');
+
+    					//Define type as image
+    					if(in_array($extension, ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'ico'])){
+    						$imageType = 'image';
+    					}else{
+    						$imageType = 'file';
+    					}
+
     					$card->attachments[] = [
     						'link' => $attachment,
     						'name' => end($attachmentExp),
+    						'type' => $imageType,
     					];
     				}
     				
