@@ -278,10 +278,6 @@ function getCardDetail(cardId){
         $(".modal-info-table .assignees").html(assigneesHtml);
         $(".modal-info-table .comments").html(commentsHtml);
         $('.modal-info-table').fadeIn('slow');
-        /*
-          FALTA
-          comentários
-        */
       }
     });
   }
