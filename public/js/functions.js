@@ -291,10 +291,6 @@ function getCardDetail(cardId){
           $(".modal-info-table .comments").html('<span class="title-row">Comentários:</span>'+commentsHtml);
         }
         $('.modal-info-table').fadeIn('slow');
-        /*
-          FALTA
-          comentários
-        */
       }
     });
   }

@@ -66,7 +66,12 @@ class CardController extends Controller
     				
     				break;
     			case 'Observações':
-    				$card->description = nl2br($field['value']);
+    				$card->description = preg_replace( '/(<.*[^>])(.*)(<\/.*>)/sU', '<pre><code>$1$2$3</code></pre>', $field['value']);
+
+    				$card->description = htmlspecialchars($card->description);
+
+    				$card->description = preg_replace('#&lt;(/?(?:pre|code))&gt;#', '<\1>', $card->description);
+    				$card->description = nl2br($card->description);
     				break;
     		}
     	}
