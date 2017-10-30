@@ -51,8 +51,49 @@ $background-default:#3097D1;
 }
 .modal-info-table
 {
+  overflow: auto;
+  padding-bottom: 50px;
+  .title-row{
+    font-weight: 600;
+    margin-right: 5px;
+    font-size: 15px;
+    color: #3097D1;
+  }
+  .assignees img {
+      max-width: 40px;
+  }
   .modal-info-body{
     .modal-info-desc{
+      .desc-modal-info{
+        .row{
+          .block-p{
+            width: 100%;
+            display: block;
+            float: left;
+          }
+           > .col-lg-6.col-md-6.col-xs-12.col-sm-12{
+             min-height: 40px;
+             margin-bottom: 10px;
+          }
+          ul.attachments {
+              padding: 0;
+              list-style: none;
+              float: left;
+              li {
+                a {
+                      img {
+                      width: 100%;
+                      max-width: 24%;
+                      margin-right: 5px;
+                  }
+                }
+            }
+          }
+        }
+        strong.description {
+            width: 100%;
+        }
+      }
       .modal-info-desc{
         margin-top: 20px;
       }
@@ -98,8 +139,44 @@ $background-default:#3097D1;
           }
         }
       }
+      .row#bloco-comentarios {
+          .comments{
+            display: none;
+            > div {
+                border: 1px solid #7dd8ee;
+                padding: 10px;
+                margin-bottom: 20px;
+                height: auto;
+                img{
+                  max-height: 50px;
+                  vertical-align: top;
+                }
+                > div {
+                    max-width: 91%;
+                    display: inline-block !important;
+                    margin-left: 10px;
+                    span {
+                        font-weight: 700;
+                        color: #7dd8ee
+                    }
+                }
+            }
+          }
+          padding: 15px;
+      }
     }
   }
+
+
+}
+strong.description strong.username-highlight {
+  float: none !important;
+}
+
+a.show-comments {
+    text-align: center;
+    display: block;
+    font-weight: 600;
 }
 ul.dropdown-menu.invites.pull-right {
     padding: 0 10px;

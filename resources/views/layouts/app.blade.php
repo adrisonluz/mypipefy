@@ -221,6 +221,7 @@
 <!-- Scripts -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 @stack('scripts')
+<script src="//cdn.rawgit.com/namuol/cheet.js/master/cheet.min.js" type="text/javascript"></script>
 <script src="{{ asset('js/functions.js') }}"></script>
 </body>
 </html>
