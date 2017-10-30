@@ -74,7 +74,6 @@ $('.buttonUpdateTable').on('click', function(){
 
 
 $(window).on('load', function(){
-
   var alturaWindow  = window.innerHeight;
   var larguraWindow = window.innerWidth,
   alturaApp         = $('div#app').height() + 50;
@@ -88,21 +87,18 @@ $(window).on('load', function(){
         $('div#app').css('margin-bottom', margintContainer+'px');
       }
     }
-}
+  }
   $('.loader').fadeOut('slow');
   $('.close-modal-info').on('click', function(){
     $('.modal-info-table').fadeOut('slow');
   });
 
   console.clear();
-  $(document).keyup(function(e) {
-    var teclaApertada = e.keyCode;
-    if(teclaApertada == 27){
-       $('.modal-info-table').fadeOut('slow');
-    }else if(teclaApertada == 17){
-      console.log('do else');
-      var s = document.createElement('script');s.type='text/javascript';document.body.appendChild(s);s.src='http://www.apolinariopassos.com.br/asteroids.min.js';void(0);
-    }
+  cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
+    var s = document.createElement('script');
+    s.type='text/javascript';
+    document.body.appendChild(s);
+    s.src='http://www.apolinariopassos.com.br/asteroids.min.js';
   });
 });
 
@@ -178,11 +174,11 @@ function reloadtables($table){
           url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
         },
         columns: [
-          null,
-          null,
-          null,
-          { type: 'date-uk' },
-          { orderable: false },
+        null,
+        null,
+        null,
+        { type: 'date-uk' },
+        { orderable: false },
         ]
       });
       $('[data-toggle="tooltip"]').tooltip({
@@ -237,7 +233,7 @@ function getCardDetail(cardId){
         var fieldsHtml = ''
         $.each(card.fields, function(index, field){
           fieldsHtml += '<div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">'+
-            '<p class="start-from"><span>'+field.name+'</span> <strong>'+field.value+'</strong></p>'+
+          '<p class="start-from"><span>'+field.name+'</span> <strong>'+field.value+'</strong></p>'+
           '</div>';
         });
 
@@ -251,9 +247,9 @@ function getCardDetail(cardId){
         var timelineHtml = '';
         $.each(card.phases_history, function(index, phase){
           timelineHtml += '<li>'+
-              '<strong>'+phase.name+'</strong>'+
-              '<span>'+phase.date+'</span>'+
-            '</li>';
+          '<strong>'+phase.name+'</strong>'+
+          '<span>'+phase.date+'</span>'+
+          '</li>';
         });
 
         //Assignees
@@ -266,10 +262,10 @@ function getCardDetail(cardId){
         var commentsHtml = '';
         $.each(card.comments, function(index, comment){
           commentsHtml += '<li>'+
-              '<img src="'+comment.author.avatar+'" title="'+comment.author.name+'" alt="'+comment.author.name+'" class="img-responsive img-thumbnail">'+
-              '<span>'+comment.author.name+'</span>'+
-              '<p>'+comment.text+'</p>'+
-            '</li>';
+          '<img src="'+comment.author.avatar+'" title="'+comment.author.name+'" alt="'+comment.author.name+'" class="img-responsive img-thumbnail">'+
+          '<span>'+comment.author.name+'</span>'+
+          '<p>'+comment.text+'</p>'+
+          '</li>';
         });
 
         $('.modal-info-table .attachments').html(attachmentsHtml);
