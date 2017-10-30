@@ -71,6 +71,11 @@ class CardController extends Controller
     		}
     	}
 
+    	$alternativeFields[] = [
+    		'name' => 'Fase Atual',
+    		'value' => $card->current_phase->name,
+    	];
+
     	//Phases History
     	foreach($card->phases_history as &$phase){
     		$phaseNew = [
@@ -85,7 +90,6 @@ class CardController extends Controller
 
     	unset($card->fields);
     	$card->fields = $alternativeFields;
-    	$card->phase = $card->current_phase->name;
     	unset($card->current_phase);
 
 		return response()->json($card);

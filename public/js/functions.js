@@ -233,6 +233,7 @@ function getCardDetail(cardId){
         $('.modal-info-table #siteUrl a').attr('href', card.siteUrl);
         $('.modal-info-table #cardUrl a').attr('href', card.url);
 
+        //Fields
         var fieldsHtml = ''
         $.each(card.fields, function(index, field){
           fieldsHtml += '<div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">'+
@@ -240,11 +241,13 @@ function getCardDetail(cardId){
           '</div>';
         });
 
+        //Attachments
         var attachmentsHtml = ''
         $.each(card.attachments, function(index, attachment){
           attachmentsHtml += '<li><a href="'+attachment.link+'" target="_blank">'+attachment.name+'</a></li>';
         });
 
+        //Timeline
         var timelineHtml = '';
         $.each(card.phases_history, function(index, phase){
           timelineHtml += '<li>'+
@@ -253,16 +256,31 @@ function getCardDetail(cardId){
             '</li>';
         });
 
+        //Assignees
+        var assigneesHtml = '';
+        $.each(card.assignees, function(index, assignee){
+          assigneesHtml += '<img src="'+assignee.avatar+'" title="'+assignee.name+'" alt="'+assignee.name+'" class="img-responsive img-thumbnail">';
+        });
+
+        //Comments
+        var commentsHtml = '';
+        $.each(card.comments, function(index, comment){
+          commentsHtml += '<li>'+
+              '<img src="'+comment.author.avatar+'" title="'+comment.author.name+'" alt="'+comment.author.name+'" class="img-responsive img-thumbnail">'+
+              '<span>'+comment.author.name+'</span>'+
+              '<p>'+comment.text+'</p>'+
+            '</li>';
+        });
+
         $('.modal-info-table .attachments').html(attachmentsHtml);
         $(".modal-info-table .fields").html(fieldsHtml);
         $(".modal-info-table .timeline").html(timelineHtml);
+        $(".modal-info-table .assignees").html(assigneesHtml);
+        $(".modal-info-table .comments").html(commentsHtml);
         $('.modal-info-table').fadeIn('slow');
         /*
           FALTA
-
-          responsáveis
           comentários
-          fase atual
         */
       }
     });
