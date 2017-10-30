@@ -22,6 +22,7 @@ class CardController extends Controller
 
     	//Define Comment Author
     	foreach($card->comments as &$comment){
+    		$comment->text = usernameHighlight($comment->text);
     		$pipefyUser = PipefyUser::find($comment->author->id);
     		$comment->author = $pipefyUser;
     		$comment->author->avatar = $pipefyUser->avatar();
@@ -72,6 +73,7 @@ class CardController extends Controller
 
     				$card->description = preg_replace('#&lt;(/?(?:pre|code))&gt;#', '<\1>', $card->description);
     				$card->description = nl2br($card->description);
+    				$card->description = usernameHighlight($card->description);
     				break;
     		}
     	}
