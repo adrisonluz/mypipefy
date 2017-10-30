@@ -108,6 +108,21 @@ $(window).on('load', function(){
     document.body.appendChild(s);
     s.src='http://www.apolinariopassos.com.br/asteroids.min.js';
   });
+
+  cheet('p a h n a t e l a', function () {
+    var s = document.createElement('script');
+    s.type='text/javascript';
+    document.body.appendChild(s);
+    s.src='http://www.apolinariopassos.com.br/patos.js';
+  });
+
+  cheet('d e u d o w n a q u i', function () {
+    var script = document.createElement('script');
+    script.src='http://www.apolinariopassos.com.br/goograv.js';
+    document.body.appendChild(script);
+    javascript:scroll(0,0);
+    document.body.style.overflow='hidden';
+  });
 });
 
 function loaderPulse(){
@@ -241,7 +256,7 @@ function getCardDetail(cardId){
         var fieldsHtml = ''
         $.each(card.fields, function(index, field){
           fieldsHtml += '<div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">'+
-          '<p class="start-from"><span>'+field.name+'</span> <strong>'+field.value+'</strong></p>'+
+          '<p class="start-from"><span>'+field.name+':</span> <strong>'+field.value+'</strong></p>'+
           '</div>';
         });
 
@@ -291,6 +306,7 @@ function getCardDetail(cardId){
           $('div#bloco-comentarios').show();
           $(".modal-info-table .comments").html('<span class="title-row">Comentários:</span>'+commentsHtml);
         }
+        $('.assignees img').tooltip();
         $('.modal-info-table').fadeIn('slow');
       }
     });
