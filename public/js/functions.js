@@ -263,7 +263,11 @@ function getCardDetail(cardId){
         //Attachments
         var attachmentsHtml = ''
         $.each(card.attachments, function(index, attachment){
-          attachmentsHtml += '<li><a data-fancybox="gallery" href="'+attachment.link+'"><img src="'+attachment.link+'" target="_blank" alt="'+attachment.name+'"/></a></li>';
+          if(attachment.type == 'image'){
+            attachmentsHtml += '<li><a data-fancybox="gallery" href="'+attachment.link+'"><img src="'+attachment.link+'" target="_blank" alt="'+attachment.name+'"/></a></li>';
+          }else{
+            attachmentsHtml += '<li><a href="'+attachment.link+'">'+attachment.name+'</a></li>';
+          }
         });
 
         //Timeline
