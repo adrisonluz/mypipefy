@@ -5,7 +5,7 @@ $(document).ready(function() {
     }else{
       $(this).text('Ver Comentários');
     }
-    $('.comments, #descricao-bloco').toggle('slow');
+    $('.comments, #descricao-bloco').slideToggle('slow');
   });
   updateTables();
 });
@@ -98,8 +98,17 @@ $(window).on('load', function(){
   }
   $('.loader').fadeOut('slow');
   $('.close-modal-info').on('click', function(){
-    $('.modal-info-table').fadeOut('slow');
+    fechaModalDescripition();
   });
+
+  function fechaModalDescripition(){
+    if($('div#descricao-bloco').is(':visible')){
+    }else {
+      $('.comments, #descricao-bloco').slideToggle('slow');
+      $('a.show-comments').text('Ver Comentários');
+    }
+    $('.modal-info-table').fadeOut('slow');
+  }
 
   console.clear();
   cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
