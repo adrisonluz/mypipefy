@@ -10,8 +10,8 @@
           <p class="start-from">
             <span>Due:</span> <strong class="due-card-here"></strong>
             <span class="button-grouppp">
-              <button type="button" name="button" id="siteUrl" class="btn btn-primary linkForSite"><a href="#" target="_blank">Site</a></button>
-              <button type="button" name="button" id="cardUrl" class="btn btn-primary linkForSite"><a href="#" target="_blank">Card</a></button>
+              <a href="#" class="botton-default" id="siteUrl" target="_blank">Site</a>
+              <a href="#" class="botton-default" id="cardUrl" target="_blank">Card</a>
             </span>
           </p>
         </div>

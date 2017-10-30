@@ -193,7 +193,7 @@ function reloadtables($table){
         $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'#cards/'+card.cardId+'" target="_blank">'+card.cardTitle+'</a></td>';
         $tr += '<td>'+card.clientName+'</td>';
         $tr += '<td>'+card.due+'</td>';
-        $tr += '<td><button class="btn btn-primary" id="open-card" data-card="'+card.cardId+'"> Abrir Card</button></td>';
+        $tr += '<td><button class="btn btn-primary" id="open-card" data-card="'+card.cardId+'"> Ver Card</button></td>';
         $tr += '</tr>';
         $table.children('tbody').append($tr);
       });
@@ -258,8 +258,8 @@ function getCardDetail(cardId){
         $('.modal-info-table .title-info').text(card.title);
         $('.modal-info-table .due-card-here').text(card.due_date);
         $('.modal-info-table .description').html(card.description);
-        $('.modal-info-table #siteUrl a').attr('href', card.siteUrl);
-        $('.modal-info-table #cardUrl a').attr('href', card.url);
+        $('#siteUrl').attr('href', card.siteUrl);
+        $('#cardUrl').attr('href', card.url);
 
         //Fields
         var fieldsHtml = ''
