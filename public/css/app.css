@@ -529,6 +529,7 @@ span.email-user {
 }
 .username-highlight{
 	color: #3097D1;
+	font-weight: 700 !important;
 }
 @keyframes loarderPulse {
 	0%{transform: scale(1);}

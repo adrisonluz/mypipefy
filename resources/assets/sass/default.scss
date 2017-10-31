@@ -112,16 +112,13 @@ $background-default:#3097D1;
               font-size: 15px;
               color: #3097D1;
             }
-            button.btn.btn-primary.linkForSite{
+            .linkForSite{
               padding: 0;
               margin-left: 20px;
               transition: .4s all ease;
-              a{
-                padding: 5px 20px;
-                text-decoration: none;
-                display: block;
-                color: #fff;
-              }
+              padding: 5px 20px;
+              text-decoration: none;
+              color: #fff;
             }
           }
         }
@@ -135,6 +132,7 @@ $background-default:#3097D1;
             }
             strong{
               float: left;
+              font-weight: 400;
             }
           }
         }
@@ -143,9 +141,10 @@ $background-default:#3097D1;
           .comments{
             display: none;
             > div {
-                border: 1px solid #7dd8ee;
+                border: 1px solid #3097D1;
                 padding: 10px;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
+                margin-top: 10px;
                 height: auto;
                 img{
                   max-height: 50px;
@@ -157,7 +156,7 @@ $background-default:#3097D1;
                     margin-left: 10px;
                     span {
                         font-weight: 700;
-                        color: #7dd8ee
+                        color: #3097D1
                     }
                 }
             }
@@ -166,8 +165,21 @@ $background-default:#3097D1;
       }
     }
   }
-
-
+}
+.botton-default {
+    text-align: center;
+    font-weight: 600;
+    max-width: 70px;
+    margin: auto;
+    padding: 7px 15px;
+    transition: all .2s;
+    border: 1px solid;
+    margin-left: 20px;
+    &:hover {
+        background: #216a94;
+        color: #fff;
+        text-decoration: none;
+    }
 }
 strong.description strong.username-highlight {
   float: none !important;
@@ -177,6 +189,16 @@ a.show-comments {
     text-align: center;
     display: block;
     font-weight: 600;
+    max-width: 150px;
+    margin: auto;
+    padding: 10px;
+    transition: all .2s;
+    border: 1px solid;
+}
+a.show-comments:hover {
+    background: #216a94;
+    color: #fff;
+    text-decoration: none;
 }
 ul.dropdown-menu.invites.pull-right {
     padding: 0 10px;
