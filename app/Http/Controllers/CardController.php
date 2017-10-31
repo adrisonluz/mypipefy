@@ -22,7 +22,8 @@ class CardController extends Controller
 
     	//Define Comment Author
     	foreach($card->comments as &$comment){
-    		$comment->text = usernameHighlight($comment->text);
+            $comment->text = markup($comment->text);
+    		$comment->created_at = date('d/m/Y H:i', strtotime(substr($comment->created_at, 0, 18)));
     		$pipefyUser = PipefyUser::find($comment->author->id);
     		$comment->author = $pipefyUser;
     		$comment->author->avatar = $pipefyUser->avatar();
@@ -78,13 +79,7 @@ class CardController extends Controller
     				
     				break;
     			case 'Observações':
-    				$card->description = preg_replace( '/(<.*[^>])(.*)(<\/.*>)/sU', '<pre><code>$1$2$3</code></pre>', $field['value']);
-
-    				$card->description = htmlspecialchars($card->description);
-
-    				$card->description = preg_replace('#&lt;(/?(?:pre|code))&gt;#', '<\1>', $card->description);
-    				$card->description = nl2br($card->description);
-    				$card->description = usernameHighlight($card->description);
+    				$card->description = markup($field['value']);
     				break;
     		}
     	}
@@ -98,7 +93,7 @@ class CardController extends Controller
     	foreach($card->phases_history as &$phase){
     		$phaseNew = [
     			'name' => $phase->phase->name,
-    			'date' => date('d/m/Y H:i', strtotime($phase->firstTimeIn)),
+                'date' => date('d/m/Y H:i', strtotime(substr($phase->firstTimeIn, 0, 18))),
     		];
     		$phase = $phaseNew;
     	}

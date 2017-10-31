@@ -105,11 +105,11 @@ class ApiPipefy extends Model
 
 	public function cardDetail($cardId = null){
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-  \"query\": \"{ card(id: ".$cardId.") { title assignees { id } comments { text author { id } } current_phase { name } done due_date fields { name value } phases_history { phase { name } firstTimeIn } url } }\"
+  \"query\": \"{ card(id: ".$cardId.") { title assignees { id } comments { text author { id } created_at } current_phase { name } done due_date fields { name value } phases_history { phase { name } firstTimeIn } url } }\"
 }");
 
 		$card = $this->runCurl();
-
+		
 		return $card->data->card;
 	}
 
