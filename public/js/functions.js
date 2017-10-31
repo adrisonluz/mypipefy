@@ -201,16 +201,16 @@ function reloadtables($table){
     complete: function(){
       $table.siblings('.loader-tables').fadeOut();
       $table.DataTable({
-        order: [[4, 'asc']],
+        order: [[3, 'asc']],
         language: {
-          url: $("base").attr('href')+'plugins/dautoatatables/languages/Portuguese-Brasil.json'
+          url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
         },
         columns: [
-        null,
-        null,
-        null,
-        { type: 'date-uk' },
-        { orderable: false },
+          null,
+          null,
+          null,
+          { type: 'date-uk' },
+          { orderable: false },
         ]
       });
       $('[data-toggle="tooltip"]').tooltip({
@@ -301,7 +301,9 @@ function getCardDetail(cardId){
           commentsHtml += '<div>'+
               '<img src="'+comment.author.avatar+'" title="'+comment.author.name+'" alt="'+comment.author.name+'" class="img-responsive img-thumbnail">'+
               '<div><span>'+comment.author.name+'</span>'+
-              '<p>'+comment.text+'</p></div>'+
+              '<p>'+comment.text+'</p>'+
+              '<span class="date">'+comment.created_at+'</span>'+
+              '</div>'+
             '</div>';
         });
         if(attachmentsHtml == ''){
