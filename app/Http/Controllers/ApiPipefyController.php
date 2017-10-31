@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApiPipefy;
+use Auth;
 
 class ApiPipefyController extends Controller
 {
@@ -21,7 +22,7 @@ class ApiPipefyController extends Controller
 
     public function onlyPipes(){
         self::pipefyAuth(false);
-
+        // dd($this->apiPipefy->cardsPhase());
         $pipes = $this->apiPipefy->onlyPipes();
 
         return $pipes;
@@ -56,7 +57,7 @@ class ApiPipefyController extends Controller
     		}
     	}
 
-        return json_encode($cards);
+        return response()->json($cards);
     }
 
     public function getCardsUserTable(Request $request, $userId){
@@ -95,6 +96,6 @@ class ApiPipefyController extends Controller
             }
         }
 
-        return json_encode($cards);
+        return response()->json($cards);
     }
 }

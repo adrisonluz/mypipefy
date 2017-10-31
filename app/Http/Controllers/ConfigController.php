@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\ApiPipefy;
 use App\PipefyUser;
+use App\PipeConfig;
 
 class ConfigController extends Controller
 {
@@ -26,7 +27,7 @@ class ConfigController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function team()
     {
         self::pipefyAuth();
         $team = Auth::user()->team;
@@ -48,5 +49,28 @@ class ConfigController extends Controller
         $this->retorno['users'] = $this->pipefyUser->allAvailableUsers($teamIds);
         $this->retorno['myTeam'] = $team;
         return view('config', $this->retorno);
+    }
+
+    public function pipes()
+    {
+        self::pipefyAuth();
+        $configs = PipeConfig::where('user_id', Auth::user()->id)->get();
+        $pipes = $this->apiPipefy->onlyPipes();
+        $conf = [];
+
+        foreach ($configs as $config) {
+            $conf[$config->phase_id] = $config->color;
+        }
+
+        foreach ($pipes as &$pipe) {
+            foreach ($pipe->phases as &$phase) {
+                $phase->checked = array_key_exists($phase->id, $conf) ? 'checked' : '';
+                $phase->color = array_key_exists($phase->id, $conf) ? $conf[$phase->id] : '';
+            }
+        }
+
+        $this->retorno['pipes'] = $pipes;
+        // dd($this->retorno);
+        return view('pipes', $this->retorno);        
     }
 }

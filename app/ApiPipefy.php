@@ -91,11 +91,21 @@ class ApiPipefy extends Model
 		return $myPipes;
 	}
 
-	public function onlyPipes(){
+	public function cardsPhase(){
 		$userId = (!empty($_POST['userId']) ? $_POST['userId'] : null);
 
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { name, id, phases { id, name, cards{ " . ($userId !== null ? "search:{assignee_ids:[" . $userId. "]})" : '') . "  edges{ node { id, title, due_date } } } } } } }\"
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes (id: 233681) { name, id, phases (ids: [1675794, 1676730]){ id, name, cards{ edges{ node { id, title, due_date } } } } } } }\"
+		}");
+
+		$pipesArray = $this->runCurl();
+		dd($pipesArray);
+		// return $pipesArray->data->organization->pipes;
+	}
+
+	public function onlyPipes($userId = null){
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){  pipes { name id phases { id name } } } }\"
 		}");
 
 		$pipesArray = $this->runCurl();

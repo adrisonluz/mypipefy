@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use app\ApiPipefy;
 use app\PipefyUser;
+use \DateTime;
 
 class CardController extends Controller
 {
@@ -23,7 +24,10 @@ class CardController extends Controller
     	//Define Comment Author
     	foreach($card->comments as &$comment){
             $comment->text = markup($comment->text);
-    		$comment->created_at = date('d/m/Y H:i', strtotime(substr($comment->created_at, 0, 18)));
+            
+            $dateTime = new DateTime($comment->created_at);
+            $comment->created_at = $dateTime->format('d/m/Y H:i');
+
     		$pipefyUser = PipefyUser::find($comment->author->id);
     		$comment->author = $pipefyUser;
     		$comment->author->avatar = $pipefyUser->avatar();
@@ -64,7 +68,7 @@ class CardController extends Controller
     					$extension = ltrim($extension, '.');
 
     					//Define type as image
-    					if(in_array($extension, ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'ico'])){
+    					if(in_array(strtolower($extension), ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'ico'])){
     						$imageType = 'image';
     					}else{
     						$imageType = 'file';
@@ -90,21 +94,22 @@ class CardController extends Controller
     	];
 
     	//Phases History
-    	foreach($card->phases_history as &$phase){
-    		$phaseNew = [
-    			'name' => $phase->phase->name,
-                'date' => date('d/m/Y H:i', strtotime(substr($phase->firstTimeIn, 0, 18))),
-    		];
-    		$phase = $phaseNew;
-    	}
+        foreach($card->phases_history as &$phase){
+            $dateTime = new DateTime($phase->firstTimeIn);
+            $phaseNew = [
+                'name' => $phase->phase->name,
+                'date' => $dateTime->format('d/m/Y H:i'),
+            ];
+            $phase = $phaseNew;
+        }
 
-    	//Format due
-    	$card->due_date = date('d/m/Y', strtotime($card->due_date));
+        //Format due
+        $dateTime = new DateTime($card->due_date);
+        $card->due_date = $dateTime->format('d/m/Y');
 
     	unset($card->fields);
     	$card->fields = $alternativeFields;
     	unset($card->current_phase);
-
 		return response()->json($card);
     }
 }
