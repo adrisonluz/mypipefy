@@ -15,7 +15,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
     Route::get('/home', ['uses' => 'HomeController@index', 'as' => 'home']);
     Route::get('/index', ['uses' => 'HomeController@index', 'as' => 'home']);
-
+    /* Auth Google */
+    Route::get('/login/google', ['uses' => 'Auth\LoginController@redirectToProvider', 'as' => 'google']);
+    Route::get('/login/google/callback', ['uses' => 'Auth\LoginController@handleProviderCallback']);
 });
 
 Route::group(['middleware' => ['auth']], function () {

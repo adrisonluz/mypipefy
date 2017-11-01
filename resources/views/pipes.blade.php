@@ -38,9 +38,10 @@
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             {{ session('status') }}
                         </div>
-                        @endif
+                    @endif
                     <div class="panel panel-default">
                         <form action="{{ route('config.pipes.save') }}" method="POST">
                             {{ csrf_field() }}
