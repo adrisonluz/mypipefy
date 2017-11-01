@@ -9,7 +9,8 @@ use \DateTime;
 
 class CardController extends Controller
 {
-    public function detailCard($cardId){
+    public function detailCard($cardId)
+    {
     	self::pipefyAuth();
 
     	$card = $this->apiPipefy->cardDetail($cardId);

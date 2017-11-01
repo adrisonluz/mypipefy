@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Team;
 use App\PipefyUser;
 use App\PipeConfig;
+use Artisan;
 
 class PipeConfigsController extends Controller
 {
@@ -20,13 +21,17 @@ class PipeConfigsController extends Controller
 
         //Inserindo novas configurações
         foreach($phase_ids as $i => $phase_id){
+            $color = ($colors[$phase_id]) ?: '#2579A9';
             $data = [
                 'phase_id' => $phase_id,
-                'color'    => $colors[$phase_id],
+                'color'    => $color,
                 'user_id'  => Auth::user()->id
             ];
             PipeConfig::create($data);
         }
+        //Limpa o cache
+        Artisan::call('cache:clear');
+        
         return redirect()->route('config.pipes')->with('status', 'Configurações salvas com sucesso!');
     }
 }

@@ -40,28 +40,12 @@ $(document).ready(function() {
                         var events = [];
                         $(result).each(function(key_card, card) {
                             var diff_days = calculaDias(card.start);
-                            var color = '';
-
-                            if(card.phaseName.toUpperCase() !== 'PENDENTE'){
-                                switch(diff_days){
-                                    case false:
-                                        color = '#5cb85c';
-                                        break;
-                                    case 1:
-                                        color = '#f0ad4e';
-                                        break;
-                                    default:
-                                        color = '#d9534f';
-                                }
-                            }else{
-                                color = '#292b2c ';
-                            }
                                 
                             events.push({
                                 title: card.title,
                                 start: card.start,
-                                color: color,
-                                url: 'https://app.pipefy.com/pipes/' + card.pipeId + '#cards/' + card.cardId,
+                                color: card.color,
+                                url: card.url
                             });
                         });
                         callback(events);

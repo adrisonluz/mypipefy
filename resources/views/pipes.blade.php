@@ -8,7 +8,20 @@
 <script src="{{ asset('plugins/colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
 <script>
     $(function() {
-        $('.colorpicker-component').colorpicker();
+        $('.colorpicker-component').colorpicker({
+            colorSelectors: {
+                'black': '#000000',
+                'white': '#ffffff',
+                'red': '#FF0000',
+                'default': '#777777',
+                'primary': '#337ab7',
+                'success': '#5cb85c',
+                'info': '#5bc0de',
+                'warning': '#f0ad4e',
+                'danger': '#d9534f',
+            },
+            format : 'hex',
+        });
         $("button[data-toggle='collapse']").on('click', function(event){
             event.preventDefault();
         });

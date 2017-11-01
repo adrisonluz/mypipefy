@@ -27,8 +27,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     /* API Pipefy */
     Route::group(['prefix' => 'api'], function () {
-        Route::post('/getMe', ['uses' => 'ApiPipefyController@getMe', 'as' => 'api.get_me']);
-        Route::get('/onlyPipes', ['uses' => 'ApiPipefyController@onlyPipes', 'as' => 'api.only_pipes']);
         Route::get('/getCardsUser/{userId}', ['uses' => 'ApiPipefyController@getCardsUserTable', 'as' => 'api.get_cards_user_id']);
         Route::post('/getCardsUser', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
         

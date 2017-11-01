@@ -60,6 +60,7 @@
             @endif
             <div class="menu-perfil-mobile">
               <ul>
+                <li><a href="{{ route('config.pipes') }}">Configurações</a></li>
                 <li>
                   <a href="{{ route('logout') }}"
                   onclick="event.preventDefault();
@@ -71,7 +72,6 @@
                   {{ csrf_field() }}
                 </form>
               </li>
-              <li><a href="config">Configurações</a></li>
             </ul>
           </div>
         </div>
@@ -183,6 +183,7 @@
                   </a>
 
                   <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ route('config.pipes') }}">Configurações</a></li>
                     <li>
                       <a href="{{ route('logout') }}"
                       onclick="event.preventDefault();

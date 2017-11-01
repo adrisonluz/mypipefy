@@ -70,7 +70,6 @@ class ConfigController extends Controller
         }
 
         $this->retorno['pipes'] = $pipes;
-        // dd($this->retorno);
         return view('pipes', $this->retorno);        
     }
 }

@@ -24,4 +24,15 @@ class PipeConfig extends Model
      * @var array
      */
     protected $hidden = [];
+
+    static public function getPhaseColor($phase_id)
+    {
+        return Cache::remember('phase-'.$phase_id.'-color', Config::get('cache.default_cache_time'), function() use($phase_id) {
+            $select = self::select('color')
+                        ->where('phase_id', '=', $phase_id)
+                        ->where('user_id', '=', Auth::user()->id)
+                        ->first();
+            return (!is_null($select)) ? $select->color : false;
+        });
+    }
 }
