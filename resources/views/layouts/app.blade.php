@@ -54,11 +54,13 @@
             <span class="icon-bar"></span>
           </button>
           <div class="mobile-menu-perfil">
+
             @if (isset($me))
-            <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
+            <img src="{{ $me->avatar() }}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail">
             @endif
             <div class="menu-perfil-mobile">
               <ul>
+                <!-- <li><a href="{{ route('config.pipes') }}">Configurações</a></li> -->
                 <li>
                   <a href="{{ route('logout') }}"
                   onclick="event.preventDefault();
@@ -70,10 +72,34 @@
                   {{ csrf_field() }}
                 </form>
               </li>
-              <li><a href="config">Configurações</a></li>
             </ul>
           </div>
         </div>
+        @if(isset($invites) and count($invites) > 0)
+        <div class="pull-left notification-mobile">
+          <div class="notifications dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+            <i class="fa fa-bell-o"></i>
+            <span class="badge">{{ count($invites) }}</span>
+          </div>
+          <ul class="dropdown-menu invites pull-right">
+            @foreach($invites as $invite)
+            <li class="dropdown">
+              <strong>{{'@'.$invite->user->pipefyUser->username}}</strong> convidou você para o time dele.
+              <div class="buttons" data-teamid="{{$invite->id}}" data-route="{{ route('config.changeInvite') }}">
+                <div class="decline">
+                  <!-- <i class="fa fa-times-circle-o text-danger"></i> -->
+                  Recusar
+                </div>
+                <div class="accept">
+                  <!-- <i class="fa fa-check-circle-o text-success"></i> -->
+                  Aceitar
+                </div>
+              </div>
+            </li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
         <!-- Collapsed Hamburger -->
 
       </div>
@@ -85,12 +111,27 @@
           <li><a href="{{ route('register') }}">Cadastro</a></li>
           @else
           <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-          <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu Time <span class="caret"></span></a>
+          <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
+          <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configurações<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
-              <li><a href="{{ route('config') }}">Configurações De Time</a></li>
+              <li><a href="{{ route('config.team') }}">Time</a></li>
+              <li><a href="{{ route('config.pipes') }}">Dashboard</a></li>
             </ul>
           </li>
+
+          <li class="divider"></li>
+
+            <!-- <li><a href="{{ route('config.pipes') }}">Configurações</a></li> -->
+            <li>
+              <a href="{{ route('logout') }}"
+              onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+              Logout
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              {{ csrf_field() }}
+            </form>
           @endif
         </ul>
         <div class="collapse navbar-collapse">
@@ -108,10 +149,11 @@
               <li><a href="{{ route('register') }}">Cadastro</a></li>
               @else
               <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-              <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu Time <span class="caret"></span></a>
+              <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
+              <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configurações <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
-                  <li><a href="{{ route('config') }}">Configurações De Time</a></li>
+                  <li><a href="{{ route('config.team') }}">Time</a></li>
+                  <li><a href="{{ route('config.pipes') }}">Dashboard</a></li>
                 </ul>
               </li>
               @endif
@@ -133,14 +175,12 @@
                 <ul class="dropdown-menu invites pull-right">
                   @foreach($invites as $invite)
                   <li class="dropdown">
-                    {{'@'.$invite->user->pipefyUser->username}} convidou você para o time dele
+                    <strong>{{'@'.$invite->user->pipefyUser->username}}</strong> convidou você para o time dele.
                     <div class="buttons" data-teamid="{{$invite->id}}" data-route="{{ route('config.changeInvite') }}">
                       <div class="decline">
-                        <i class="fa fa-check-circle-o text-danger"></i>
                         Recusar
                       </div>
                       <div class="accept">
-                        <i class="fa fa-times-circle-o text-success"></i>
                         Aceitar
                       </div>
                     </div>
@@ -150,7 +190,7 @@
               </div>
               @endif
 
-              <img src="{{$me->avatar_url}}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
+              <img src="{{ $me->avatar() }}" title="{{$me->name}}" class="avatar img-responsive img-thumbnail pull-left">
 
               <ul class="nav navbar-nav" style="float:right;">
                 <li class="dropdown">
@@ -159,6 +199,7 @@
                   </a>
 
                   <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ route('config.pipes') }}">Configurações</a></li>
                     <li>
                       <a href="{{ route('logout') }}"
                       onclick="event.preventDefault();
@@ -195,6 +236,7 @@
 <!-- Scripts -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 @stack('scripts')
+<script src="//cdn.rawgit.com/namuol/cheet.js/master/cheet.min.js" type="text/javascript"></script>
 <script src="{{ asset('js/functions.js') }}"></script>
 </body>
 </html>

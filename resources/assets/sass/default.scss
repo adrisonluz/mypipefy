@@ -51,8 +51,49 @@ $background-default:#3097D1;
 }
 .modal-info-table
 {
+  overflow: auto;
+  padding-bottom: 50px;
+  .title-row{
+    font-weight: 600;
+    margin-right: 5px;
+    font-size: 15px;
+    color: #3097D1;
+  }
+  .assignees img {
+      max-width: 40px;
+  }
   .modal-info-body{
     .modal-info-desc{
+      .desc-modal-info{
+        .row{
+          .block-p{
+            width: 100%;
+            display: block;
+            float: left;
+          }
+           > .col-lg-6.col-md-6.col-xs-12.col-sm-12{
+             min-height: 40px;
+             margin-bottom: 10px;
+          }
+          ul.attachments {
+              padding: 0;
+              list-style: none;
+              float: left;
+              li {
+                a {
+                      img {
+                      width: 100%;
+                      max-width: 24%;
+                      margin-right: 5px;
+                  }
+                }
+            }
+          }
+        }
+        strong.description {
+            width: 100%;
+        }
+      }
       .modal-info-desc{
         margin-top: 20px;
       }
@@ -71,16 +112,13 @@ $background-default:#3097D1;
               font-size: 15px;
               color: #3097D1;
             }
-            button.btn.btn-primary.linkForSite{
+            .linkForSite{
               padding: 0;
               margin-left: 20px;
               transition: .4s all ease;
-              a{
-                padding: 5px 20px;
-                text-decoration: none;
-                display: block;
-                color: #fff;
-              }
+              padding: 5px 20px;
+              text-decoration: none;
+              color: #fff;
             }
           }
         }
@@ -94,12 +132,186 @@ $background-default:#3097D1;
             }
             strong{
               float: left;
+              font-weight: 400;
             }
           }
         }
       }
+      .row#bloco-comentarios {
+          .comments{
+            display: none;
+            > div {
+                border: 1px solid #3097D1;
+                padding: 10px;
+                margin-bottom: 10px;
+                margin-top: 10px;
+                height: auto;
+                img{
+                  max-height: 50px;
+                  vertical-align: top;
+                }
+                > div {
+                    max-width: 91%;
+                    display: inline-block !important;
+                    margin-left: 10px;
+                    span {
+                        font-weight: 700;
+                        color: #3097D1
+                    }
+                }
+            }
+          }
+          padding: 15px;
+      }
     }
   }
+}
+.botton-default {
+    text-align: center;
+    font-weight: 600;
+    max-width: 70px;
+    margin: auto;
+    padding: 7px 15px;
+    transition: all .2s;
+    border: 1px solid;
+    margin-left: 20px;
+    &:hover {
+        background: #216a94;
+        color: #fff;
+        text-decoration: none;
+    }
+}
+strong.description strong.username-highlight {
+  float: none !important;
+}
+
+a.show-comments {
+    text-align: center;
+    display: block;
+    font-weight: 600;
+    max-width: 150px;
+    margin: auto;
+    padding: 10px;
+    transition: all .2s;
+    border: 1px solid;
+}
+a.show-comments:hover {
+    background: #216a94;
+    color: #fff;
+    text-decoration: none;
+}
+ul.dropdown-menu.invites.pull-right {
+    padding: 0 10px;
+    margin-right: 70px;
+    box-shadow: 0px 0px 8px #ccc;
+    max-width: 300px;
+    padding-top: 10px;
+    .buttons .decline {
+        padding-right: 10px;
+    }
+    li.dropdown {
+        padding: 0 0 5px;
+        margin-bottom: 10px;
+        font-weight: 600;
+        strong{
+          color: #000
+        }
+        .buttons {
+            width: auto;
+            display: table;
+            margin: auto;
+            transition: .4s all ease;
+            div{
+                transition: .4s all ease;
+                font-size: 15px;
+                border: 1px solid;
+                margin-top: 5px;
+                margin-right: 10px;
+                padding: 0px 10px;
+                border-radius: 3px;
+                margin-bottom: 5px;
+                &:hover {
+              }
+            }
+            .decline {
+                border-color: #a94442;
+                color: #a94442;
+                &:hover {
+                  background: #a94442;
+                  color: #fff;
+                }
+            }
+            .accept {
+                color: #3c763d;
+                border-color: #3c763d;
+                &:hover {
+                  background: #3c763d;
+                  color: #fff;
+                }
+            }
+        }
+    }
+}
+.pull-left.notification-mobile {
+    float: right !important;
+    margin-top: 14px;
+
+    ul.dropdown-menu.invites.pull-right {
+        width: 100%;
+        margin-right: 10px;
+    }
+}
+td.sorting_1 {
+  .fa {
+    float: right;
+    margin-right: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #3097d1;
+  }
+}
+.pendente td.sorting_1 i.fa.toltip-color i.fa.fa-info-circle {
+    color: #292b2c;
+}
+.pendente td.sorting_1 i.fa.toltip-color .tooltip-inner {
+    background-color: #292b2c !important;
+}
+.pendente td.sorting_1 i.fa.toltip-color .tooltip-arrow {
+    border-right-color: #292b2c !important;
+}
+.normal td.sorting_1 i.fa i.fa.fa-info-circle {
+    color: #5cb85c !important;
+}
+.normal td.sorting_1 i.fa.toltip-color .tooltip-inner {
+    background-color: #5cb85c !important;
+}
+.normal td.sorting_1 i.fa.toltip-color .tooltip-arrow {
+    border-right-color: #5cb85c !important;
+}
+.atrasado td.sorting_1 i.fa i.fa.fa-info-circle {
+    color: #f0ad4e !important;
+}
+.atrasado td.sorting_1 i.fa.toltip-color .tooltip-inner {
+    background-color: #f0ad4e !important;
+}
+.atrasado td.sorting_1 i.fa.toltip-color .tooltip-arrow {
+    border-right-color: #f0ad4e !important;
+}
+.very_atrasado td.sorting_1 i.fa i.fa.fa-info-circle {
+    color: #d9534f !important;
+}
+.very_atrasado td.sorting_1 i.fa.toltip-color .tooltip-inner {
+    background-color: #d9534f !important;
+}
+.very_atrasado td.sorting_1 i.fa.toltip-color .tooltip-arrow {
+    border-right-color: #d9534f !important;
+}
+i#expand-modal {
+    margin-right: 10px;
+    transition: .3s all ease;
+}
+i#expand-modal:hover {
+    transform: scale(1.1);
 }
 @media (max-width:900px){
   span.close-modal-info {
@@ -115,6 +327,9 @@ $background-default:#3097D1;
   }
 }
 @media(max-width:768px){
+  span.dtr-data i.fa {
+      display: none;
+  }
   .panel-body
   {
   .loader-tables {

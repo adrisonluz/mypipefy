@@ -17,16 +17,19 @@ class Controller extends BaseController
     public $retorno;
     public $apiPipefy;
 
-    public function __construct(ApiPipefy $apiPipefy){
+    public function __construct(ApiPipefy $apiPipefy)
+    {
         $this->apiPipefy = $apiPipefy;
     }
 
-    protected function pipefyAuth($withMe = true){
+    protected function pipefyAuth($withMe = true)
+    {
     	$this->apiPipefy->key = Auth::user()->token;
     	$this->apiPipefy->myId = Auth::user()->pipefy_id;
     	
     	if($withMe){
-            $this->retorno['pipefyUser'] = Auth::user()->pipefyUser;
+            $this->retorno['me'] = Auth::user()->pipefyUser;
+            $this->retorno['pipefyUser'] = $this->retorno['me'];
             $this->retorno['invites'] = Team::invites(Auth::user()->pipefy_id);
         }
     }

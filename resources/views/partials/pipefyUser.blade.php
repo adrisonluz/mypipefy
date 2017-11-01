@@ -1,7 +1,10 @@
+@push('styles')
+<style class="dashboardStyle"></style>
+@endpush
 <div class="row rowUserTeam">
   <div class="col-xs-12">
     <div class="user-info">
-      <img src="{{asset('storage/pipefy_avatar/'.$pipefyUser->avatar_url)}}" title="{{$pipefyUser->name}}" alt="{{$pipefyUser->name}}" class="img-responsive img-thumbnail">
+      <img src="{{ $pipefyUser->avatar() }}" title="{{$pipefyUser->name}}" alt="{{$pipefyUser->name}}" class="img-responsive img-thumbnail">
       <div> 
         <h3>{{FirstAndLastName($pipefyUser->name)}} </h3>
         <span>{{'@'.$pipefyUser->username}} | {{$pipefyUser->pipefy_id}}</span>
@@ -23,11 +26,11 @@
     <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $pipefyUser->pipefy_id]) }}">
       <thead class="thead-inverse">
         <tr>
-          <td>ID</td>
           <td>Pipe</td>
           <td>Título</td>
           <td>Cliente</td>
           <td>DUE</td>
+          <td>Ações</td>
         </tr>
       </thead>
       <tbody></tbody>

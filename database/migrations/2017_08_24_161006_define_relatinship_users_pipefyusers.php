@@ -27,7 +27,7 @@ class DefineRelatinshipUsersPipefyusers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('pipefy_id');
+            $table->dropForeign(['pipefy_id']);
         });
     }
 }
