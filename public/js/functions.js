@@ -168,29 +168,14 @@ function reloadtables($table){
       $table.siblings('.loader-tables').fadeIn();
     },
     success: function(data){
-      $.each(data, function(index, card){
+      $("style.dashboardStyle").html(data.css);
+      $.each(data.cards, function(index, card){
         var diff_days = calculaDias(card.due, true);
-        var classColor = '';
 
-        if(card.phaseName.toUpperCase() !== 'PENDENTE'){
-          switch(diff_days){
-            case false:
-            classColor = 'normal';
-            break;
-            case 1:
-            classColor = 'atrasado';
-            break;
-            default:
-            classColor = 'very_atrasado';
-          }
-        }else{
-          classColor = 'pendente';
-        }
-
-        classColor = (classColor != '') ? ' class="'+classColor+'"' : '';
+        var classColor = ' class="phase_'+card.phaseId+'"';
         var $tr = '<tr '+classColor+' data-toggle="tooltip" data-placement="left" title="'+card.phaseName+'">';
-        $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'" target="_blank">'+card.pipeName+'</a></td>';
-        $tr += '<td><a href="https://app.pipefy.com/pipes/'+card.pipeId+'#cards/'+card.cardId+'" target="_blank">'+card.cardTitle+'</a></td>';
+        $tr += '<td><a href="'+card.pipeUrl+'" target="_blank">'+card.pipeName+'</a></td>';
+        $tr += '<td><a href="'+card.url+'" target="_blank">'+card.cardTitle+'</a></td>';
         $tr += '<td>'+card.clientName+'</td>';
         $tr += '<td>'+card.due+'</td>';
         $tr += '<td><button class="btn btn-primary" id="open-card" data-card="'+card.cardId+'"> Ver Card</button></td>';

@@ -1,3 +1,6 @@
+@push('styles')
+<style class="dashboardStyle"></style>
+@endpush
 <div class="row rowUserTeam">
   <div class="col-xs-12">
     <div class="user-info">

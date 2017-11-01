@@ -27,8 +27,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     /* API Pipefy */
     Route::group(['prefix' => 'api'], function () {
-        Route::post('/getMe', ['uses' => 'ApiPipefyController@getMe', 'as' => 'api.get_me']);
-        Route::post('/onlyPipes', ['uses' => 'ApiPipefyController@onlyPipes', 'as' => 'api.only_pipes']);
         Route::get('/getCardsUser/{userId}', ['uses' => 'ApiPipefyController@getCardsUserTable', 'as' => 'api.get_cards_user_id']);
         Route::post('/getCardsUser', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
         
@@ -41,7 +39,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     /* Configs */
     Route::group(['prefix' => 'config'], function(){
-        Route::get('/', ['uses' => 'ConfigController@index', 'as' => 'config']);
+        /* Pipes */
+        Route::group(['prefix' => 'pipes'], function(){
+            Route::get('/', ['uses' => 'ConfigController@pipes', 'as' => 'config.pipes']);
+            Route::post('/save', ['uses' => 'PipeConfigsController@save', 'as' => 'config.pipes.save']);
+        });
+
+        Route::get('/team', ['uses' => 'ConfigController@team', 'as' => 'config.team']);
         Route::post('/sendInvite', ['uses' => 'TeamController@sendInvite', 'as' => 'config.sendInvite']);
         Route::post('/removeInvite', ['uses' => 'TeamController@removeInvite', 'as' => 'config.removeInvite']);
         Route::post('/reorder', ['uses' => 'TeamController@reorder', 'as' => 'config.reorder']);

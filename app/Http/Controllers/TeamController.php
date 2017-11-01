@@ -19,7 +19,8 @@ class TeamController extends Controller
         return self::changeStatus($request, 0);
     }
 
-    private function changeStatus(Request $request, $status){
+    private function changeStatus(Request $request, $status)
+    {
         $team = Team::updateOrCreate([
             'user_id'   => Auth::user()->id,
             'pipefy_id' => $request->get('pipefy_id'),
@@ -37,7 +38,8 @@ class TeamController extends Controller
         return json_encode(['error' => 'Erro ao atualizar time.']);
     }
 
-    public function reorder(Request $request){
+    public function reorder(Request $request)
+    {
         foreach($request->get('order') as $order => $pipefy_id){
             $team = Team::updateOrCreate([
                 'user_id'   => Auth::user()->id,
@@ -52,7 +54,8 @@ class TeamController extends Controller
         }
     }
 
-    public function changeInvite(Request $request){
+    public function changeInvite(Request $request)
+    {
         $team = Team::find($request->get('teamId'));
         $team->status = $request->get('status');
         return json_encode(['success' => $team->save()]);

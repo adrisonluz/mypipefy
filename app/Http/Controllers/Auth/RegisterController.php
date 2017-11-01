@@ -67,9 +67,9 @@ class RegisterController extends Controller
         $pipefy_id = $apiPipefy->getMyId($data['token']);
 
         return User::create([
-            'email'    => $data['email'],
-            'password' => bcrypt($data['password']),
-            'token'    => $data['token'],
+            'email'     => $data['email'],
+            'password'  => bcrypt($data['password']),
+            'token'     => $data['token'],
             'pipefy_id' => $pipefy_id,
         ]);
     }
