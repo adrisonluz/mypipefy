@@ -63,12 +63,27 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
+                                <a href="{{ route('google') }}" class="google-login">
+                                    <img src="{{ asset('img/google.png') }}" alt="Google Login">
+                                </a>
 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Esqueceu sua senha?
                                 </a>
                             </div>
                         </div>
+
+                        @if (session('status'))
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <div class="alert alert-danger">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        {{ session('status') }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                     </form>
                 </div>
             </div>

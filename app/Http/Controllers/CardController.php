@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use app\ApiPipefy;
 use app\PipefyUser;
+use \DateTime;
 
 class CardController extends Controller
 {
-    public function detailCard($cardId){
+    public function detailCard($cardId)
+    {
     	self::pipefyAuth();
 
     	$card = $this->apiPipefy->cardDetail($cardId);
@@ -22,7 +24,11 @@ class CardController extends Controller
 
     	//Define Comment Author
     	foreach($card->comments as &$comment){
-    		$comment->text = usernameHighlight($comment->text);
+            $comment->text = markup($comment->text);
+            
+            $dateTime = new DateTime($comment->created_at);
+            $comment->created_at = $dateTime->format('d/m/Y H:i');
+
     		$pipefyUser = PipefyUser::find($comment->author->id);
     		$comment->author = $pipefyUser;
     		$comment->author->avatar = $pipefyUser->avatar();
@@ -63,7 +69,7 @@ class CardController extends Controller
     					$extension = ltrim($extension, '.');
 
     					//Define type as image
-    					if(in_array($extension, ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'ico'])){
+    					if(in_array(strtolower($extension), ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'ico'])){
     						$imageType = 'image';
     					}else{
     						$imageType = 'file';
@@ -78,13 +84,7 @@ class CardController extends Controller
     				
     				break;
     			case 'Observações':
-    				$card->description = preg_replace( '/(<.*[^>])(.*)(<\/.*>)/sU', '<pre><code>$1$2$3</code></pre>', $field['value']);
-
-    				$card->description = htmlspecialchars($card->description);
-
-    				$card->description = preg_replace('#&lt;(/?(?:pre|code))&gt;#', '<\1>', $card->description);
-    				$card->description = nl2br($card->description);
-    				$card->description = usernameHighlight($card->description);
+    				$card->description = markup($field['value']);
     				break;
     		}
     	}
@@ -95,21 +95,22 @@ class CardController extends Controller
     	];
 
     	//Phases History
-    	foreach($card->phases_history as &$phase){
-    		$phaseNew = [
-    			'name' => $phase->phase->name,
-    			'date' => date('d/m/Y H:i', strtotime($phase->firstTimeIn)),
-    		];
-    		$phase = $phaseNew;
-    	}
+        foreach($card->phases_history as &$phase){
+            $dateTime = new DateTime($phase->firstTimeIn);
+            $phaseNew = [
+                'name' => $phase->phase->name,
+                'date' => $dateTime->format('d/m/Y H:i'),
+            ];
+            $phase = $phaseNew;
+        }
 
-    	//Format due
-    	$card->due_date = date('d/m/Y', strtotime($card->due_date));
+        //Format due
+        $dateTime = new DateTime($card->due_date);
+        $card->due_date = $dateTime->format('d/m/Y');
 
     	unset($card->fields);
     	$card->fields = $alternativeFields;
     	unset($card->current_phase);
-
 		return response()->json($card);
     }
 }

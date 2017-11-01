@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Config;
+use App\PipeConfig;
 
 class ApiPipefy extends Model
 {
@@ -14,18 +15,21 @@ class ApiPipefy extends Model
 
 	private $curl;
 
-	public function __construct(){
+	public function __construct()
+	{
 		$this->organizationID = Config::get('app.PIPEFY_ORGANIZATION_ID','');
 		$this->pipeIds = [];
 		
 		$this->curl = curl_init();
 	}
 
-	public function __destruct(){
+	public function __destruct()
+	{
 		curl_close($this->curl);
 	}
 
-	public function me(){
+	public function me()
+	{
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
 		  \"query\": \"{ me { id, name, username, avatar_url, email, locale, time_zone } }\"
 		}");
@@ -35,7 +39,8 @@ class ApiPipefy extends Model
 		return $responseArray->data->me;
 	}
 
-	public function getUsers(){
+	public function getUsers()
+	{
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
 		  \"query\": \"{ organization(id:".$this->organizationID."){ id, members { user { id, name, email, username, avatarUrl } } } }\"
 		}");
@@ -44,58 +49,57 @@ class ApiPipefy extends Model
 		return $responseArray->data->organization->members;		
 	}
 
-	public function allPipes(){
-		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { name, id, phases { id, name, cards{  edges{ node { id, title, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
-		}");
-		
-		$pipesArray = $this->runCurl();
-
-		return $pipesArray->data->organization;
-	}
-
-	public function myCards(){
+	public function myCards()
+	{
 		return $this->userCards($this->myId);
 	}
 
-	public function userCards($userId = null){
+	public function userCards($userId = null)
+	{
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { id, name, phases { done, name, cards( search:{assignee_ids:[" . $userId. "]}) {  edges{ node { id, title, due_date, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes { id, name, phases { id, name, cards( search:{assignee_ids:[" . $userId. "]}) {  edges{ node { url, id, title, due_date, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
 		}");
 
 		$pipesArray = $this->runCurl();
-
+		
 		$myPipes = [];
 		foreach($pipesArray->data->organization->pipes as $pipe){
+			$insert = false;
 			$myCards = [];
 			if(count($pipe->phases) > 0){
 				foreach($pipe->phases as $phase){
-					if(!$phase->done){
-						foreach ($phase->cards as $card) {
-							foreach ($card as $node) {
-								$node->node->phaseName = $phase->name;
-								$myCards[] = $node->node;
+					$color = PipeConfig::getPhaseColor($phase->id);
+					if($color !== false){
+						if(count($phase->cards->edges) > 0) {
+							$insert = true;
+							foreach ($phase->cards as $card) {
+								foreach ($card as $node) {
+									$node->node->phaseName = $phase->name;
+									$node->node->phaseId = $phase->id;
+									$node->node->color = $color;
+									$myCards[] = $node->node;
+								}
 							}
 						}
 					}
 				}
 			}
 
-			$myPipes[] = [
-				'pipeId' => $pipe->id,
-				'pipeName' => $pipe->name,
-				'pipeCards' => $myCards
-			];
+			if($insert){
+				$myPipes[] = [
+					'pipeId' => $pipe->id,
+					'pipeName' => $pipe->name,
+					'pipeCards' => $myCards
+				];
+			}
 		}
-
 		return $myPipes;
 	}
 
-	public function onlyPipes(){
-		$userId = (!empty($_POST['userId']) ? $_POST['userId'] : null);
-
+	public function onlyPipes($userId = null)
+	{
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ organization(id: " . $this->organizationID . "){ name, pipes" . (!empty($this->pipeIds) ? "(ids: [" . implode($this->pipeIds, ',') . "])" : '') . " { name, id, phases { id, name, cards{ " . ($userId !== null ? "search:{assignee_ids:[" . $userId. "]})" : '') . "  edges{ node { id, title, due_date } } } } } } }\"
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){  pipes { name id phases { id name } } } }\"
 		}");
 
 		$pipesArray = $this->runCurl();
@@ -103,17 +107,19 @@ class ApiPipefy extends Model
 		return $pipesArray->data->organization->pipes;
 	}
 
-	public function cardDetail($cardId = null){
+	public function cardDetail($cardId = null)
+	{
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-  \"query\": \"{ card(id: ".$cardId.") { title assignees { id } comments { text author { id } } current_phase { name } done due_date fields { name value } phases_history { phase { name } firstTimeIn } url } }\"
+  \"query\": \"{ card(id: ".$cardId.") { title assignees { id } comments { text author { id } created_at } current_phase { name } done due_date fields { name value } phases_history { phase { name } firstTimeIn } url } }\"
 }");
 
 		$card = $this->runCurl();
-
+		
 		return $card->data->card;
 	}
 
-	private function runCurl(){
+	private function runCurl()
+	{
 		curl_setopt($this->curl, CURLOPT_URL, "https://app.pipefy.com/queries");
 		curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -127,7 +133,8 @@ class ApiPipefy extends Model
 		return json_decode(curl_exec($this->curl));
 	} 
 
-	public function getMyId($token){
+	public function getMyId($token)
+	{
 		$this->key = $token;
 		$me = $this->me();
 		return $me->id;
