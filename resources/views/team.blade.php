@@ -5,6 +5,7 @@
 <link rel='stylesheet' href="{{ asset('plugins/datatables/css/datatables.min.css') }}" />
 <link rel='stylesheet' href="{{ asset('plugins/datatables/css/dataTables.bootstrap.min.css') }}" />
 <link rel='stylesheet' href="{{ asset('plugins/datatables/css/responsive.bootstrap.min.css') }}" />
+<style class="dashboardStyle"></style>
 @endpush
 
 @push('scripts')

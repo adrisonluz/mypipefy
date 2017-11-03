@@ -7,6 +7,7 @@
 <link rel='stylesheet' href="{{ asset('plugins/datatables/css/responsive.bootstrap.min.css') }}" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css" />
+<style class="dashboardStyle"></style>
 @endpush
 
 @push('scripts')
