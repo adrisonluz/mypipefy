@@ -10,8 +10,8 @@
           <p class="start-from">
             <span>Due:</span> <strong class="due-card-here"></strong>
             <span class="button-grouppp">
-              <a href="#" class="botton-default" id="siteUrl" target="_blank">Site</a>
-              <a href="#" class="botton-default" id="cardUrl" target="_blank">Card</a>
+              <a href="#" class="button-default" id="siteUrl" target="_blank">Site</a>
+              <a href="#" class="button-default" id="cardUrl" target="_blank">Card</a>
             </span>
           </p>
         </div>
@@ -19,7 +19,7 @@
             <div id="anexos-bloco" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <p class="start-from block-p">
                 <span>Anexos</span>
-                <ul class="attachments"></ul>
+                <div class="row attachments"></div>
               </p>
             </div>
             <div id="descricao-bloco" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

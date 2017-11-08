@@ -111,27 +111,23 @@
           <li><a href="{{ route('register') }}">Cadastro</a></li>
           @else
           <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-          <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
+          <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
+          <li><a href="{{ route('dashboard.general') }}">Pautas Geral</a></li>
           <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configurações<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="{{ route('config.team') }}">Time</a></li>
               <li><a href="{{ route('config.pipes') }}">Dashboard</a></li>
             </ul>
           </li>
-
           <li class="divider"></li>
-
-            <!-- <li><a href="{{ route('config.pipes') }}">Configurações</a></li> -->
-            <li>
-              <a href="{{ route('logout') }}"
-              onclick="event.preventDefault();
-              document.getElementById('logout-form').submit();">
+          <li>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               Logout
             </a>
-
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               {{ csrf_field() }}
             </form>
+          </li>
           @endif
         </ul>
         <div class="collapse navbar-collapse">
@@ -150,6 +146,7 @@
               @else
               <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
               <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
+              <li><a href="{{ route('dashboard.general') }}">Pautas Geral</a></li>
               <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configurações <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="{{ route('config.team') }}">Time</a></li>

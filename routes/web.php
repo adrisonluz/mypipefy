@@ -25,16 +25,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', ['uses' => 'ListController@index', 'as' => 'dashboard']);
         Route::get('/team', ['uses' => 'ListController@team', 'as' => 'dashboard.team']);
+        Route::get('/general', ['uses' => 'ListController@general', 'as' => 'dashboard.general']);
     });
 
     /* API Pipefy */
     Route::group(['prefix' => 'api'], function () {
-        Route::get('/getCardsUser/{userId}', ['uses' => 'ApiPipefyController@getCardsUserTable', 'as' => 'api.get_cards_user_id']);
-        Route::post('/getCardsUser', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
+        Route::get('/getCardsUserTable/{userId}', ['uses' => 'ApiPipefyController@getCardsUserTable', 'as' => 'api.get_cards_user_id']);
+
+        Route::get('/getCardsUser/{userId}', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
         
         /* Cards */
         Route::group(['prefix' => 'card'], function () {
-            Route::get('/detail/{userId}', ['uses' => 'CardController@detailCard', 'as' => 'api.cards.detail']);
+            Route::get('/detail/{cardId}', ['uses' => 'CardController@detailCard', 'as' => 'api.cards.detail']);
 
         });
     });
