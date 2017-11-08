@@ -16,14 +16,14 @@ class CardController extends Controller
     	$card = $this->apiPipefy->cardDetail($cardId);
 
     	//Define assignees
-    	foreach($card->assignees as &$assignee){
+    	foreach ($card->assignees as &$assignee) {
     		$pipefyUser = PipefyUser::find($assignee->id);
     		$assignee = $pipefyUser;
     		$assignee->avatar = $pipefyUser->avatar();
     	}
 
     	//Define Comment Author
-    	foreach($card->comments as &$comment){
+    	foreach ($card->comments as &$comment) {
             $comment->text = markup($comment->text);
             
             $dateTime = new DateTime($comment->created_at);
@@ -44,16 +44,18 @@ class CardController extends Controller
     	];
 
     	//Define fields
-    	foreach($card->fields as $field){
-    		$field = json_decode(json_encode($field), true);
+    	foreach ($card->fields as $field) {
+    		$field = object2array($field);
 
     		//Separate important fields
-    		if(in_array($field['name'], $importantFields) && !in_array($field['name'], array_column($alternativeFields, 'name'))){
-    			if(!is_null(json_decode($field['value']))){
+    		if( in_array($field['name'], $importantFields) && !in_array($field['name'], array_column($alternativeFields, 'name'))
+                ) {
+    			if (!is_null(json_decode($field['value']))) {
     				$field['value'] = json_decode($field['value']);
-    			}else{
+    			} else {
     				$field['value'] = [$field['value']];
     			}
+
     			$alternativeFields[] = $field;
     		}
 
@@ -69,7 +71,7 @@ class CardController extends Controller
     					$extension = ltrim($extension, '.');
 
     					//Define type as image
-    					if(in_array(strtolower($extension), ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'ico'])){
+    					if( in_array(strtolower($extension), ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'ico']) ){
     						$imageType = 'image';
     					}else{
     						$imageType = 'file';
@@ -81,7 +83,6 @@ class CardController extends Controller
     						'type' => $imageType,
     					];
     				}
-    				
     				break;
     			case 'Observações':
     				$card->description = markup($field['value']);
@@ -95,7 +96,7 @@ class CardController extends Controller
     	];
 
     	//Phases History
-        foreach($card->phases_history as &$phase){
+        foreach ($card->phases_history as &$phase) {
             $dateTime = new DateTime($phase->firstTimeIn);
             $phaseNew = [
                 'name' => $phase->phase->name,

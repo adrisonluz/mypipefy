@@ -20,7 +20,7 @@ class PipeConfigsController extends Controller
         PipeConfig::where('user_id', Auth::user()->id)->delete();
 
         //Inserindo novas configurações
-        foreach($phase_ids as $i => $phase_id){
+        foreach ($phase_ids as $i => $phase_id) {
             $color = ($colors[$phase_id]) ?: '#2579A9';
             $data = [
                 'phase_id' => $phase_id,

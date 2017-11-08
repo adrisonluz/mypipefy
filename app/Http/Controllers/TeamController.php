@@ -31,7 +31,7 @@ class TeamController extends Controller
         $team->status    = $status;
         $team->order     = 0;
         
-        if($team->save()){
+        if ($team->save()) {
             return json_encode(['success' => $team->save()]);
         }
         
@@ -40,7 +40,7 @@ class TeamController extends Controller
 
     public function reorder(Request $request)
     {
-        foreach($request->get('order') as $order => $pipefy_id){
+        foreach ($request->get('order') as $order => $pipefy_id) {
             $team = Team::updateOrCreate([
                 'user_id'   => Auth::user()->id,
                 'pipefy_id' => $pipefy_id,

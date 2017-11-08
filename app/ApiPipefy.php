@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -61,36 +60,37 @@ class ApiPipefy extends Model
 		}");
 
 		$pipesArray = $this->runCurl();
-		
 		$myPipes = [];
-		foreach($pipesArray->data->organization->pipes as $pipe){
-			$insert = false;
-			$myCards = [];
-			if(count($pipe->phases) > 0){
-				foreach($pipe->phases as $phase){
-					$color = PipeConfig::getPhaseColor($phase->id);
-					if($color !== false){
-						if(count($phase->cards->edges) > 0) {
-							$insert = true;
-							foreach ($phase->cards as $card) {
-								foreach ($card as $node) {
-									$node->node->phaseName = $phase->name;
-									$node->node->phaseId = $phase->id;
-									$node->node->color = $color;
-									$myCards[] = $node->node;
+		if (!is_null($pipesArray)) {
+			foreach ($pipesArray->data->organization->pipes as $pipe) {
+				$insert = false;
+				$myCards = [];
+				if (count($pipe->phases) > 0) {
+					foreach ($pipe->phases as $phase) {
+						$color = PipeConfig::getPhaseColor($phase->id);
+						if ($color !== false) {
+							if (count($phase->cards->edges) > 0) {
+								$insert = true;
+								foreach ($phase->cards as $card) {
+									foreach ($card as $node) {
+										$node->node->phaseName = $phase->name;
+										$node->node->phaseId = $phase->id;
+										$node->node->color = $color;
+										$myCards[] = $node->node;
+									}
 								}
 							}
 						}
 					}
 				}
-			}
 
-			if($insert){
-				$myPipes[] = [
-					'pipeId' => $pipe->id,
-					'pipeName' => $pipe->name,
-					'pipeCards' => $myCards
-				];
+				if ($insert) {
+					$myPipes[] = [
+						'pipeId' => $pipe->id,
+						'pipeName' => $pipe->name,
+						'pipeCards' => $myCards
+					];
+				}
 			}
 		}
 		return $myPipes;
