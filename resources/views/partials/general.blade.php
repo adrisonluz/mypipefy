@@ -1,6 +1,5 @@
 <div class="row rowUserTeam">
-  @if(isset($pipefyUser->name))
-  <div class="col-xs-12">
+{{--   <div class="col-xs-12">
     <div class="user-info">
       <img src="{{ $pipefyUser->avatar() }}" title="{{$pipefyUser->name}}" alt="{{$pipefyUser->name}}" class="img-responsive img-thumbnail">
       <div> 
@@ -8,9 +7,8 @@
         <span>{{'@'.$pipefyUser->username}} | {{$pipefyUser->pipefy_id}}</span>
       </div>
     </div>
-  </div>
-  @endif
-  <div class="col-md-8" data-userid="{{$pipefyUser->pipefy_id}}">
+  </div> --}}
+  <div class="col-md-8" data-userid="{{$pipefy_ids}}">
     <div class="loader-tables" style="display:none;">
       <div class="load-pages">
         <div class="gif-loader">
@@ -22,9 +20,10 @@
         </div>
       </div>
     </div>
-    <table class="table display responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $pipefyUser->pipefy_id]) }}">
+    <table class="table display table-general responsive no-wrap table-striped table-bordered tableDashboard" data-route="{{ route('api.get_cards_user_id', ['userId' => $pipefy_ids]) }}">
       <thead class="thead-inverse">
         <tr>
+          <td>Responsável</td>
           <td>Título</td>
           <td>Pipe</td>
           <td>Cliente</td>
@@ -42,7 +41,7 @@
         <h4><strong><i class="fa fa-calendar"></i> Tarefas Agendadas</strong></h4>
       </div>
       <div class="panel-body">
-        <div class='calendar' data-route="{{route('api.get_cards_user', $pipefyUser->pipefy_id)}}">
+        <div class='calendar' data-route="{{route('api.get_cards_user', ['userId' => $pipefy_ids])}}">
         </div>
         <div class="load-calendario" style="display:none;">
           <div class="load-pages">

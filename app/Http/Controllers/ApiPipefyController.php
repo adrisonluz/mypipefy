@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,13 +12,11 @@ class ApiPipefyController extends Controller
         $this->apiPipefy = $apiPipefy;
     }
 
-    public function getCardsUser(Request $request)
+    public function getCardsUser($userId)
     {
         self::pipefyAuth(false);
-
-    	$userId = $request->get('userId');
-
-    	$userCards = $this->apiPipefy->userCards($userId);
+        $arrUserIds = explode(';', $userId);
+    	$userCards = $this->apiPipefy->userCards(implode(', ', $arrUserIds));
 
     	$cards = [];
 
@@ -27,18 +24,28 @@ class ApiPipefyController extends Controller
     		foreach ($pipes['pipeCards'] as $card) {
                 $due = $card->due_date;
 
-                if($due !== null){
+                if ($due !== null) {
                     $dateTime = new \DateTime($due);
                     $due = $dateTime->format('Y-m-d');
-                }else{
+                } else {
                     $due = '0000-00-00';
                 }
 
+                $responsible = '';
+                if(count($arrUserIds) > 1){                
+                    foreach ($card->assignees as $assignee) {
+                        if (in_array($assignee->id, $arrUserIds)) {
+                            $responsible = FirstAndLastName($assignee->name);
+                        }
+                    }
+                    $responsible = ' | '.$responsible;
+                }
+
     			$cards[] = [
-    				'title' => $card->title,
+                    'title' => $card->title.$responsible,
                     'color' => $card->color,
-    				'start' => $due,
-                    'url' => $card->url
+                    'start' => $due,
+                    'url'   => $card->url
     			];
     		}
     	}
@@ -46,11 +53,12 @@ class ApiPipefyController extends Controller
         return response()->json($cards);
     }
 
-    public function getCardsUserTable(Request $request, $userId)
+    public function getCardsUserTable($userId)
     {
         self::pipefyAuth(false);
+        $arrUserIds = explode(';', $userId);
 
-        $userCards = $this->apiPipefy->userCards($userId);
+        $userCards = $this->apiPipefy->userCards(implode(', ', $arrUserIds));
 
         $css = '';
         $cards = [];
@@ -59,14 +67,14 @@ class ApiPipefyController extends Controller
             foreach ($pipe['pipeCards'] as $card) {
                 $due = $card->due_date;
 
-                if($due !== null){
+                if ($due !== null) {
                     $dateTime = new \DateTime($due);
                     $due = $dateTime->format('d/m/Y');
-                }else{
+                } else {
                     $due = "SEM DUE";
                 }
 
-                if(!in_array($card->phaseId, $phases)){
+                if (!in_array($card->phaseId, $phases)) {
                     $phases[] = $card->phaseId; 
                     $css .= '.phase_'.$card->phaseId.' + .tooltip > .tooltip-inner{
                                 background-color: '.$card->color.' !important;
@@ -81,8 +89,15 @@ class ApiPipefyController extends Controller
 
                 $cliente = '';
                 foreach ($card->fields as $field) {
-                    if($field->phase_field->id == 'cliente'){
+                    if ($field->phase_field->id == 'cliente') {
                         $cliente = str_replace(['["','"]'], '', $field->value);
+                    }
+                }
+
+                $responsible = '';
+                foreach ($card->assignees as $assignee) {
+                    if (in_array($assignee->id, $arrUserIds)) {
+                        $responsible = FirstAndLastName($assignee->name);
                     }
                 }
 
@@ -92,6 +107,7 @@ class ApiPipefyController extends Controller
                     'cardTitle'  => $card->title,
                     'clientName' => $cliente,
                     'due'        => $due,
+                    'assignee'   => $responsible,
                     'phaseName'  => $card->phaseName,
                     'phaseId'    => $card->phaseId,
                     'url'        => $card->url,

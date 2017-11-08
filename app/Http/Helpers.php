@@ -10,10 +10,17 @@ function usernameHighlight($text){
 
 function markup($text){
 	$text = preg_replace( '/(<.*[^>])(.*)(<\/.*>)/sU', '<pre><code>$1$2$3</code></pre>', $text);
+	$text = preg_replace( '/(<.*\/>)/s', '<pre><code>$1</code></pre>', $text);
 	$text = htmlspecialchars($text);
 
 	$text = preg_replace('#&lt;(/?(?:pre|code))&gt;#', '<\1>', $text);
 	$text = nl2br($text);
 	$text = usernameHighlight($text);
-	return $text;
+
+	$parsedown = new Parsedown();
+	return $parsedown->text($text);
+}
+
+function object2array($object){
+	return json_decode(json_encode($object), true);
 }

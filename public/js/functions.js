@@ -100,6 +100,11 @@ $(window).on('load', function(){
   $('.close-modal-info').on('click', function(){
     fechaModalDescripition();
   });
+  $('.modal-info-table').on('lclick', function(e){
+    if (e.target !== this)
+      return;
+    fechaModalDescripition();
+  });
 
   function fechaModalDescripition(){
     if($('div#descricao-bloco').is(':visible')){
@@ -110,7 +115,6 @@ $(window).on('load', function(){
     $('.modal-info-table').fadeOut('slow');
   }
 
-  console.clear();
   cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
     var s = document.createElement('script');
     s.type='text/javascript';
@@ -170,33 +174,37 @@ function reloadtables($table){
     success: function(data){
       $("style.dashboardStyle").html(data.css);
       $.each(data.cards, function(index, card){
-        var diff_days = calculaDias(card.due, true);
-
         var classColor = ' class="phase_'+card.phaseId+'"';
         var $tr = '<tr '+classColor+' data-toggle="tooltip" data-placement="left" title="'+card.phaseName+'">';
-        $tr += '<td><a href="'+card.pipeUrl+'" target="_blank">'+card.pipeName+'</a></td>';
-        $tr += '<td><a href="'+card.url+'" target="_blank">'+card.cardTitle+'</a></td>';
-        $tr += '<td>'+card.clientName+'</td>';
-        $tr += '<td>'+card.due+'</td>';
-        $tr += '<td><button class="btn btn-primary" id="open-card" data-card="'+card.cardId+'"> Ver Card</button></td>';
+          if($table.hasClass('table-general'))
+            $tr += '<td>'+card.assignee+'</td>';
+          $tr += '<td><a href="'+card.url+'" target="_blank">'+card.cardTitle+'</a></td>';
+          $tr += '<td><a href="'+card.pipeUrl+'" target="_blank">'+card.pipeName+'</a></td>';
+          $tr += '<td>'+card.clientName+'</td>';
+          $tr += '<td>'+card.due+'</td>';
+          $tr += '<td><button class="btn btn-primary" id="open-card" data-card="'+card.cardId+'">Ver Card</button></td>';
         $tr += '</tr>';
         $table.children('tbody').append($tr);
       });
     },
     complete: function(){
       $table.siblings('.loader-tables').fadeOut();
+      var collumns = [
+        null,
+        null,
+        null,
+        { type: 'date-uk' },
+        { orderable: false },
+      ];
+      if($table.hasClass('table-general'))
+        collumns.unshift(null);
+      var keyOrder = ($table.hasClass('table-general')) ? 4 : 3;
       $table.DataTable({
-        order: [[3, 'asc']],
+        order: [[keyOrder, 'asc']],
         language: {
           url: $("base").attr('href')+'plugins/datatables/languages/Portuguese-Brasil.json'
         },
-        columns: [
-          null,
-          null,
-          null,
-          { type: 'date-uk' },
-          { orderable: false },
-        ]
+        columns: collumns
       });
       $('[data-toggle="tooltip"]').tooltip({
         placement: (window.innerWidth < 768) ? 'top' : 'right'
@@ -206,31 +214,6 @@ function reloadtables($table){
       });
     }
   });
-}
-
-function calculaDias(dateString, br){
-  var diff = 0;
-
-  if(!!dateString) {
-    /* Data tables */
-    if(br == true){
-      var arr_date = dateString.split('/');
-      dateString = arr_date[2]+'-'+arr_date[1]+'-'+arr_date[0];
-    }
-
-    var data1 = moment(dateString,'YYYY/MM/DD');
-    var data2 = moment(getToday(),'YYYY/MM/DD');
-    var diff  = data2.diff(data1, 'days');
-  }
-
-  return ((diff <= 0) ? false : diff);
-}
-
-function getToday(){
-  var data = new Date();
-  var today = data.getFullYear() + '-' + (data.getMonth() + 1) + '-' + data.getDate();
-
-  return today;
 }
 
 function getCardDetail(cardId){
@@ -247,7 +230,7 @@ function getCardDetail(cardId){
         $('#cardUrl').attr('href', card.url);
 
         //Fields
-        var fieldsHtml = ''
+        var fieldsHtml = '';
         $.each(card.fields, function(index, field){
           fieldsHtml += '<div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">'+
           '<p class="start-from"><span>'+field.name+':</span> <strong>'+field.value+'</strong></p>'+
@@ -255,14 +238,16 @@ function getCardDetail(cardId){
         });
 
         //Attachments
-        var attachmentsHtml = ''
+        var attachmentsHtmlImg = '';
+        var attachmentsHtmlFile = '';
         $.each(card.attachments, function(index, attachment){
           if(attachment.type == 'image'){
-            attachmentsHtml += '<li><a data-fancybox="gallery" href="'+attachment.link+'"><img src="'+attachment.link+'" target="_blank" alt="'+attachment.name+'"/></a></li>';
+            attachmentsHtmlImg += '<div class="col-md-3"><a data-fancybox="gallery" href="'+attachment.link+'"><img src="'+attachment.link+'" target="_blank" alt="'+attachment.name+'"/></a></div>';
           }else{
-            attachmentsHtml += '<li><a href="'+attachment.link+'">'+attachment.name+'</a></li>';
+            attachmentsHtmlFile += '<div class="col-md-12"><a href="'+attachment.link+'">'+attachment.name+'</a></div>';
           }
         });
+        var attachmentsHtml = attachmentsHtmlImg+attachmentsHtmlFile;
 
         //Timeline
         // var timelineHtml = '';

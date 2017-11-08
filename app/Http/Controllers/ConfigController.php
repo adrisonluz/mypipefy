@@ -32,9 +32,9 @@ class ConfigController extends Controller
         self::pipefyAuth();
         $team = Auth::user()->team;
         $teamIds = [];
-        foreach ($team as &$pipefyUser){
+        foreach ($team as &$pipefyUser) {
             $teamIds[] = $pipefyUser->pipefy_id;
-            switch ($pipefyUser->pivot->status){
+            switch ($pipefyUser->pivot->status) {
                 case 0:
                     $pipefyUser->phase = 'add-team btn-success';
                     break;

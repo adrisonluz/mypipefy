@@ -1,8 +1,5 @@
-var _token = $('input[name=_token]').val();
-
 $(document).ready(function() {
     $(".calendar").each(function(){
-        var userId = $(this).data('userid');
         var route = $(this).data('route');
 
         $(this).fullCalendar({
@@ -18,7 +15,7 @@ $(document).ready(function() {
                     return false;
                 }
             },
-            loading: function(loading, $calendar) {
+            loading: function(loading) {
                 if(loading){
                     $(this).siblings('.load-calendario').fadeIn();
                 }else{
@@ -28,27 +25,11 @@ $(document).ready(function() {
             events: function(start, end, timezone, callback) {
                 $.ajax({
                     url: route,
-                    method: 'POST',
+                    method: 'GET',
+                    async: false,
                     dataType: 'json',
-                    data: {
-                        _token: _token,
-                        userId: userId,
-                        start: start.unix(),
-                        end: end.unix()
-                    },
-                    success: function(result) {
-                        var events = [];
-                        $(result).each(function(key_card, card) {
-                            var diff_days = calculaDias(card.start);
-                                
-                            events.push({
-                                title: card.title,
-                                start: card.start,
-                                color: card.color,
-                                url: card.url
-                            });
-                        });
-                        callback(events);
+                    success: function(cards) {
+                        callback(cards);
                     }
                 });
             },

@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "barryvdh/laravel-debugbar": "^2.4",
         "doctrine/dbal": "v2.4.2",
+        "erusev/parsedown": "^1.6",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0"
