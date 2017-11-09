@@ -5,6 +5,16 @@
     <script src="{{ asset('js/config.js') }}"></script>
 @endpush
 <div class="container config">
+    @if (session('status'))
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('status') }}
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="row">
         {{-- My Team --}}
         <div class="col-md-6">

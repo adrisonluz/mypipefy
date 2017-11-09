@@ -28,7 +28,7 @@
     });
 </script>
 @endpush
-<div class="container config">
+<div class="container config-pipes">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
@@ -46,8 +46,12 @@
                         <form action="{{ route('config.pipes.save') }}" method="POST">
                             {{ csrf_field() }}
                             <div class="row">
-                                @foreach($pipes as $pipe)
-                                    <div class="col-md-4">
+                                @foreach($pipes as $i => $pipe)
+                                    @if($i%3==0)
+                                        </div>
+                                        <div class="row">
+                                    @endif
+                                    <div class="col-md-4 pipe">
                                         <div class="panel-heading">{{ $pipe->name }}<button class="btn btn-xs btn-primary pull-right" data-toggle="collapse" data-target="#{{ $pipe->id }}">&#9660;</button></div>
 
                                         <div id="{{ $pipe->id }}" class="panel-body collapse">
@@ -68,6 +72,8 @@
                                             @endforeach
                                         </div>
                                     </div>
+                                   {{--     @if($i%3==0)
+                                    @endif --}}
                                 @endforeach
                             </div>
                             <div class="row">

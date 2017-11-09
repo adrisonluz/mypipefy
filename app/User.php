@@ -43,4 +43,8 @@ class User extends Authenticatable
     public function pipefyUser(){
         return $this->belongsTo(PipefyUser::class, 'pipefy_id');
     }
+
+    public function is_manager(){
+        return (count($this->team) > 0);
+    }
 }

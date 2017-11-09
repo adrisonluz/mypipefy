@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\ApiPipefy;
 use App\PipefyUser;
 use Illuminate\Support\Facades\Auth;
+use Gate;
+use App;
 
 class ListController extends Controller
 {
@@ -18,6 +20,10 @@ class ListController extends Controller
 
     public function team()
     {
+        if (Gate::denies('is-manager')) {
+            return redirect()->route('config.team')->with('status', 'Não há membros no seu time. Convide-os agora mesmo!');
+        }
+
         self::pipefyAuth();
         $this->retorno['team'] = Auth::user()->teamActive;
 
@@ -26,6 +32,10 @@ class ListController extends Controller
 
     public function general()
     {
+        if (Gate::denies('is-manager')) {
+            return redirect()->route('config.team')->with('status', 'Não há membros no seu time. Convide-os agora mesmo!');
+        }
+        
         self::pipefyAuth();
         $team = Auth::user()->teamActive;
         unset($this->retorno['pipefyUser']);
