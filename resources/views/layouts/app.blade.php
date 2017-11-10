@@ -111,8 +111,14 @@
           <li><a href="{{ route('register') }}">Cadastro</a></li>
           @else
           <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-          <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
-          <li><a href="{{ route('dashboard.general') }}">Pautas Geral</a></li>
+          @can ('is-manager')
+            <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu time <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
+                <li><a href="{{ route('dashboard.general') }}">Pauta Geral</a></li>
+              </ul>
+            </li>
+          @endcan
           <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configurações<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="{{ route('config.team') }}">Time</a></li>
@@ -131,7 +137,7 @@
           @endif
         </ul>
         <div class="collapse navbar-collapse">
-          <div class="col-lg-6 col-md-6 col-sm-7 col-xs-12">
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/dashboard') }}">
               <img class="img-responsive logo" src="{{ asset('img/mypipefy.png') }}" alt="MyPipefy">
@@ -145,8 +151,14 @@
               <li><a href="{{ route('register') }}">Cadastro</a></li>
               @else
               <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
-              <li><a href="{{ route('dashboard.team') }}">Meu Time</a></li>
-              <li><a href="{{ route('dashboard.general') }}">Pautas Geral</a></li>
+              @can ('is-manager')
+                <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu time <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ route('dashboard.team') }}">Pautas</a></li>
+                    <li><a href="{{ route('dashboard.general') }}">Pauta Geral</a></li>
+                  </ul>
+                </li>
+              @endcan
               <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configurações <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="{{ route('config.team') }}">Time</a></li>
@@ -158,7 +170,7 @@
 
           </div>
           <!-- Right Side Of Navbar -->
-          <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
             <div class="user-name">
               @if (isset($me))
               {{FirstAndLastName($me->name)}}
