@@ -61,7 +61,11 @@ class CardController extends Controller
 
     		switch($field['name']){
     			case 'URL':
-    				$card->siteUrl = $field['value'];
+                    if (strpos($field['value'], 'http://') === false && strpos($field['value'], 'https://') === false) {
+    				    $card->siteUrl = 'http://'.$field['value'];
+                    } else {
+                        $card->siteUrl = $field['value'];
+                    }
     				break;
     			case 'Print':
     				$attachments = json_decode($field['value']);
