@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\ApiPipefy;
-use app\PipefyUser;
+use App\ApiPipefy;
+use App\PipefyUser;
 use \DateTime;
 
 class CardController extends Controller
@@ -117,5 +117,28 @@ class CardController extends Controller
     	$card->fields = $alternativeFields;
     	unset($card->current_phase);
 		return response()->json($card);
+    }
+
+
+    public function comment(Request $request)
+    {
+        self::pipefyAuth(false);
+
+        $comment = $this->apiPipefy->comment($request->card_id, $request->comment);
+
+        if ($comment) {
+            $comment->text = markup($comment->text);
+                
+            $dateTime = new DateTime($comment->created_at);
+            $comment->created_at = $dateTime->format('d/m/Y H:i');
+
+            $pipefyUser = PipefyUser::find($comment->author->id);
+            $comment->author = $pipefyUser;
+            $comment->author->avatar = $pipefyUser->avatar();
+
+            return response()->json(['success' => true, 'comment' => $comment]);
+        }
+
+        return response()->json(['success' => false]);
     }
 }
