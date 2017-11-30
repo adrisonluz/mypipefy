@@ -118,6 +118,21 @@ class ApiPipefy extends Model
 		return $card->data->card;
 	}
 
+	public function comment($cardId, $comment){
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
+		  \"query\": \"mutation { createComment(input: {card_id: ".$cardId." text: \\\"".$comment."\\\" }) { comment { text author { id } created_at } } }\"
+		}");
+
+		$comment = $this->runCurl();
+
+		if ($comment->data) {
+			return $comment->data->createComment->comment;
+		}
+
+		return false;
+
+	}
+
 	private function runCurl()
 	{
 		curl_setopt($this->curl, CURLOPT_URL, "https://app.pipefy.com/queries");
