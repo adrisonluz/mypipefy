@@ -1,20 +1,27 @@
 $(document).ready(function() {
     $('a.show-comments').on('click', function(){
         if($(this).text() == 'Ver Comentários'){
-            $(this).text('Ver Descrição');
+            $(this).text('Ocultar Comentários');
+            $('.show-timeline').text('Ver Timeline');
+            $('#descricao-bloco, .timeline-row').slideUp('slow');
+            $('.comments, .input-comment').slideDown('slow');
         }else{
             $(this).text('Ver Comentários');
+            $('#descricao-bloco').slideDown('slow');
+            $('.comments, .input-comment').slideUp('slow');
         }
-        $('.comments, #descricao-bloco').slideToggle('slow');
     });
 
     $('a.show-timeline').on('click', function(){
         if($(this).text() == 'Ver Timeline'){
             $(this).text('Ocultar Timeline');
-            $('.timeline-row').show();
+            $('.show-comments').text('Ver Comentários');
+            $('.comments, #descricao-bloco, .input-comment').slideUp('slow');
+            $('.timeline-row').slideDown('slow');
         }else{
             $(this).text('Ver Timeline');
-            $('.timeline-row').hide();
+            $('.timeline-row').slideUp('slow');
+            $('#descricao-bloco').slideDown('slow');
         }
     });
     updateTables();
@@ -122,9 +129,12 @@ $(window).on('load', function(){
 
     function fechaModalDescripition(){
         if(!$('div#descricao-bloco').is(':visible')){
-            $('.comments, #descricao-bloco').slideToggle('slow');
+            $('.comments, .input-comment, .timeline-row').slideUp('slow');
+            $('#descricao-bloco').slideDown('slow');
             $('a.show-comments').text('Ver Comentários');
+            $('.show-timeline').text('Ver Timeline');
         }
+        $('body').removeClass('modal-active');
         $('.modal-info-table').fadeOut('slow');
     }
 
@@ -217,7 +227,7 @@ function reloadtables($table){
             }
 
             var keyOrder = ($table.hasClass('table-general')) ? 4 : 3;
-            
+
             $table.DataTable({
                 order: [[keyOrder, 'asc']],
                 language: {
@@ -231,6 +241,7 @@ function reloadtables($table){
             });
 
             $('#open-card[data-card]').on('click', function(){
+                $('body').addClass('modal-active');
                 getCardDetail($(this).data('card'));
             });
         }
@@ -342,7 +353,7 @@ $(".input-comment form").on('submit', function(event) {
         data: data,
         success: function(response) {
             if (response.success) {
-                var comment = response.comment; 
+                var comment = response.comment;
                 commentsHtml = '<div>'+
                                     '<img src="'+comment.author.avatar+'" title="'+comment.author.name+'" alt="'+comment.author.name+'" class="img-responsive img-thumbnail">'+
                                     '<div><span>'+comment.author.name+'</span>'+
