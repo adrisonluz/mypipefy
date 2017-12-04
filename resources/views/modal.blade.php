@@ -33,10 +33,10 @@
                 <div id="bloco-comentarios" class="row">
                     <div class="comments">
                     </div>
-                    <div class="input-comment" style="display:none;">
+                    <div class="input-comment" style="display: none;">
                         <form action="{{ route('api.cards.comment') }}" method="post">
                             <div class="form-group">
-                                <label for="comment"class="title-row">Comentar:</label>
+                                <label for="comment" class="title-row">Comentar:</label>
                                 <textarea name="comment" id="comment" rows="5" class="form-control"></textarea>
                                 <input type="hidden" name="card_id">
                                 {{ csrf_field() }}
@@ -44,10 +44,10 @@
                             <button class="btn btn-primary pull-right" type="submit"><i class="fa fa-comment"></i> Comentar</button>
                         </form>
                     </div>
-                    <div class="buttonsModal">
-                      <a href="javascript:void(0)" class="show-timeline buttonP">Ver Timeline</a>
-                      <a href="javascript:void(0)" class="show-comments buttonP">Ver Comentários</a>
-                    </div>
+                </div>
+                <div class="buttonsModal">
+                    <a href="javascript:void(0)" class="show-timeline buttonP">Ver Timeline</a>
+                    <a href="javascript:void(0)" class="show-comments buttonP">Ver Comentários</a>
                 </div>
             </div>
         </div>

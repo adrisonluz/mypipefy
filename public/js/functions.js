@@ -326,9 +326,8 @@ function getCardDetail(cardId){
                 $(".modal-info-table .assignees").html('<span class="title-row">Responsáveis:</span>'+assigneesHtml);
 
                 if(commentsHtml == ''){
-                    $('div#bloco-comentarios').hide();
+                    $(".modal-info-table .comments").html('');
                 }else {
-                    $('div#bloco-comentarios').show();
                     $(".modal-info-table .comments").html('<span class="title-row">Comentários:</span>'+commentsHtml);
                 }
 
