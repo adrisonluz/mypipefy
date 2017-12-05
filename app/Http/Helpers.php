@@ -5,7 +5,7 @@ function FirstAndLastName($data){
 }
 
 function usernameHighlight($text){
-	return preg_replace('/(@.[a-z0-9]+)/s', '<strong class="username-highlight">$1</strong>', $text);
+	return preg_replace('/(@.[a-z0-9]+ )/s', '<strong class="username-highlight">$1</strong>', $text);
 }
 
 function markup($text){

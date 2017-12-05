@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
         /* Cards */
         Route::group(['prefix' => 'card'], function () {
             Route::get('/detail/{cardId}', ['uses' => 'CardController@detailCard', 'as' => 'api.cards.detail']);
-
+            Route::post('/comment', ['uses' => 'CardController@comment', 'as' => 'api.cards.comment']);
         });
     });
 
