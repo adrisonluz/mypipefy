@@ -242,6 +242,13 @@
 </footer>
 <!-- Scripts -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 @stack('scripts')
 <script src="//cdn.rawgit.com/namuol/cheet.js/master/cheet.min.js" type="text/javascript"></script>
 <script src="{{ asset('js/functions.js') }}"></script>
