@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/getCardsUserTable/{userId}', ['uses' => 'ApiPipefyController@getCardsUserTable', 'as' => 'api.get_cards_user_id']);
 
         Route::get('/getCardsUser/{userId}', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
-        
+
         /* Cards */
         Route::group(['prefix' => 'card'], function () {
             Route::get('/detail/{cardId}', ['uses' => 'CardController@detailCard', 'as' => 'api.cards.detail']);
@@ -47,6 +47,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'pipes'], function(){
             Route::get('/', ['uses' => 'ConfigController@pipes', 'as' => 'config.pipes']);
             Route::post('/save', ['uses' => 'PipeConfigsController@save', 'as' => 'config.pipes.save']);
+        });
+
+        /* Filters */
+        Route::group(['prefix' => 'filters'], function(){
+            Route::get('/', ['uses' => 'FiltersController@filters', 'as' => 'config.filters']);
+            Route::get('/insert', ['uses' => 'FiltersController@insert', 'as' => 'config.filters.insert']);
+            Route::get('/edit/{filter_id}', ['uses' => 'FiltersController@edit', 'as' => 'config.filters.edit']);
+            Route::post('/save', ['uses' => 'FiltersController@save', 'as' => 'config.filters.save']);
+            Route::delete('/delete', ['uses' => 'FiltersController@destroy', 'as' => 'config.filters.destroy']);
         });
 
         Route::get('/team', ['uses' => 'ConfigController@team', 'as' => 'config.team']);
