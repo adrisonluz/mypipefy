@@ -122,6 +122,7 @@
             <ul class="dropdown-menu" role="menu">
               <li><a href="{{ route('config.team') }}">Time</a></li>
               <li><a href="{{ route('config.pipes') }}">Dashboard</a></li>
+              <li><a href="{{ route('config.filters') }}">Filtros</a></li>
             </ul>
           </li>
           <li class="divider"></li>
@@ -162,6 +163,7 @@
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="{{ route('config.team') }}">Time</a></li>
                   <li><a href="{{ route('config.pipes') }}">Dashboard</a></li>
+                  <li><a href="{{ route('config.filters') }}">Filtros </a></li>
                 </ul>
               </li>
               @endif

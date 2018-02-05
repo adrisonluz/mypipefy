@@ -4,32 +4,31 @@
 @endpush
 <div class="container config">
     @if (session('status'))
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-success">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{ session('status') }}
-                </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('status') }}
             </div>
         </div>
+    </div>
     @endif
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ route('config.filters.insert') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Adicionar filtro</a>
-            <br><br>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table display table-general responsive no-wrap table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Filtro</th>
-                        <th width="25%">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($filters as $filter)
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <a href="{{ route('config.filters.insert') }}" class="btn btn-default"><i class="fa fa-plus"></i> Adicionar filtro</a>
+            </div>
+            <div class="panel-body">
+                <table class="table display table-general responsive no-wrap table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Filtro</th>
+                            <th width="25%">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($filters as $filter)
                         <tr>
                             <td>{{ $filter->name }}</td>
                             <td>
@@ -41,14 +40,16 @@
                                 </form>
                             </td>
                         </tr>
-                    @empty
+                        @empty
                         <tr>
                             <td colspan="2">Cadastre seu primeiro filtro agora mesmo!</td>
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
