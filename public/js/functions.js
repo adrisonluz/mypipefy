@@ -374,3 +374,22 @@ $(".input-comment form").on('submit', function(event) {
         }
     });
 });
+
+$(".change-calendar").on("click", function(event){
+    event.preventDefault();
+    const $icon = $(this).find("i.fa");
+
+    //expandir
+    if ($icon.hasClass("fa-expand")) {
+        $icon.removeClass("fa-expand").addClass("fa-compress");
+        $icon.parents(".div-calendar").removeClass("col-md-2").addClass("col-md-4");
+        $icon.parents(".rowUserTeam").find(".col-md-10").removeClass("col-md-10").addClass("col-md-8");
+        $icon.parents(".div-calendar").find(".fc-month-button").click();
+    } else if ($icon.hasClass("fa-compress")) { //comprimir
+        $icon.removeClass("fa-compress").addClass("fa-expand");
+        $icon.parents(".div-calendar").removeClass("col-md-4").addClass("col-md-2");
+        $icon.parents(".rowUserTeam").find(".col-md-8").removeClass("col-md-8").addClass("col-md-10");
+        $icon.parents(".div-calendar").find(".fc-basicDay-button").click();
+    }
+    reloadtables($icon.parents(".rowUserTeam").find(".tableDashboard"));
+});
