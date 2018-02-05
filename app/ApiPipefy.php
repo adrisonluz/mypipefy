@@ -18,7 +18,7 @@ class ApiPipefy extends Model
 	{
 		$this->organizationID = Config::get('app.PIPEFY_ORGANIZATION_ID','');
 		$this->pipeIds = [];
-		
+
 		$this->curl = curl_init();
 	}
 
@@ -45,7 +45,7 @@ class ApiPipefy extends Model
 		}");
 
 		$responseArray = $this->runCurl();
-		return $responseArray->data->organization->members;		
+		return $responseArray->data->organization->members;
 	}
 
 	public function myCards()
@@ -114,7 +114,7 @@ class ApiPipefy extends Model
 }");
 
 		$card = $this->runCurl();
-		
+
 		return $card->data->card;
 	}
 
@@ -144,9 +144,9 @@ class ApiPipefy extends Model
 		  "Content-Type: application/json",
 		  "Authorization: Bearer " . $this->key
 		));
-		
+
 		return json_decode(curl_exec($this->curl));
-	} 
+	}
 
 	public function getMyId($token)
 	{

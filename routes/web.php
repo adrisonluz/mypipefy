@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/insert', ['uses' => 'FiltersController@insert', 'as' => 'config.filters.insert']);
             Route::get('/edit/{filter_id}', ['uses' => 'FiltersController@edit', 'as' => 'config.filters.edit']);
             Route::post('/save', ['uses' => 'FiltersController@save', 'as' => 'config.filters.save']);
-            Route::delete('/delete', ['uses' => 'FiltersController@destroy', 'as' => 'config.filters.destroy']);
+            Route::delete('/delete/{filter_id}', ['uses' => 'FiltersController@destroy', 'as' => 'config.filters.destroy']);
         });
 
         Route::get('/team', ['uses' => 'ConfigController@team', 'as' => 'config.team']);
