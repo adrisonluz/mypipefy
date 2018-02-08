@@ -19,22 +19,50 @@
 <script src="{{ asset('plugins/datatables/js/sorting-uk.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
 <script src="{{ asset('js/team.js') }}"></script>
+<script>
+    $('#filter').on('change', function(){
+        loadGrid($(this).val());
+    });
+
+    function loadGrid(filter_id){
+        $.ajax({
+            url: '{{ route('api.get_cards_filter') }}/'+filter_id,
+            dataType: 'json',
+            success: function(cards){
+                console.table(cards);
+            }
+        });
+    }
+
+    @if (!empty($filters))
+    loadGrid({{ $filters[0]->id }});
+    @endif
+</script>
 @endpush
 
 @section('content')
 <div class="container">
-  <div class="row">
-    {{ csrf_field() }}
+    <div class="row">
+        {{ csrf_field() }}
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h1>Dashboard</h1>
-      </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="form-group">
+                    <label for="filter">Escolha seu filtro</label>
+                    <select name="filter" id="filter" class="form-control">
+                        @forelse ($filters as $filter)
+                        <option value="{{ $filter->id }}">{{ $filter->name }}</option>
+                        @empty
+                        <option disabled>Você não possui filtros configurados</option>
+                        @endforelse
+                    </select>
+                </div>
+            </div>
 
-      <div class="panel-body">
-        @include('partials.pipefyUser', $pipefyUser)
-      </div>
+            <div class="panel-body">
+                {{-- @include('partials.pipefyUser', $pipefyUser) --}}
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 @endsection

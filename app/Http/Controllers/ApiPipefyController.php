@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ApiPipefy;
+use App\Filters;
 use Auth;
 
 class ApiPipefyController extends Controller
@@ -117,5 +118,15 @@ class ApiPipefyController extends Controller
         }
 
         return response()->json(['cards' => $cards, 'css' => $css]);
+    }
+
+    public function getCardsFilter($filter_id)
+    {
+        self::pipefyAuth(false);
+        $filter = Filters::find($filter_id);
+
+        $cards = $this->apiPipefy->filterCards($filter);
+
+        return response()->json($cards);
     }
 }

@@ -4,6 +4,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Config;
 use App\PipeConfig;
+use App\Filters;
 
 class ApiPipefy extends Model
 {
@@ -131,6 +132,89 @@ class ApiPipefy extends Model
 
 		return false;
 
+	}
+
+	public function filterCards(Filters $filter)
+	{
+		$assignees = [];
+		foreach ($filter->assignees as $assignee) {
+			$assignees[] = $assignee->assignee_id;
+		}
+
+		$owners = [];
+		foreach ($filter->owners as $owner) {
+			$owners[] = $owner->owner_id;
+		}
+
+		$phases = [];
+		foreach ($filter->phases as $phase) {
+			$phases[] = $phase->phase_id;
+		}
+
+		$assignees = !empty($assignees) ? implode(', ', $assignees) : false;
+		$owners    = !empty($owners)    ? implode(', ', $owners)    : false;
+
+		$search = false;
+		if ($assignees || $owners) {
+			$search = [
+				'( search:{',
+				'}) ',
+			];
+
+			if ($assignees) {
+				array_splice($search, 1, 0, array('assignee_ids:['.$assignees.']'));
+			}
+
+			if ($owners) {
+				$index = (count($search) == 3) ? 2 : 1;
+				$comma = ($index == 2) ? ', ' : '';
+				array_splice($search, $index, 0, array($comma.'owner_ids:['.$owners.']'));
+			}
+		}
+
+		$search = is_array($search) ? implode(' ', $search) : null;
+		
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes { id, name, phases { id, name, cards ".$search."{  edges{ node { url, id, title, due_date, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
+		}");
+
+		$pipesArray = $this->runCurl();
+
+		$myPipes = [];
+		if (!is_null($pipesArray)) {
+			foreach ($pipesArray->data->organization->pipes as $pipe) {
+				$insert = false;
+				$myCards = [];
+				if (count($pipe->phases) > 0) {
+					foreach ($pipe->phases as $phase) {
+						$color = PipeConfig::getPhaseColor($phase->id);
+						$color = (!$color) ? '#2579a9' : $color;
+						if (in_array($phase->id, $phases)) {
+							if (count($phase->cards->edges) > 0) {
+								$insert = true;
+								foreach ($phase->cards as $card) {
+									foreach ($card as $node) {
+										$node->node->phaseName = $phase->name;
+										$node->node->phaseId = $phase->id;
+										$node->node->color = $color;
+										$myCards[] = $node->node;
+									}
+								}
+							}
+						}
+					}
+				}
+
+				if ($insert) {
+					$myPipes[] = [
+						'pipeId' => $pipe->id,
+						'pipeName' => $pipe->name,
+						'pipeCards' => $myCards
+					];
+				}
+			}
+		}
+		return $myPipes;
 	}
 
 	private function runCurl()

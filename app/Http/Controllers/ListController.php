@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ApiPipefy;
 use App\PipefyUser;
+use App\Filters;
 use Illuminate\Support\Facades\Auth;
 use Gate;
 use App;
@@ -14,7 +15,7 @@ class ListController extends Controller
     public function index()
     {
         self::pipefyAuth();
-        
+
         return view('dashboards.me', $this->retorno);
     }
 
@@ -35,7 +36,7 @@ class ListController extends Controller
         if (Gate::denies('is-manager')) {
             return redirect()->route('config.team')->with('status', 'Não há membros no seu time. Convide-os agora mesmo!');
         }
-        
+
         self::pipefyAuth();
         $team = Auth::user()->teamActive;
         unset($this->retorno['pipefyUser']);
@@ -49,5 +50,12 @@ class ListController extends Controller
         $this->retorno['pipefy_ids'] = implode(';', $userids);
 
         return view('dashboards.general', $this->retorno);
+    }
+
+    public function filters()
+    {
+        self::pipefyAuth();
+        $this->retorno['filters'] = Filters::all();
+        return view('dashboards.filters', $this->retorno);
     }
 }

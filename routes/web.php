@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', ['uses' => 'ListController@index', 'as' => 'dashboard']);
         Route::get('/team', ['uses' => 'ListController@team', 'as' => 'dashboard.team']);
         Route::get('/general', ['uses' => 'ListController@general', 'as' => 'dashboard.general']);
+        Route::get('/filters', ['uses' => 'ListController@filters', 'as' => 'dashboard.filters']);
     });
 
     /* API Pipefy */
@@ -33,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/getCardsUserTable/{userId}', ['uses' => 'ApiPipefyController@getCardsUserTable', 'as' => 'api.get_cards_user_id']);
 
         Route::get('/getCardsUser/{userId}', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
+
+        Route::get('/getCardsFilter/{filter_id?}', ['uses' => 'ApiPipefyController@getCardsFilter', 'as' => 'api.get_cards_filter']);
 
         /* Cards */
         Route::group(['prefix' => 'card'], function () {
