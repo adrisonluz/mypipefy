@@ -69,6 +69,30 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="fields">Campos</label>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="fields[]" value="title" {{ in_array('title', $filter->fields) ? 'checked' : '' }}>Título</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="fields[]" value="pipe" {{ in_array('pipe', $filter->fields) ? 'checked' : '' }}>Pipe</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="fields[]" value="client" {{ in_array('client', $filter->fields) ? 'checked' : '' }}>Cliente</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="fields[]" value="due" {{ in_array('due', $filter->fields) ? 'checked' : '' }}>DUE</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="fields[]" value="owner" {{ in_array('owner', $filter->fields) ? 'checked' : '' }}>Criador</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="fields[]" value="assignee" {{ in_array('assignee', $filter->fields) ? 'checked' : '' }}>Responsável</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="fields[]" value="phase" {{ in_array('phase', $filter->fields) ? 'checked' : '' }}>Fase</label>
+                        </div>
+                    </div>
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{ $filter->id }}">
                     <input type="submit" value="Salvar" class="btn btn-primary pull-right">

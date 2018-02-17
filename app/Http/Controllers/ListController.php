@@ -55,7 +55,7 @@ class ListController extends Controller
     public function filters()
     {
         self::pipefyAuth();
-        $this->retorno['filters'] = Filters::all();
+        $this->retorno['filters'] = Auth::user()->filters;
         return view('dashboards.filters', $this->retorno);
     }
 }

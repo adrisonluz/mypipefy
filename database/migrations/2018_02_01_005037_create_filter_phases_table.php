@@ -16,7 +16,7 @@ class CreateFilterPhasesTable extends Migration
         Schema::create('filter_phases', function (Blueprint $table) {
             $table->integer('phase_id')->unsigned();
             $table->integer('filter_id')->unsigned();
-            $table->foreign('filter_id')->references('id')->on('filters');
+            $table->foreign('filter_id')->references('id')->on('filters')->onDelete('cascade');
         });
     }
 

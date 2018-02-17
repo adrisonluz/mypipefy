@@ -17,7 +17,7 @@ class CreateFilterAssigneesTable extends Migration
             $table->integer('assignee_id')->unsigned();
             $table->foreign('assignee_id')->references('pipefy_id')->on('pipefyusers');
             $table->integer('filter_id')->unsigned();
-            $table->foreign('filter_id')->references('id')->on('filters');
+            $table->foreign('filter_id')->references('id')->on('filters')->onDelete('cascade');
         });
     }
 

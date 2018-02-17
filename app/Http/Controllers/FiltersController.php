@@ -21,7 +21,8 @@ class FiltersController extends Controller
 
     public function filters()
     {
-        $this->retorno['filters'] = Filters::all();
+        self::pipefyAuth();
+        $this->retorno['filters'] = Auth::user()->filters;
 
         return view('filters.index', $this->retorno);
     }
@@ -30,6 +31,7 @@ class FiltersController extends Controller
     {
         self::pipefyAuth();
         $this->retorno['filter'] = new Filters;
+        $this->retorno['filter']->fields = [];
         $this->retorno['owners'] = $this->retorno['assignees'] = PipefyUser::where('username', '<>', '')->orderBy('name', 'asc')->get();
         $this->retorno['pipes'] = $this->apiPipefy->onlyPipes();
         $this->retorno['assignees_selected'] = $this->retorno['owners_selected'] = $this->retorno['phases_selected'] = [];
@@ -41,6 +43,7 @@ class FiltersController extends Controller
     {
         self::pipefyAuth();
         $this->retorno['filter'] = Filters::find($filter_id);
+        $this->retorno['filter']->fields = json_decode($this->retorno['filter']->fields);
 
         $this->retorno['assignees_selected'] = [];
         foreach ($this->retorno['filter']->assignees as $assignee) {
@@ -68,6 +71,10 @@ class FiltersController extends Controller
         $filter = empty($request->id) ? new Filters : Filters::find($request->id);
 
         $filter->name = $request->name;
+
+        $filter->fields = json_encode($request->fields);
+
+        $filter->user_id = Auth::user()->id;
 
         $filter->save();
 

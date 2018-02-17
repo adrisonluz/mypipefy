@@ -152,30 +152,16 @@ class ApiPipefy extends Model
 		}
 
 		$assignees = !empty($assignees) ? implode(', ', $assignees) : false;
-		$owners    = !empty($owners)    ? implode(', ', $owners)    : false;
 
 		$search = false;
-		if ($assignees || $owners) {
-			$search = [
-				'( search:{',
-				'}) ',
-			];
-
-			if ($assignees) {
-				array_splice($search, 1, 0, array('assignee_ids:['.$assignees.']'));
-			}
-
-			if ($owners) {
-				$index = (count($search) == 3) ? 2 : 1;
-				$comma = ($index == 2) ? ', ' : '';
-				array_splice($search, $index, 0, array($comma.'owner_ids:['.$owners.']'));
-			}
+		if ($assignees) {
+			$search = '( search:{assignee_ids:['.$assignees.']}) ';
 		}
 
 		$search = is_array($search) ? implode(' ', $search) : null;
 		
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
-		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes { id, name, phases { id, name, cards ".$search."{  edges{ node { url, id, title, due_date, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes { id, name, phases { id, name, cards ".$search."{  edges{ node { createdBy{ id, name }, url, id, title, due_date, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
 		}");
 
 		$pipesArray = $this->runCurl();
@@ -189,15 +175,17 @@ class ApiPipefy extends Model
 					foreach ($pipe->phases as $phase) {
 						$color = PipeConfig::getPhaseColor($phase->id);
 						$color = (!$color) ? '#2579a9' : $color;
-						if (in_array($phase->id, $phases)) {
+						if (!empty($phases) && in_array($phase->id, $phases)) {
 							if (count($phase->cards->edges) > 0) {
 								$insert = true;
 								foreach ($phase->cards as $card) {
 									foreach ($card as $node) {
-										$node->node->phaseName = $phase->name;
-										$node->node->phaseId = $phase->id;
-										$node->node->color = $color;
-										$myCards[] = $node->node;
+										if (!empty($owners) && in_array($node->node->createdBy->id, $owners)) {
+											$node->node->phaseName = $phase->name;
+											$node->node->phaseId = $phase->id;
+											$node->node->color = $color;
+											$myCards[] = $node->node;
+										}
 									}
 								}
 							}

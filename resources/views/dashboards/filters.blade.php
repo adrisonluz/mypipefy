@@ -34,8 +34,8 @@
         });
     }
 
-    @if (!empty($filters))
-    loadGrid({{ $filters[0]->id }});
+    @if ($filters->count() > 0)
+        loadGrid({{ $filters[0]->id }});
     @endif
 </script>
 @endpush
@@ -53,7 +53,7 @@
                         @forelse ($filters as $filter)
                         <option value="{{ $filter->id }}">{{ $filter->name }}</option>
                         @empty
-                        <option disabled>Você não possui filtros configurados</option>
+                        <option disabled selected>Você não possui filtros configurados</option>
                         @endforelse
                     </select>
                 </div>

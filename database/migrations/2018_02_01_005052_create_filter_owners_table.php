@@ -17,7 +17,7 @@ class CreateFilterOwnersTable extends Migration
             $table->integer('owner_id')->unsigned();
             $table->foreign('owner_id')->references('pipefy_id')->on('pipefyusers');
             $table->integer('filter_id')->unsigned();
-            $table->foreign('filter_id')->references('id')->on('filters');
+            $table->foreign('filter_id')->references('id')->on('filters')->onDelete('cascade');
         });
     }
 
