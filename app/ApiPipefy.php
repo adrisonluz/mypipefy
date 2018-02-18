@@ -157,8 +157,6 @@ class ApiPipefy extends Model
 		if ($assignees) {
 			$search = '( search:{assignee_ids:['.$assignees.']}) ';
 		}
-
-		$search = is_array($search) ? implode(' ', $search) : null;
 		
 		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
 		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes { id, name, phases { id, name, cards ".$search."{  edges{ node { createdBy{ id, name }, url, id, title, due_date, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
@@ -185,6 +183,30 @@ class ApiPipefy extends Model
 											$node->node->phaseId = $phase->id;
 											$node->node->color = $color;
 											$myCards[] = $node->node;
+										} elseif(empty($owners)) {
+											$node->node->phaseName = $phase->name;
+											$node->node->phaseId = $phase->id;
+											$node->node->color = $color;
+											$myCards[] = $node->node;
+										}
+									}
+								}
+							}
+						} elseif (empty($phases)) {
+							if (count($phase->cards->edges) > 0) {
+								$insert = true;
+								foreach ($phase->cards as $card) {
+									foreach ($card as $node) {
+										if (!empty($owners) && in_array($node->node->createdBy->id, $owners)) {
+											$node->node->phaseName = $phase->name;
+											$node->node->phaseId = $phase->id;
+											$node->node->color = $color;
+											$myCards[] = $node->node;
+										} elseif(empty($owners)) {
+											$node->node->phaseName = $phase->name;
+											$node->node->phaseId = $phase->id;
+											$node->node->color = $color;
+											$myCards[] = $node->node;
 										}
 									}
 								}
@@ -202,6 +224,7 @@ class ApiPipefy extends Model
 				}
 			}
 		}
+
 		return $myPipes;
 	}
 

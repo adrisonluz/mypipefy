@@ -68,6 +68,7 @@ class FiltersController extends Controller
 
     public function save(Request $request)
     {
+        // dd($request);
         $filter = empty($request->id) ? new Filters : Filters::find($request->id);
 
         $filter->name = $request->name;
@@ -79,24 +80,30 @@ class FiltersController extends Controller
         $filter->save();
 
         $filter->assignees()->delete();
-        foreach ($request->assignee_id as $assignee_id) {
-            $filterAssignee = new FilterAssignees(['assignee_id' => $assignee_id]);
+        if (isset($request->assignee_id)) {
+            foreach ($request->assignee_id as $assignee_id) {
+                $filterAssignee = new FilterAssignees(['assignee_id' => $assignee_id]);
 
-            $filter->assignees()->save($filterAssignee);
+                $filter->assignees()->save($filterAssignee);
+            }
         }
 
         $filter->owners()->delete();
-        foreach ($request->owner_id as $owner_id) {
-            $filterOwners = new FilterOwners(['owner_id' => $owner_id]);
+        if (isset($request->owner_id)) {
+            foreach ($request->owner_id as $owner_id) {
+                $filterOwners = new FilterOwners(['owner_id' => $owner_id]);
 
-            $filter->owners()->save($filterOwners);
+                $filter->owners()->save($filterOwners);
+            }
         }
 
         $filter->phases()->delete();
-        foreach ($request->phase_id as $phase_id) {
-            $filterPhases = new FilterPhases(['phase_id' => $phase_id]);
+        if (isset($request->phase_id)) {
+            foreach ($request->phase_id as $phase_id) {
+                $filterPhases = new FilterPhases(['phase_id' => $phase_id]);
 
-            $filter->phases()->save($filterPhases);
+                $filter->phases()->save($filterPhases);
+            }
         }
 
         return redirect()->route('config.filters.edit', $filter->id)->with('status', 'Filtro salvo com sucesso!');
