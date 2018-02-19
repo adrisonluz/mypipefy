@@ -3,7 +3,7 @@
   <div class="col-xs-12">
     <div class="user-info">
       <img src="{{ $pipefyUser->avatar() }}" title="{{$pipefyUser->name}}" alt="{{$pipefyUser->name}}" class="img-responsive img-thumbnail">
-      <div> 
+      <div>
         <h3>{{FirstAndLastName($pipefyUser->name)}} </h3>
         <span>{{'@'.$pipefyUser->username}} | {{$pipefyUser->pipefy_id}}</span>
       </div>
@@ -39,7 +39,10 @@
   <div class="col-md-4 div-calendar">
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h4><strong><i class="fa fa-calendar"></i> Tarefas Agendadas</strong></h4>
+        <h4>
+          <strong><i class="fa fa-calendar"></i> Tarefas Agendadas</strong>
+          <a href="#" class="change-calendar" style="float: right;"><i class="fa fa-compress"></i></a>
+        </h4>
       </div>
       <div class="panel-body">
         <div class='calendar' data-route="{{route('api.get_cards_user', $pipefyUser->pipefy_id)}}">

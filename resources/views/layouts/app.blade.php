@@ -110,6 +110,7 @@
           <li><a href="{{ route('register') }}">Cadastro</a></li>
           @else
           <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
+          <li><a href="{{ route('dashboard.filters') }}">Meus Filtros</a></li>
           @can ('is-manager')
             <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu time <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -122,6 +123,7 @@
             <ul class="dropdown-menu" role="menu">
               <li><a href="{{ route('config.team') }}">Time</a></li>
               <li><a href="{{ route('config.pipes') }}">Dashboard</a></li>
+              <li><a href="{{ route('config.filters') }}">Filtros</a></li>
             </ul>
           </li>
           <li class="divider"></li>
@@ -150,6 +152,7 @@
               <li><a href="{{ route('register') }}">Cadastro</a></li>
               @else
               <li><a href="{{ route('dashboard') }}">Minha Dashboard</a></li>
+              <li><a href="{{ route('dashboard.filters') }}">Meus Filtros</a></li>
               @can ('is-manager')
                 <li><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Meu time <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
@@ -162,6 +165,7 @@
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="{{ route('config.team') }}">Time</a></li>
                   <li><a href="{{ route('config.pipes') }}">Dashboard</a></li>
+                  <li><a href="{{ route('config.filters') }}">Filtros </a></li>
                 </ul>
               </li>
               @endif

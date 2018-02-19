@@ -4,6 +4,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Config;
 use App\PipeConfig;
+use App\Filters;
 
 class ApiPipefy extends Model
 {
@@ -18,7 +19,7 @@ class ApiPipefy extends Model
 	{
 		$this->organizationID = Config::get('app.PIPEFY_ORGANIZATION_ID','');
 		$this->pipeIds = [];
-		
+
 		$this->curl = curl_init();
 	}
 
@@ -45,7 +46,7 @@ class ApiPipefy extends Model
 		}");
 
 		$responseArray = $this->runCurl();
-		return $responseArray->data->organization->members;		
+		return $responseArray->data->organization->members;
 	}
 
 	public function myCards()
@@ -114,7 +115,7 @@ class ApiPipefy extends Model
 }");
 
 		$card = $this->runCurl();
-		
+
 		return $card->data->card;
 	}
 
@@ -133,6 +134,100 @@ class ApiPipefy extends Model
 
 	}
 
+	public function filterCards(Filters $filter)
+	{
+		$assignees = [];
+		foreach ($filter->assignees as $assignee) {
+			$assignees[] = $assignee->assignee_id;
+		}
+
+		$owners = [];
+		foreach ($filter->owners as $owner) {
+			$owners[] = $owner->owner_id;
+		}
+
+		$phases = [];
+		foreach ($filter->phases as $phase) {
+			$phases[] = $phase->phase_id;
+		}
+
+		$assignees = !empty($assignees) ? implode(', ', $assignees) : false;
+
+		$search = false;
+		if ($assignees) {
+			$search = '( search:{assignee_ids:['.$assignees.']}) ';
+		}
+		
+		curl_setopt($this->curl, CURLOPT_POSTFIELDS, "{
+		  \"query\": \"{ organization(id: " . $this->organizationID . "){ pipes { id, name, phases { id, name, cards ".$search."{  edges{ node { createdBy{ id, name }, url, id, title, due_date, assignees{id, name, username, email }, fields{ name, value, phase_field { id } } } }  } } } } }\"
+		}");
+
+		$pipesArray = $this->runCurl();
+
+		$myPipes = [];
+		if (!is_null($pipesArray)) {
+			foreach ($pipesArray->data->organization->pipes as $pipe) {
+				$insert = false;
+				$myCards = [];
+				if (count($pipe->phases) > 0) {
+					foreach ($pipe->phases as $phase) {
+						$color = PipeConfig::getPhaseColor($phase->id);
+						$color = (!$color) ? '#2579a9' : $color;
+						if (!empty($phases) && in_array($phase->id, $phases)) {
+							if (count($phase->cards->edges) > 0) {
+								$insert = true;
+								foreach ($phase->cards as $card) {
+									foreach ($card as $node) {
+										if (!empty($owners) && in_array($node->node->createdBy->id, $owners)) {
+											$node->node->phaseName = $phase->name;
+											$node->node->phaseId = $phase->id;
+											$node->node->color = $color;
+											$myCards[] = $node->node;
+										} elseif(empty($owners)) {
+											$node->node->phaseName = $phase->name;
+											$node->node->phaseId = $phase->id;
+											$node->node->color = $color;
+											$myCards[] = $node->node;
+										}
+									}
+								}
+							}
+						} elseif (empty($phases)) {
+							if (count($phase->cards->edges) > 0) {
+								$insert = true;
+								foreach ($phase->cards as $card) {
+									foreach ($card as $node) {
+										if (!empty($owners) && in_array($node->node->createdBy->id, $owners)) {
+											$node->node->phaseName = $phase->name;
+											$node->node->phaseId = $phase->id;
+											$node->node->color = $color;
+											$myCards[] = $node->node;
+										} elseif(empty($owners)) {
+											$node->node->phaseName = $phase->name;
+											$node->node->phaseId = $phase->id;
+											$node->node->color = $color;
+											$myCards[] = $node->node;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				if ($insert) {
+					$myPipes[] = [
+						'pipeId' => $pipe->id,
+						'pipeName' => $pipe->name,
+						'pipeCards' => $myCards
+					];
+				}
+			}
+		}
+
+		return $myPipes;
+	}
+
 	private function runCurl()
 	{
 		curl_setopt($this->curl, CURLOPT_URL, "https://app.pipefy.com/queries");
@@ -144,9 +239,9 @@ class ApiPipefy extends Model
 		  "Content-Type: application/json",
 		  "Authorization: Bearer " . $this->key
 		));
-		
+
 		return json_decode(curl_exec($this->curl));
-	} 
+	}
 
 	public function getMyId($token)
 	{

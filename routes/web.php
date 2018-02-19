@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', ['uses' => 'ListController@index', 'as' => 'dashboard']);
         Route::get('/team', ['uses' => 'ListController@team', 'as' => 'dashboard.team']);
         Route::get('/general', ['uses' => 'ListController@general', 'as' => 'dashboard.general']);
+        Route::get('/filters', ['uses' => 'ListController@filters', 'as' => 'dashboard.filters']);
     });
 
     /* API Pipefy */
@@ -33,7 +34,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/getCardsUserTable/{userId}', ['uses' => 'ApiPipefyController@getCardsUserTable', 'as' => 'api.get_cards_user_id']);
 
         Route::get('/getCardsUser/{userId}', ['uses' => 'ApiPipefyController@getCardsUser', 'as' => 'api.get_cards_user']);
-        
+
+        Route::get('/getCardsFilter/{filter_id?}', ['uses' => 'ApiPipefyController@getCardsFilter', 'as' => 'api.get_cards_filter']);
+
         /* Cards */
         Route::group(['prefix' => 'card'], function () {
             Route::get('/detail/{cardId}', ['uses' => 'CardController@detailCard', 'as' => 'api.cards.detail']);
@@ -47,6 +50,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'pipes'], function(){
             Route::get('/', ['uses' => 'ConfigController@pipes', 'as' => 'config.pipes']);
             Route::post('/save', ['uses' => 'PipeConfigsController@save', 'as' => 'config.pipes.save']);
+        });
+
+        /* Filters */
+        Route::group(['prefix' => 'filters'], function(){
+            Route::get('/', ['uses' => 'FiltersController@filters', 'as' => 'config.filters']);
+            Route::get('/insert', ['uses' => 'FiltersController@insert', 'as' => 'config.filters.insert']);
+            Route::get('/edit/{filter_id}', ['uses' => 'FiltersController@edit', 'as' => 'config.filters.edit']);
+            Route::post('/save', ['uses' => 'FiltersController@save', 'as' => 'config.filters.save']);
+            Route::delete('/delete/{filter_id}', ['uses' => 'FiltersController@destroy', 'as' => 'config.filters.destroy']);
         });
 
         Route::get('/team', ['uses' => 'ConfigController@team', 'as' => 'config.team']);

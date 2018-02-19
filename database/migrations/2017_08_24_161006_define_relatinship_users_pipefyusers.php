@@ -15,7 +15,7 @@ class DefineRelatinshipUsersPipefyusers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('pipefy_id')->unsigned()->change();
-            $table->foreign('pipefy_id')->references('pipefy_id')->on('pipefyusers');
+           // $table->foreign('pipefy_id')->references('pipefy_id')->on('pipefyusers');
         });
     }
 
