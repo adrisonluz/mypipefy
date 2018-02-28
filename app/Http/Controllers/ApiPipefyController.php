@@ -139,10 +139,6 @@ class ApiPipefyController extends Controller
             'phase' => 'Fase',
         );
 
-        // $fields = array_map(function($field) use ($fields_traducao){
-        //     return [$field => $fields_traducao[$field]];
-        // }, $filter->fields);
-
         $fields = [];
         foreach ($filter->fields as $field) {
             $fields[$field] = $fields_traducao[$field];
