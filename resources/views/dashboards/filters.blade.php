@@ -18,12 +18,13 @@
 <script src="{{ asset('plugins/datatables/js/sorting-uk.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
 <script>
-    $('#filter').on('change', function(){
-        loadGrid($(this).val());
+    $('#filtrar, .buttonUpdateTableFilters').on('click', function(){
+        loadGrid($('#filter').val());
     });
 
     var collumns = [];
     function loadGrid(filter_id){
+        $(".rowUserTeam").show();
         $table = $(".table-filters");
         $('.loader-tables').fadeIn();
         $('.calendar').siblings('.load-calendario').fadeIn();
@@ -119,10 +120,6 @@
         }, 1000);
     }
 
-    @if ($filters->count() > 0)
-    loadGrid({{ $filters[0]->id }});
-    @endif
-
     $(".change-calendar-filters").on("click", function(event){
         event.preventDefault();
         const $icon = $(this).find("i.fa");
@@ -163,20 +160,29 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <div class="form-group">
-                    <label for="filter">Escolha seu filtro</label>
-                    <select name="filter" id="filter" class="form-control">
-                        @forelse ($filters as $filter)
-                        <option value="{{ $filter->id }}">{{ $filter->name }}</option>
-                        @empty
-                        <option disabled selected>Você não possui filtros configurados</option>
-                        @endforelse
-                    </select>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="filter">Escolha seu filtro</label>
+                            <select name="filter" id="filter" class="form-control">
+                                @forelse ($filters as $filter)
+                                <option value="{{ $filter->id }}">{{ $filter->name }}</option>
+                                @empty
+                                <option disabled selected>Você não possui filtros configurados</option>
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button class="btn btn-default" id="filtrar" style="margin-top: 26px;">Filtrar cards</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="panel-body">
-                <div class="row rowUserTeam">
+                <div class="row rowUserTeam" style="display: none;">
                     <div class="col-md-8">
                         <div class="loader-tables" style="display:none;">
                             <div class="load-pages">
@@ -201,7 +207,7 @@
                             </thead>
                             <tbody></tbody>
                         </table>
-                        <button type="button" name="button" class="buttonUpdateTable btn btn-primary"><i class="fa fa-refresh"></i> Atualizar cards</button>
+                        <button type="button" name="button" class="buttonUpdateTableFilters btn btn-primary"><i class="fa fa-refresh"></i> Atualizar cards</button>
                     </div>
                     <div class="col-md-4 div-calendar">
                         <div class="panel panel-info">
