@@ -20,4 +20,9 @@ class Filters extends Model
     {
         return $this->hasMany(FilterPhases::class, 'filter_id');
     }
+
+    public function team()
+    {
+        return $this->belongsTo(TeamsReal::class, 'team_id');
+    }
 }

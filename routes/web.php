@@ -61,6 +61,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/delete/{filter_id}', ['uses' => 'FiltersController@destroy', 'as' => 'config.filters.destroy']);
         });
 
+        /* Teams */
+        Route::group(['prefix' => 'teams'], function(){
+            Route::get('/', ['uses' => 'TeamsController@teams', 'as' => 'config.teams']);
+            Route::get('/insert', ['uses' => 'TeamsController@insert', 'as' => 'config.teams.insert']);
+            Route::get('/edit/{team_id}', ['uses' => 'TeamsController@edit', 'as' => 'config.teams.edit']);
+            Route::post('/save', ['uses' => 'TeamsController@save', 'as' => 'config.teams.save']);
+            Route::delete('/delete/{team_id}', ['uses' => 'TeamsController@destroy', 'as' => 'config.teams.destroy']);
+        });
+
         Route::get('/team', ['uses' => 'ConfigController@team', 'as' => 'config.team']);
         Route::post('/sendInvite', ['uses' => 'TeamController@sendInvite', 'as' => 'config.sendInvite']);
         Route::post('/removeInvite', ['uses' => 'TeamController@removeInvite', 'as' => 'config.removeInvite']);
