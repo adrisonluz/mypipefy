@@ -10,6 +10,7 @@ use App\Filters;
 use App\FilterAssignees;
 use App\FilterOwners;
 use App\FilterPhases;
+use App\TeamsReal;
 
 class FiltersController extends Controller
 {
@@ -31,6 +32,7 @@ class FiltersController extends Controller
     {
         self::pipefyAuth();
         $this->retorno['filter'] = new Filters;
+        $this->retorno['teams'] = TeamsReal::all();
         $this->retorno['filter']->fields = [];
         $this->retorno['owners'] = $this->retorno['assignees'] = PipefyUser::where('username', '<>', '')->orderBy('name', 'asc')->get();
         $this->retorno['pipes'] = $this->apiPipefy->onlyPipes();
@@ -42,6 +44,9 @@ class FiltersController extends Controller
     public function edit($filter_id)
     {
         self::pipefyAuth();
+
+        $this->retorno['teams'] = TeamsReal::all();
+
         $this->retorno['filter'] = Filters::find($filter_id);
         $this->retorno['filter']->fields = json_decode($this->retorno['filter']->fields);
 
@@ -68,10 +73,11 @@ class FiltersController extends Controller
 
     public function save(Request $request)
     {
-        // dd($request);
         $filter = empty($request->id) ? new Filters : Filters::find($request->id);
 
         $filter->name = $request->name;
+
+        $filter->team_id = $request->team_id;
 
         $filter->fields = json_encode($request->fields);
 
